@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  --font-heading: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --color-brand-primary: #0EA5E9;
+  --color-brand-deep: #0369A1;
+  --color-brand-navy: #0F3D56;
+  --color-brand-light: #E0F2FE;
+  --color-brand-subtle: #F0F9FF;
+  --color-brand-cyan: #06B6D4;
+  --color-brand-border: #E2E8F0;
+  --color-brand-neutral: #F8FAFC;
+}
+
+/* Force light mode strictly */
+:root {
+  color-scheme: light;
+}
+
+html, body {
+  background-color: #FFFFFF;
+  color: #0F172A;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Sora', sans-serif;
+}
+
+/* Smooth focus rings */
+input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible {
+  outline: 2px solid #0EA5E9;
+  outline-offset: 1px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
