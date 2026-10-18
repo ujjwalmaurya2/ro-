@@ -43,12 +43,10 @@ export const businessConfig: BusinessConfig = {
   tagline: "Pure Water. Better Living.",
   shortDescription: "RO Water Purifiers, Spare Parts & Professional RO Services in Prayagraj.",
   
-  // Contact numbers (Centralized configurable placeholders)
-  // Format: Indian 10-digit number prefixed with country code 91 for WhatsApp links
-  phone: "+919876543210", // Placeholder: replace with client phone
-  displayPhone: "+91 98765 43210",
-  whatsappNumber: "919876543210", // Placeholder: replace with client WhatsApp number (country code + 10 digits)
-  displayWhatsapp: "+91 98765 43210",
+  phone: "+919616346090",
+  displayPhone: "+91 96163 46090",
+  whatsappNumber: "919616346090",
+  displayWhatsapp: "+91 96163 46090",
   email: "contact@ajitaquaappliances.com", // Placeholder: replace with client email
   
   // Physical Location
