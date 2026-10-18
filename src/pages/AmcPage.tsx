@@ -11,29 +11,35 @@ import { buildWhatsAppUrl, whatsappMessages } from '../utils/whatsapp';
 
 export const AmcPage: React.FC = () => {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-12">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8 space-y-6 sm:space-y-8">
       {/* Header */}
-      <div className="text-center space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-sky-100 text-sky-800 text-xs font-bold uppercase tracking-wider">
+      <div className="text-center space-y-2 max-w-2xl mx-auto">
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-sky-100 text-sky-800 text-[11px] font-bold uppercase tracking-wider">
           <CalendarCheck className="w-3.5 h-3.5 text-sky-600" />
           <span>Annual Maintenance Contracts</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight font-['Sora']">
+        <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-['Sora']">
           RO AMC Plans in Prayagraj
         </h1>
-        <p className="text-sm sm:text-base text-slate-700 max-w-2xl mx-auto">
-          Protect your water purifier with regular preventive servicing, filter replacements, and prioritized technician response throughout the year.
+        <p className="text-xs sm:text-sm text-slate-600">
+          Preventive servicing, filter replacements, and prioritized technician response throughout the year.
         </p>
 
         {/* Demo Pricing Notice */}
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-sky-50 border border-sky-200 text-xs text-sky-800">
-          <Info className="w-4 h-4 text-sky-600 shrink-0" />
-          <span>Demo plan packages shown for layout illustration. Exact plan costs and coverage depend on purifier model and condition.</span>
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-sky-50 border border-sky-200 text-[11px] text-sky-800">
+          <Info className="w-3.5 h-3.5 text-sky-600 shrink-0" />
+          <span>Sample package rates • Exact coverage depends on purifier model</span>
         </div>
       </div>
 
-      {/* Plans Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+      {/* Mobile Swipe Hint */}
+      <div className="md:hidden flex items-center justify-between text-[11px] text-slate-500 font-medium px-1">
+        <span>Compare Plans (Swipe horizontally)</span>
+        <span className="text-sky-600 font-semibold">3 Packages Available →</span>
+      </div>
+
+      {/* Plans: Mobile-Friendly Snap Carousel / Desktop Grid */}
+      <div className="flex md:grid md:grid-cols-3 gap-3 sm:gap-6 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2 -mx-3 px-3 md:mx-0 md:px-0">
         {amcPlansData.map((plan) => {
           const amcWhatsAppUrl = buildWhatsAppUrl(
             whatsappMessages.amc(plan.name)
@@ -42,68 +48,68 @@ export const AmcPage: React.FC = () => {
           return (
             <div
               key={plan.id}
-              className={`rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all relative ${
+              className={`w-[85vw] max-w-xs md:w-auto shrink-0 snap-start rounded-2xl p-4 sm:p-6 flex flex-col justify-between transition-all relative ${
                 plan.isPopular
-                  ? 'bg-white border-2 border-sky-500 shadow-xl shadow-sky-600/10'
-                  : 'bg-white border border-slate-200 shadow-sm hover:shadow-md'
+                  ? 'bg-white border-2 border-sky-500 shadow-md shadow-sky-600/10'
+                  : 'bg-white border border-slate-200/90 shadow-2xs hover:shadow-md'
               }`}
             >
               {plan.badge && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-sky-600 to-sky-700 text-white text-[11px] font-bold py-1 px-3.5 rounded-full shadow-sm">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-sky-600 to-sky-700 text-white text-[10px] font-bold py-0.5 px-3 rounded-full shadow-xs">
                   {plan.badge}
                 </div>
               )}
 
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <div>
-                  <div className="flex items-center justify-between gap-2">
-                    <h3 className="text-xl font-bold text-slate-900 font-['Sora']">
+                  <div className="flex items-center justify-between gap-1.5">
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900 font-['Sora']">
                       {plan.name}
                     </h3>
-                    <span className="px-2 py-0.5 text-[10px] font-semibold text-slate-700 bg-slate-100 rounded border border-slate-200 shrink-0">
-                      Demo Plan
+                    <span className="px-1.5 py-0.5 text-[9px] font-semibold text-slate-600 bg-slate-100 rounded border border-slate-200 shrink-0">
+                      Demo
                     </span>
                   </div>
-                  <p className="text-xs text-slate-700 mt-1">
+                  <p className="text-xs text-slate-600 mt-0.5 leading-snug">
                     {plan.tagline}
                   </p>
                 </div>
 
                 {/* Pricing Display */}
-                <div className="py-4 border-y border-slate-100 space-y-1">
-                  <div className="text-2xl sm:text-3xl font-black text-slate-900 font-['Sora']">
+                <div className="py-2.5 border-y border-slate-100 space-y-0.5">
+                  <div className="text-2xl font-black text-slate-900 font-['Sora']">
                     {plan.demoPriceText}
                   </div>
-                  <span className="text-xs text-slate-700 block">
-                    {plan.period} (Demo starting rate)
+                  <span className="text-[11px] text-slate-500 block">
+                    {plan.period} (Sample starting rate)
                   </span>
                 </div>
 
                 {/* Recommended For */}
-                <div className="p-3 bg-sky-50/60 rounded-xl text-xs text-slate-700">
-                  <strong className="text-sky-900 block mb-0.5">Best Suited For:</strong>
-                  <span>{plan.recommendedFor}</span>
+                <div className="p-2.5 bg-sky-50/70 rounded-lg text-xs text-slate-700">
+                  <strong className="text-sky-900 block text-[11px] mb-0.5">Best Suited For:</strong>
+                  <span className="text-slate-600">{plan.recommendedFor}</span>
                 </div>
 
                 {/* Features List */}
-                <div className="space-y-2.5">
-                  <span className="text-xs font-bold text-slate-800 block uppercase tracking-wider">
+                <div className="space-y-2">
+                  <span className="text-[11px] font-bold text-slate-800 block uppercase tracking-wider">
                     Plan Inclusions:
                   </span>
-                  <ul className="text-xs text-slate-700 space-y-2">
+                  <ul className="text-xs text-slate-600 space-y-1.5">
                     {plan.features.map((feat, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <li key={idx} className="flex items-start gap-1.5">
+                        <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                         <span>{feat}</span>
                       </li>
                     ))}
                   </ul>
 
                   {plan.excludedFeatures && (
-                    <ul className="text-xs text-slate-700 space-y-1.5 pt-2 border-t border-slate-100">
+                    <ul className="text-[11px] text-slate-500 space-y-1 pt-1.5 border-t border-slate-100">
                       {plan.excludedFeatures.map((ex, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-slate-700">
-                          <span className="text-slate-700 font-bold shrink-0">•</span>
+                        <li key={idx} className="flex items-start gap-1.5">
+                          <span className="text-slate-400 font-bold shrink-0">•</span>
                           <span>{ex}</span>
                         </li>
                       ))}
@@ -113,29 +119,28 @@ export const AmcPage: React.FC = () => {
               </div>
 
               {/* Action CTAs */}
-              <div className="pt-8 mt-6 border-t border-slate-100 space-y-2.5">
+              <div className="pt-4 mt-4 border-t border-slate-100 space-y-2">
                 <a
                   href={amcWhatsAppUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold transition-all ${
+                  className={`w-full inline-flex items-center justify-center gap-1.5 h-10 px-3 rounded-xl text-xs font-bold transition-all ${
                     plan.isPopular
-                      ? 'bg-sky-600 hover:bg-sky-700 text-white shadow-md shadow-sky-600/20'
+                      ? 'bg-sky-600 hover:bg-sky-700 text-white shadow-xs'
                       : 'bg-slate-100 hover:bg-slate-200 text-slate-800'
                   }`}
                 >
-                  <MessageCircle className="w-4 h-4 text-emerald-600" />
-                  <span>Ask on WhatsApp</span>
+                  <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Enquire on WhatsApp</span>
                 </a>
 
                 <Link
                   to={`/book-service?service=${encodeURIComponent(plan.name)}`}
-                  className="block text-center text-xs font-semibold text-sky-700 hover:text-sky-800 py-1"
+                  className="block text-center text-xs font-semibold text-sky-700 hover:text-sky-800 py-0.5"
                 >
                   Request On-Site Inspection →
                 </Link>
               </div>
-
             </div>
           );
         })}

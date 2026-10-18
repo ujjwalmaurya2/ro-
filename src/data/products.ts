@@ -47,10 +47,10 @@ export const productsData: Product[] = [
     technology: "RO + UV + UF + Alkaline",
     price: 13499,
     originalPrice: 17999,
-    image: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=800&q=80",
     gallery: [
-      "https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1584772472341-c7568c434fe7?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1533038590840-1cde6e668a91?auto=format&fit=crop&w=800&q=80"
     ],
     shortDescription: "Advanced multi-stage domestic RO with copper infusion and active alkaline balance for sweet, mineral-rich water.",
     description: "Designed for high-performance home water purification in Prayagraj. Combines high-rejection RO membrane with UV disinfection, ultra-filtration, and an active copper-alkaline post-filter to restore essential minerals and natural taste.",
@@ -86,9 +86,9 @@ export const productsData: Product[] = [
     technology: "RO + UV",
     price: 10999,
     originalPrice: 14500,
-    image: "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1527661591475-527312dd65f5?auto=format&fit=crop&w=800&q=80",
     gallery: [
-      "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1527661591475-527312dd65f5?auto=format&fit=crop&w=800&q=80"
     ],
     shortDescription: "Compact and reliable domestic RO purifier with dual UV sterilization for daily family drinking water.",
     description: "The ideal purification solution for urban Prayagraj households seeking pure, safe, and pathogen-free drinking water. Incorporates high-efficiency sediment filter, carbon block, and genuine-grade 75 GPD RO membrane.",
@@ -123,9 +123,9 @@ export const productsData: Product[] = [
     technology: "RO + UV + UF",
     price: 8999,
     originalPrice: 12999,
-    image: "https://images.unsplash.com/photo-1527661591475-527312dd65f5?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=800&q=80",
     gallery: [
-      "https://images.unsplash.com/photo-1527661591475-527312dd65f5?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=800&q=80"
     ],
     shortDescription: "Budget-friendly, high-capacity RO purifier equipped with natural taste enricher and durable internal components.",
     description: "A proven, cost-effective workhorse purifier popular across Uttar Pradesh. Engineered with easily serviceable standard-size filter cartridges and high-longevity booster pump.",
@@ -160,9 +160,9 @@ export const productsData: Product[] = [
     technology: "RO + UV + UF + Alkaline",
     price: 16999,
     originalPrice: 21999,
-    image: "https://images.unsplash.com/photo-1584772472341-c7568c434fe7?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=800&q=80",
     gallery: [
-      "https://images.unsplash.com/photo-1584772472341-c7568c434fe7?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=800&q=80"
     ],
     shortDescription: "Premium kitchen water purifier with pH balancing filter, negative ORP antioxidant water, and LED filter life alert.",
     description: "For wellness-oriented households seeking pure antioxidant alkaline drinking water with an optimal pH of 8.0 to 9.5. Neutralizes excess acidity and provides smooth, refreshing hydration.",
@@ -234,9 +234,9 @@ export const productsData: Product[] = [
     technology: "Commercial RO",
     price: 36999,
     originalPrice: 46000,
-    image: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=800&q=80",
     gallery: [
-      "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=800&q=80"
     ],
     shortDescription: "High-volume 50 LPH commercial purification system for restaurants, banquet halls, and medium commercial establishments.",
     description: "Engineered for high daily throughput with continuous water monitoring, high-efficiency raw water filtration, and industrial-grade electrical components.",

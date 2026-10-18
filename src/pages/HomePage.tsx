@@ -39,10 +39,10 @@ export const HomePage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-16 sm:space-y-24">
+    <div className="space-y-8 sm:space-y-14">
       
       {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-sky-50 via-sky-50/40 to-white pt-8 pb-16 lg:py-20 border-b border-sky-100">
+      <section className="relative overflow-hidden bg-gradient-to-b from-sky-50 via-sky-50/40 to-white pt-4 pb-8 sm:pt-8 sm:pb-14 lg:py-16 border-b border-sky-100">
         {/* Subtle water-inspired background accents */}
         <div className="absolute top-0 right-0 -translate-y-12 translate-x-12 w-96 h-96 bg-sky-200/30 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 translate-y-12 -translate-x-12 w-80 h-80 bg-cyan-200/20 rounded-full blur-3xl pointer-events-none" />
@@ -129,9 +129,12 @@ export const HomePage: React.FC = () => {
                 {/* Main Visual Card */}
                 <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-sky-900/10 border-4 border-white bg-gradient-to-b from-sky-100/50 to-white aspect-4/3 sm:aspect-square flex items-center justify-center">
                   <img
-                    src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=900&q=80"
+                    src="https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=900&q=80"
                     alt="Premium RO Water Purifier by Ajit Aqua Appliances"
                     className="w-full h-full object-cover"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = 'https://images.unsplash.com/photo-1533038590840-1cde6e668a91?auto=format&fit=crop&w=900&q=80';
+                    }}
                   />
                   {/* Subtle Gradient Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent" />
@@ -234,20 +237,20 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 3. WHAT WE OFFER — "Everything Your RO Needs" */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-3 mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-bold uppercase tracking-wider">
+      <section className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="text-center space-y-1.5 mb-6 sm:mb-8">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-sky-50 text-sky-700 text-[10px] font-bold uppercase tracking-wider">
             <span>Our Core Capabilities</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight font-['Sora']">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-['Sora']">
             Everything Your RO Needs
           </h2>
-          <p className="text-sm sm:text-base text-slate-700 max-w-xl mx-auto">
-            From new water purifiers to expert repair and periodic maintenance, we cover every aspect of clean drinking water in Prayagraj.
+          <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto">
+            From new water purifiers to expert repair and periodic maintenance across Prayagraj.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
           {/* Card 1 */}
           <div className="group bg-white p-7 rounded-2xl border border-slate-200 hover:border-sky-300 hover:shadow-xl hover:shadow-sky-500/10 transition-all duration-300 flex flex-col justify-between">
             <div className="space-y-4">
@@ -356,30 +359,30 @@ export const HomePage: React.FC = () => {
       <FindTheRightRO />
 
       {/* 5. FEATURED PRODUCTS (Digital Showroom Preview) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-          <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-bold uppercase tracking-wider">
+      <section className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-4 sm:mb-6">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-sky-50 text-sky-700 text-[10px] font-bold uppercase tracking-wider">
               <span>Digital Showroom</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight font-['Sora']">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-['Sora']">
               Featured Water Purifiers
             </h2>
-            <p className="text-sm text-slate-700 max-w-lg">
+            <p className="text-xs sm:text-sm text-slate-600 max-w-lg">
               Explore domestic, alkaline, and commercial RO purifiers. All units are demo showroom configurations.
             </p>
           </div>
 
           {/* Category Filter Tabs */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
             {(['all', 'domestic', 'alkaline', 'commercial'] as const).map((cat) => (
               <button
                 key={cat}
                 onClick={() => setProductCategory(cat)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold capitalize transition-all ${
+                className={`shrink-0 px-3 py-1 rounded-full text-xs font-semibold capitalize transition-all ${
                   productCategory === cat
-                    ? 'bg-sky-600 text-white shadow-sm'
-                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    ? 'bg-sky-600 text-white shadow-2xs'
+                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
               >
                 {cat === 'all' ? 'All Models' : `${cat} RO`}
@@ -388,17 +391,17 @@ export const HomePage: React.FC = () => {
           </div>
         </div>
 
-        {/* Product Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Product Grid: Mobile-First 2-Column Responsive Grid */}
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
           {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
 
-        <div className="text-center pt-10">
+        <div className="text-center pt-6">
           <Link
             to="/products"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200 transition-colors"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200 transition-colors"
           >
             <span>View All Water Purifiers & Commercial Plants</span>
             <ArrowRight className="w-4 h-4" />

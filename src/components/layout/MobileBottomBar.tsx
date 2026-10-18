@@ -6,7 +6,7 @@ import { buildWhatsAppUrl, whatsappMessages } from '../../utils/whatsapp';
 
 export const MobileBottomBar: React.FC = () => {
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/95 backdrop-blur-md border-t border-slate-200 shadow-[0_-4px_16px_rgba(0,0,0,0.06)] px-3 py-2">
+    <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/95 backdrop-blur-md border-t border-slate-200/90 shadow-[0_-4px_16px_rgba(0,0,0,0.06)] px-3 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom,0px))]">
       <div className="max-w-md mx-auto grid grid-cols-3 gap-2">
         {/* Call CTA */}
         <a

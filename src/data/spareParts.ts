@@ -35,7 +35,7 @@ export const sparePartsData: SparePart[] = [
     categoryLabel: "RO Membrane",
     price: 1450,
     originalPrice: 1950,
-    image: "https://images.unsplash.com/photo-1584772472341-c7568c434fe7?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80",
     shortDescription: "High-salt rejection thin-film composite (TFC) membrane element suitable for high TDS water supplies up to 2500 ppm.",
     compatibility: "Fits all standard 1812 domestic RO housings (Kent, Aquaguard, Pureit, Aqua Grand, Livpure, etc.)",
     specifications: {
@@ -111,7 +111,7 @@ export const sparePartsData: SparePart[] = [
     categoryLabel: "Carbon Filter",
     price: 450,
     originalPrice: 650,
-    image: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=600&q=80",
     shortDescription: "Adsorbs chlorine, organic chemicals, unpleasant odours, and bad taste before water reaches the sensitive RO membrane.",
     compatibility: "Universal push-fit 1/4 inch connector compatible with all standard domestic RO brands",
     specifications: {
@@ -130,7 +130,7 @@ export const sparePartsData: SparePart[] = [
     categoryLabel: "Solenoid Valve",
     price: 320,
     originalPrice: 480,
-    image: "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1581092162384-8987c1d64718?auto=format&fit=crop&w=600&q=80",
     shortDescription: "Electrically controlled shut-off valve that halts incoming water feed when the purifier storage tank is full, preventing overflows.",
     compatibility: "All domestic RO purifiers operating on 24V DC",
     specifications: {
@@ -149,7 +149,7 @@ export const sparePartsData: SparePart[] = [
     categoryLabel: "UV Lamp",
     price: 550,
     originalPrice: 750,
-    image: "https://images.unsplash.com/photo-1584772472341-c7568c434fe7?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=600&q=80",
     shortDescription: "Germicidal ultraviolet light source that deactivates bacteria, viruses, and microbial cysts in water without chemicals.",
     compatibility: "Fits all domestic purifiers with 11W 4-pin UV barrels",
     specifications: {
@@ -168,7 +168,7 @@ export const sparePartsData: SparePart[] = [
     categoryLabel: "Pipes & Fittings",
     price: 290,
     originalPrice: 420,
-    image: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&w=600&q=80",
     shortDescription: "Non-toxic, pressure-resistant virgin LLDPE tubing with an assortment of push-fit elbows, tees, and bulkhead connectors.",
     compatibility: "Universal for all domestic RO and water filtration systems",
     specifications: {
@@ -187,7 +187,7 @@ export const sparePartsData: SparePart[] = [
     categoryLabel: "Flow Restrictor",
     price: 150,
     originalPrice: 220,
-    image: "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=600&q=80",
     shortDescription: "Maintains optimal backpressure inside the RO membrane housing to force water through the membrane pores.",
     compatibility: "Suitable for 75 GPD & 80 GPD domestic RO membranes",
     specifications: {
@@ -205,7 +205,7 @@ export const sparePartsData: SparePart[] = [
     categoryLabel: "Storage Tank",
     price: 1100,
     originalPrice: 1500,
-    image: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1527661591475-527312dd65f5?auto=format&fit=crop&w=600&q=80",
     shortDescription: "Sealed storage container engineered from food-grade virgin polymer with smooth inner lining that resists microbial film formation.",
     compatibility: "Replacement tank compatible with various modular wall-mounted RO cabinets",
     specifications: {
