@@ -52,23 +52,26 @@ export const Header: React.FC = () => {
   return (
     <>
       {/* Top Announcement Bar */}
-      <div className="bg-gradient-to-r from-sky-900 via-sky-800 to-sky-900 text-white text-xs py-2 px-4 border-b border-sky-700/50">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-1.5">
-          <div className="flex items-center gap-2 text-sky-100">
-            <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>Serving <strong>Prayagraj</strong> — RO Sales, Genuine Spare Parts & Repair Services</span>
+      <div className="bg-gradient-to-r from-sky-900 via-sky-800 to-sky-900 text-white text-[11px] sm:text-xs py-1.5 px-3 sm:px-6 border-b border-sky-700/50">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
+          <div className="flex items-center gap-1.5 text-sky-100 min-w-0 truncate">
+            <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+            <span className="truncate">
+              Serving <strong>Prayagraj</strong> — RO Sales & Doorstep Service
+            </span>
           </div>
-          <div className="flex items-center gap-4 text-sky-200">
-            <span className="hidden md:flex items-center gap-1.5">
+          <div className="flex items-center gap-3 shrink-0">
+            <span className="hidden md:flex items-center gap-1.5 text-sky-200">
               <Clock className="w-3.5 h-3.5 text-sky-300" />
               {businessConfig.businessHours.days}: {businessConfig.businessHours.timing}
             </span>
             <a 
               href={`tel:${businessConfig.phone}`} 
-              className="flex items-center gap-1.5 text-white hover:text-sky-200 font-semibold transition-colors"
+              className="inline-flex items-center gap-1.5 text-white hover:text-sky-200 font-semibold transition-colors bg-sky-700/50 hover:bg-sky-700 px-2 py-0.5 rounded border border-sky-600/40"
+              aria-label={`Call ${businessConfig.displayPhone}`}
             >
               <Phone className="w-3 h-3 text-sky-300" />
-              <span>Call: {businessConfig.displayPhone}</span>
+              <span>{businessConfig.displayPhone}</span>
             </a>
           </div>
         </div>

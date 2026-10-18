@@ -40,21 +40,21 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             }}
           />
 
-          {/* Technology Badge */}
-          <div className="absolute top-1.5 left-1.5 flex flex-col gap-1 items-start">
-            <span className="px-1.5 py-0.5 text-[9px] font-bold text-sky-800 bg-white/95 backdrop-blur-xs rounded-md shadow-2xs border border-sky-100">
+          {/* Top Badges (Non-colliding Flex Row) */}
+          <div className="absolute top-1.5 inset-x-1.5 flex items-start justify-between gap-1 pointer-events-none z-10">
+            <span 
+              className="px-1.5 py-0.5 text-[9px] font-bold text-sky-800 bg-white/95 backdrop-blur-xs rounded-md shadow-2xs border border-sky-100 truncate max-w-[70%]"
+              title={product.technology}
+            >
               {product.technology}
             </span>
-          </div>
 
-          {/* Demo Model Badge */}
-          {product.isDemo && (
-            <div className="absolute top-1.5 right-1.5">
-              <span className="px-1.5 py-0.5 text-[9px] font-medium text-slate-600 bg-white/90 rounded border border-slate-200">
+            {product.isDemo && (
+              <span className="px-1.5 py-0.5 text-[8px] sm:text-[9px] font-medium text-slate-500 bg-white/90 rounded border border-slate-200 shrink-0">
                 Demo
               </span>
-            </div>
-          )}
+            )}
+          </div>
 
           {/* Discount Tag */}
           {discountAmount > 0 && (
@@ -118,7 +118,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             aria-label={`Add ${product.name} to cart`}
           >
             <ShoppingCart className="w-3.5 h-3.5 shrink-0" />
-            <span className="truncate">Add to Cart</span>
+            <span className="truncate">
+              <span className="hidden sm:inline">Add to Cart</span>
+              <span className="sm:hidden">Add</span>
+            </span>
           </button>
 
           <a

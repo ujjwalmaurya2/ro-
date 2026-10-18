@@ -14,7 +14,8 @@ import {
   Sparkles, 
   PlusCircle, 
   MapPin, 
-  Cpu
+  Cpu,
+  ArrowRightLeft
 } from 'lucide-react';
 import { businessConfig } from '../config/business';
 import { productsData } from '../data/products';
@@ -71,27 +72,27 @@ export const HomePage: React.FC = () => {
                 Ajit Aqua Appliances provides premium <strong>RO Water Purifiers</strong>, genuine spare parts, and dependable doorstep <strong>RO repair, maintenance, and AMC services</strong> in Prayagraj.
               </p>
 
-              {/* Value Pills */}
-              <div className="flex flex-wrap gap-2.5 pt-1 text-xs text-slate-700 font-medium">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white border border-slate-200 shadow-xs">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-sky-600" />
-                  Domestic & Commercial RO
+              {/* Value Pills: Compact Wrapping Layout */}
+              <div className="flex flex-wrap gap-2 pt-1 text-xs text-slate-700 font-medium">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-slate-200/90 shadow-2xs text-[11px] sm:text-xs">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-sky-600 shrink-0" />
+                  <span>Domestic & Commercial RO</span>
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white border border-slate-200 shadow-xs">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-sky-600" />
-                  Doorstep Repair & Servicing
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-slate-200/90 shadow-2xs text-[11px] sm:text-xs">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-sky-600 shrink-0" />
+                  <span>Doorstep Repair & Servicing</span>
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white border border-slate-200 shadow-xs">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-sky-600" />
-                  Genuine Spare Parts
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-slate-200/90 shadow-2xs text-[11px] sm:text-xs">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-sky-600 shrink-0" />
+                  <span>Genuine Spare Parts</span>
                 </span>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-3">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 pt-2">
                 <Link
                   to="/products"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-white bg-sky-600 hover:bg-sky-700 shadow-lg shadow-sky-600/25 transition-all text-sm"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-white bg-sky-600 hover:bg-sky-700 shadow-md shadow-sky-600/25 transition-all text-xs sm:text-sm active:scale-95"
                 >
                   <ShoppingCart className="w-4 h-4" />
                   <span>Shop RO Purifiers</span>
@@ -99,7 +100,7 @@ export const HomePage: React.FC = () => {
 
                 <Link
                   to="/book-service"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-slate-800 bg-white hover:bg-slate-50 border border-slate-300 shadow-sm transition-all text-sm"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-slate-800 bg-white hover:bg-slate-50 border border-slate-300 shadow-xs transition-all text-xs sm:text-sm active:scale-95"
                 >
                   <Wrench className="w-4 h-4 text-sky-600" />
                   <span>Book a Service</span>
@@ -109,7 +110,7 @@ export const HomePage: React.FC = () => {
                   href={buildWhatsAppUrl(whatsappMessages.general())}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition-colors text-sm"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition-colors text-xs sm:text-sm active:scale-95"
                 >
                   <MessageCircle className="w-4 h-4 text-emerald-600" />
                   <span>WhatsApp Us</span>
@@ -117,9 +118,9 @@ export const HomePage: React.FC = () => {
               </div>
 
               {/* Local Trust Note */}
-              <div className="pt-2 text-xs text-slate-700 flex items-center gap-2">
+              <div className="pt-1 text-[11px] sm:text-xs text-slate-600 flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5 text-sky-600 shrink-0" />
-                <span>Serving all localities across Prayagraj (Civil Lines, Teliyarganj, Katra & nearby)</span>
+                <span className="truncate">Serving Prayagraj: Civil Lines, Teliyarganj, Katra & nearby</span>
               </div>
             </div>
 
@@ -127,7 +128,7 @@ export const HomePage: React.FC = () => {
             <div className="lg:col-span-5 relative">
               <div className="relative mx-auto max-w-md lg:max-w-none">
                 {/* Main Visual Card */}
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-sky-900/10 border-4 border-white bg-gradient-to-b from-sky-100/50 to-white aspect-4/3 sm:aspect-square flex items-center justify-center">
+                <div className="relative rounded-3xl overflow-hidden shadow-xl shadow-sky-900/10 border-4 border-white bg-gradient-to-b from-sky-100/50 to-white aspect-4/3 sm:aspect-square flex items-center justify-center">
                   <img
                     src="/images/products/aqua-prime.svg"
                     alt="Premium Copper + Alkaline RO Water Purifier by Ajit Aqua Appliances"
@@ -137,16 +138,27 @@ export const HomePage: React.FC = () => {
                     }}
                   />
 
+                  {/* Floating Service Badge: Fully Inside Card Container */}
+                  <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl shadow-md border border-sky-100 flex items-center gap-2 max-w-[calc(100%-1.5rem)] z-10">
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-xs shrink-0">
+                      RO
+                    </div>
+                    <div className="text-left min-w-0">
+                      <span className="text-[11px] sm:text-xs font-bold text-slate-900 block leading-tight truncate">Sales & Service</span>
+                      <span className="text-[10px] text-slate-600 block leading-tight truncate">Prayagraj Support</span>
+                    </div>
+                  </div>
+
                   {/* Floating Highlight Card */}
-                  <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-sky-100 flex items-center justify-between">
-                    <div>
-                      <span className="text-[10px] font-bold text-sky-700 uppercase tracking-wider block">
+                  <div className="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur-md p-3 sm:p-4 rounded-xl shadow-md border border-sky-100 flex items-center justify-between z-10">
+                    <div className="min-w-0">
+                      <span className="text-[10px] font-bold text-sky-700 uppercase tracking-wider block truncate">
                         Featured Technology
                       </span>
-                      <h4 className="text-sm font-bold text-slate-900 font-['Sora']">
+                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 font-['Sora'] truncate">
                         Copper + Alkaline RO System
                       </h4>
-                      <p className="text-xs text-slate-700">Multi-stage filtration with mineral balance</p>
+                      <p className="text-[11px] text-slate-600 truncate">Multi-stage filtration with mineral balance</p>
                     </div>
                     <Link
                       to="/products"
@@ -157,17 +169,6 @@ export const HomePage: React.FC = () => {
                     </Link>
                   </div>
                 </div>
-
-                {/* Floating Service Badge */}
-                <div className="absolute -top-4 -left-4 bg-white px-3.5 py-2 rounded-2xl shadow-md border border-sky-100 flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold text-xs">
-                    RO
-                  </div>
-                  <div className="text-left">
-                    <span className="text-xs font-bold text-slate-900 block">Sales & Service</span>
-                    <span className="text-[10px] text-slate-700">Prayagraj Support</span>
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -175,188 +176,44 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 2. TRUST / QUICK SERVICE STRIP (Safe, un-fabricated positioning) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 divide-y md:divide-y-0 md:divide-x divide-slate-100">
-            
-            <div className="flex items-center gap-3 pt-3 md:pt-0 first:pt-0">
-              <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center shrink-0">
-                <Droplets className="w-5 h-5" />
-              </div>
-              <div className="text-left">
-                <h4 className="text-xs sm:text-sm font-bold text-slate-900">RO Purifiers</h4>
-                <p className="text-[11px] text-slate-700">Home & commercial</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 pt-3 md:pt-0 md:pl-5">
-              <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center shrink-0">
-                <Wrench className="w-5 h-5" />
-              </div>
-              <div className="text-left">
-                <h4 className="text-xs sm:text-sm font-bold text-slate-900">RO Repair</h4>
-                <p className="text-[11px] text-slate-700">All popular brands</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 pt-3 md:pt-0 md:pl-5">
-              <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center shrink-0">
-                <PlusCircle className="w-5 h-5" />
-              </div>
-              <div className="text-left">
-                <h4 className="text-xs sm:text-sm font-bold text-slate-900">Installation</h4>
-                <p className="text-[11px] text-slate-700">Wall mount & shifting</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 pt-3 md:pt-0 md:pl-5">
-              <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center shrink-0">
-                <Cpu className="w-5 h-5" />
-              </div>
-              <div className="text-left">
-                <h4 className="text-xs sm:text-sm font-bold text-slate-900">Spare Parts</h4>
-                <p className="text-[11px] text-slate-700">Filters & membranes</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 pt-3 md:pt-0 md:pl-5 col-span-2 md:col-span-1">
-              <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center shrink-0">
-                <CalendarCheck className="w-5 h-5" />
-              </div>
-              <div className="text-left">
-                <h4 className="text-xs sm:text-sm font-bold text-slate-900">AMC Support</h4>
-                <p className="text-[11px] text-slate-700">Annual maintenance</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* 3. WHAT WE OFFER — "Everything Your RO Needs" */}
+      {/* 2. QUICK CATEGORY SHORTCUTS (Balanced 6-Item Grid) */}
       <section className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="text-center space-y-1.5 mb-6 sm:mb-8">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-sky-50 text-sky-700 text-[10px] font-bold uppercase tracking-wider">
-            <span>Our Core Capabilities</span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-['Sora']">
-            Everything Your RO Needs
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto">
-            From new water purifiers to expert repair and periodic maintenance across Prayagraj.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
-          {/* Card 1 */}
-          <div className="group bg-white p-7 rounded-2xl border border-slate-200 hover:border-sky-300 hover:shadow-xl hover:shadow-sky-500/10 transition-all duration-300 flex flex-col justify-between">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center group-hover:bg-sky-600 group-hover:text-white transition-colors">
-                <Droplets className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold text-slate-900 font-['Sora']">RO Water Purifiers</h3>
-              <p className="text-sm text-slate-700 leading-relaxed">
-                Modern domestic, alkaline, and commercial water purifiers designed to handle municipal, borewell, and high-TDS water supplies.
-              </p>
-            </div>
-            <Link to="/products" className="pt-5 flex items-center gap-1.5 text-xs font-bold text-sky-700 group-hover:text-sky-800">
-              <span>Browse Showroom</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          {/* Card 2 */}
-          <div className="group bg-white p-7 rounded-2xl border border-slate-200 hover:border-sky-300 hover:shadow-xl hover:shadow-sky-500/10 transition-all duration-300 flex flex-col justify-between">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center group-hover:bg-sky-600 group-hover:text-white transition-colors">
-                <Wrench className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold text-slate-900 font-['Sora']">RO Repair & Service</h3>
-              <p className="text-sm text-slate-700 leading-relaxed">
-                Troubleshooting pump vibration, electrical faults, continuous drain water, low flow rate, and bad taste across major purifier models.
-              </p>
-            </div>
-            <Link to="/services" className="pt-5 flex items-center gap-1.5 text-xs font-bold text-sky-700 group-hover:text-sky-800">
-              <span>View Service Details</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          {/* Card 3 */}
-          <div className="group bg-white p-7 rounded-2xl border border-slate-200 hover:border-sky-300 hover:shadow-xl hover:shadow-sky-500/10 transition-all duration-300 flex flex-col justify-between">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center group-hover:bg-sky-600 group-hover:text-white transition-colors">
-                <Cpu className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold text-slate-900 font-['Sora']">Spare Parts & Filters</h3>
-              <p className="text-sm text-slate-700 leading-relaxed">
-                Membranes, booster pumps, SMPS adapters, solenoid valves, pre-filters, carbon blocks, food-grade pipes, and faucet fixtures.
-              </p>
-            </div>
-            <Link to="/parts" className="pt-5 flex items-center gap-1.5 text-xs font-bold text-sky-700 group-hover:text-sky-800">
-              <span>Explore Spare Parts</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          {/* Card 4 */}
-          <div className="group bg-white p-7 rounded-2xl border border-slate-200 hover:border-sky-300 hover:shadow-xl hover:shadow-sky-500/10 transition-all duration-300 flex flex-col justify-between">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center group-hover:bg-sky-600 group-hover:text-white transition-colors">
-                <PlusCircle className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold text-slate-900 font-['Sora']">Installation & Relocation</h3>
-              <p className="text-sm text-slate-700 leading-relaxed">
-                Secure wall mounting, brass inlet connections, leakage tests, and safe uninstallation for home shifting across Prayagraj.
-              </p>
-            </div>
-            <Link to="/book-service" className="pt-5 flex items-center gap-1.5 text-xs font-bold text-sky-700 group-hover:text-sky-800">
-              <span>Book Installation</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          {/* Card 5 */}
-          <div className="group bg-white p-7 rounded-2xl border border-slate-200 hover:border-sky-300 hover:shadow-xl hover:shadow-sky-500/10 transition-all duration-300 flex flex-col justify-between">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center group-hover:bg-sky-600 group-hover:text-white transition-colors">
-                <Layers className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold text-slate-900 font-['Sora']">Filter & Membrane Replacement</h3>
-              <p className="text-sm text-slate-700 leading-relaxed">
-                Periodic replacement of sediment cartridges and high-rejection RO membranes with on-site pre and post TDS testing.
-              </p>
-            </div>
-            <Link to="/services" className="pt-5 flex items-center gap-1.5 text-xs font-bold text-sky-700 group-hover:text-sky-800">
-              <span>Learn About Filters</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          {/* Card 6 */}
-          <div className="group bg-white p-7 rounded-2xl border border-slate-200 hover:border-sky-300 hover:shadow-xl hover:shadow-sky-500/10 transition-all duration-300 flex flex-col justify-between">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center group-hover:bg-sky-600 group-hover:text-white transition-colors">
-                <CalendarCheck className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold text-slate-900 font-['Sora']">Annual Maintenance (AMC)</h3>
-              <p className="text-sm text-slate-700 leading-relaxed">
-                Year-round maintenance packages featuring scheduled periodic service visits, priority breakdown response, and filter support.
-              </p>
-            </div>
-            <Link to="/amc" className="pt-5 flex items-center gap-1.5 text-xs font-bold text-sky-700 group-hover:text-sky-800">
-              <span>Explore AMC Plans</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+        <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs p-3 sm:p-5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3">
+            {[
+              { name: "RO Purifiers", desc: "Home & commercial", link: "/products", icon: Droplets },
+              { name: "RO Repair", desc: "All popular brands", link: "/services", icon: Wrench },
+              { name: "Installation", desc: "Wall mount & setup", link: "/book-service", icon: PlusCircle },
+              { name: "Spare Parts", desc: "Filters & membranes", link: "/parts", icon: Cpu },
+              { name: "Relocation", desc: "Safe shifting service", link: "/services", icon: ArrowRightLeft },
+              { name: "AMC Support", desc: "Annual maintenance", link: "/amc", icon: CalendarCheck },
+            ].map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={idx}
+                  to={item.link}
+                  className="flex items-center gap-2 sm:gap-2.5 p-2 sm:p-2.5 rounded-xl bg-slate-50/70 hover:bg-sky-50/60 border border-slate-200/60 hover:border-sky-300 transition-all active:scale-[0.98] group"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-sky-100/80 text-sky-700 flex items-center justify-center shrink-0 group-hover:bg-sky-600 group-hover:text-white transition-colors">
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <div className="text-left min-w-0">
+                    <h4 className="text-xs font-bold text-slate-900 group-hover:text-sky-700 leading-tight truncate">
+                      {item.name}
+                    </h4>
+                    <p className="text-[10px] text-slate-500 leading-tight truncate mt-0.5">
+                      {item.desc}
+                    </p>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* 4. NEW INTERACTIVE CONVERSION FEATURE: "Find the Right RO" */}
-      <FindTheRightRO />
-
-      {/* 5. FEATURED PRODUCTS (Digital Showroom Preview) */}
+      {/* 3. FEATURED PRODUCTS (Digital Showroom Preview) */}
       <section className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-4 sm:mb-6">
           <div className="space-y-1">
@@ -372,14 +229,14 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* Category Filter Tabs */}
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1 px-1 -mx-1 pe-4">
             {(['all', 'domestic', 'alkaline', 'commercial'] as const).map((cat) => (
               <button
                 key={cat}
                 onClick={() => setProductCategory(cat)}
-                className={`shrink-0 px-3 py-1 rounded-full text-xs font-semibold capitalize transition-all ${
+                className={`shrink-0 px-3 py-1 rounded-full text-xs font-semibold capitalize whitespace-nowrap transition-all ${
                   productCategory === cat
-                    ? 'bg-sky-600 text-white shadow-2xs'
+                    ? 'bg-sky-600 text-white shadow-2xs font-bold'
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
               >
@@ -407,18 +264,126 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 6. PRODUCT CATEGORIES */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-3 mb-10">
+      {/* 4. INTERACTIVE ADVISOR: "Find the Right RO" */}
+      <FindTheRightRO />
+
+      {/* 5. PROFESSIONAL RO SERVICES SECTION (Responsive 2-Column Mobile Grid) */}
+      <section className="bg-slate-50/70 py-10 sm:py-14 border-y border-slate-200">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6 sm:mb-8">
+            <div className="space-y-1">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 text-[10px] font-bold uppercase tracking-wider">
+                <span>Doorstep RO Assistance</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-['Sora']">
+                Professional RO Services in Prayagraj
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 max-w-xl">
+                Multi-point inspection, diagnostics, filter replacement, and repairs for all purifier brands.
+              </p>
+            </div>
+
+            <Link
+              to="/book-service"
+              className="inline-flex items-center gap-1.5 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-sky-600 hover:bg-sky-700 shadow-sm transition-all self-start sm:self-auto shrink-0"
+            >
+              <Wrench className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span>Book Doorstep Service</span>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
+            {servicesData.slice(0, 4).map((service) => {
+              const ServiceIcon = service.id === 'ro-repair' ? Wrench 
+                : service.id === 'routine-servicing' ? Sparkles 
+                : service.id === 'filter-replacement' ? Layers 
+                : ShieldCheck;
+
+              const priceEstimate = service.id === 'ro-repair' 
+                ? { amount: '₹199', type: 'Inspection' }
+                : service.id === 'routine-servicing'
+                ? { amount: '₹249', type: 'Service' }
+                : service.id === 'filter-replacement'
+                ? { amount: '₹499', type: 'Parts + Service' }
+                : { amount: '₹1,450', type: 'Membrane' };
+
+              return (
+                <div
+                  key={service.id}
+                  className="bg-white p-3 sm:p-5 rounded-xl border border-slate-200/90 hover:border-sky-300 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-1 mb-2">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
+                        <ServiceIcon className="w-4 h-4" />
+                      </div>
+                      {service.badge && (
+                        <span className="text-[9px] sm:text-[10px] font-bold text-sky-800 bg-sky-50 px-1.5 py-0.5 rounded truncate max-w-[65%] border border-sky-100">
+                          {service.badge}
+                        </span>
+                      )}
+                    </div>
+
+                    <h3 className="text-xs sm:text-sm font-bold text-slate-900 font-['Sora'] leading-snug line-clamp-2 min-h-[2.4em] mb-1">
+                      {service.name}
+                    </h3>
+
+                    <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed line-clamp-2 mb-2">
+                      {service.shortDescription}
+                    </p>
+                  </div>
+
+                  <div className="pt-2 mt-1 border-t border-slate-100 flex items-center justify-between gap-1">
+                    <div className="min-w-0">
+                      <div className="flex items-baseline gap-0.5">
+                        <span className="text-[9px] sm:text-[10px] text-slate-500 font-medium">Starts</span>
+                        <span className="text-xs sm:text-sm font-black text-slate-900 font-['Sora']">
+                          {priceEstimate.amount}
+                        </span>
+                      </div>
+                      <span className="text-[9px] text-slate-500 block leading-tight truncate">
+                        {priceEstimate.type}
+                      </span>
+                    </div>
+
+                    <Link
+                      to="/book-service"
+                      className="inline-flex items-center justify-center px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[11px] sm:text-xs font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200/80 transition-colors shrink-0 active:scale-95"
+                    >
+                      Book
+                    </Link>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="text-center pt-6">
+            <Link
+              to="/services"
+              className="text-xs sm:text-sm font-semibold text-sky-700 hover:text-sky-800 underline underline-offset-4"
+            >
+              View complete list of RO repair, maintenance & installation services →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. PURIFIER TECHNOLOGIES & SPARE CATEGORIES */}
+      <section className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="text-center space-y-1.5 mb-6 sm:mb-8">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-sky-50 text-sky-700 text-[10px] font-bold uppercase tracking-wider">
+            <span>Parts & Systems</span>
+          </div>
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-['Sora']">
             Purifier Technologies & Spare Categories
           </h2>
-          <p className="text-sm text-slate-700 max-w-lg mx-auto">
+          <p className="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto">
             Choose by purification technology or find the exact replacement spare part for your machine.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
           {[
             { name: "RO Systems", desc: "For High TDS Water", link: "/products", icon: Droplets },
             { name: "RO + UV + UF", desc: "Multi-Barrier Pure", link: "/products", icon: ShieldCheck },
@@ -432,16 +397,16 @@ export const HomePage: React.FC = () => {
               <Link
                 key={idx}
                 to={cat.link}
-                className="group p-4 rounded-2xl bg-white border border-slate-200 hover:border-sky-300 hover:shadow-md transition-all text-center flex flex-col items-center justify-center space-y-2.5"
+                className="group p-3 sm:p-4 rounded-xl bg-white border border-slate-200/90 hover:border-sky-300 hover:shadow-xs transition-all text-center flex flex-col items-center justify-center space-y-2"
               >
-                <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Icon className="w-5 h-5" />
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
-                <div>
-                  <h4 className="text-xs font-bold text-slate-900 group-hover:text-sky-600 transition-colors">
+                <div className="min-w-0">
+                  <h4 className="text-xs font-bold text-slate-900 group-hover:text-sky-600 transition-colors truncate">
                     {cat.name}
                   </h4>
-                  <p className="text-[11px] text-slate-700">{cat.desc}</p>
+                  <p className="text-[10px] sm:text-[11px] text-slate-500 truncate">{cat.desc}</p>
                 </div>
               </Link>
             );
@@ -449,90 +414,92 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 7. RO SERVICES SECTION (Overview & Direct Booking) */}
-      <section className="bg-slate-50 py-16 border-y border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100 text-sky-800 text-xs font-bold uppercase tracking-wider">
-                <span>Doorstep RO Assistance</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight font-['Sora']">
-                Professional RO Services in Prayagraj
-              </h2>
-              <p className="text-sm text-slate-700 max-w-xl">
-                Careful diagnostics, systematic multi-point inspection, and genuine replacement parts for all domestic and commercial RO machines.
-              </p>
-            </div>
-
-            <Link
-              to="/book-service"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-bold text-white bg-sky-600 hover:bg-sky-700 shadow-md transition-all shrink-0"
-            >
-              <Wrench className="w-4 h-4" />
-              <span>Book Doorstep Service</span>
-            </Link>
+      {/* 7. CORE CAPABILITIES — "Everything Your RO Needs" */}
+      <section className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="text-center space-y-1.5 mb-6 sm:mb-8">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-sky-50 text-sky-700 text-[10px] font-bold uppercase tracking-wider">
+            <span>Our Core Capabilities</span>
           </div>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-['Sora']">
+            Everything Your RO Needs
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto">
+            From new water purifiers to expert repair and periodic maintenance across Prayagraj.
+          </p>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {servicesData.slice(0, 4).map((service) => (
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
+          {[
+            {
+              title: "RO Water Purifiers",
+              desc: "Domestic, alkaline & commercial purifiers for Prayagraj water.",
+              link: "/products",
+              action: "Showroom",
+              icon: Droplets
+            },
+            {
+              title: "RO Repair & Service",
+              desc: "Fast diagnosis of motor, pump, leakage, and taste issues.",
+              link: "/services",
+              action: "Services",
+              icon: Wrench
+            },
+            {
+              title: "Spare Parts & Filters",
+              desc: "Certified membranes, booster pumps, SMPS adapters & fittings.",
+              link: "/parts",
+              action: "Spare Parts",
+              icon: Cpu
+            },
+            {
+              title: "Installation & Shifting",
+              desc: "Secure wall mounting, plumbing setup & safe relocation.",
+              link: "/book-service",
+              action: "Book Setup",
+              icon: PlusCircle
+            },
+            {
+              title: "Filter Replacement",
+              desc: "Periodic filter and membrane replacement for peak purity.",
+              link: "/services",
+              action: "Filters",
+              icon: Layers
+            },
+            {
+              title: "Annual Maintenance",
+              desc: "Year-round maintenance plans with scheduled check-ups.",
+              link: "/amc",
+              action: "AMC Plans",
+              icon: CalendarCheck
+            }
+          ].map((item, idx) => {
+            const ItemIcon = item.icon;
+            return (
               <div
-                key={service.id}
-                className="bg-white p-6 rounded-2xl border border-slate-200 hover:border-sky-300 hover:shadow-lg transition-all flex flex-col justify-between"
+                key={idx}
+                className="group bg-white p-3 sm:p-5 rounded-xl border border-slate-200/90 hover:border-sky-300 hover:shadow-md transition-all flex flex-col justify-between"
               >
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-md">
-                      {service.badge || "Service"}
-                    </span>
+                <div>
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center group-hover:bg-sky-600 group-hover:text-white transition-colors mb-2.5">
+                    <ItemIcon className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
-
-                  <h3 className="text-base font-bold text-slate-900 font-['Sora']">
-                    {service.name}
+                  <h3 className="text-xs sm:text-sm font-bold text-slate-900 font-['Sora'] leading-snug line-clamp-1">
+                    {item.title}
                   </h3>
-
-                  <p className="text-xs text-slate-700 leading-relaxed">
-                    {service.shortDescription}
+                  <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed line-clamp-2 mt-1">
+                    {item.desc}
                   </p>
-
-                  <div className="pt-2 border-t border-slate-100">
-                    <span className="text-[11px] font-semibold text-slate-700 block mb-1">
-                      Common signs:
-                    </span>
-                    <ul className="text-[11px] text-slate-700 space-y-1">
-                      {service.commonProblems.slice(0, 2).map((prob, i) => (
-                        <li key={i} className="flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-sky-400 shrink-0" />
-                          <span className="line-clamp-1">{prob}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
                 </div>
-
-                <div className="pt-5 mt-4 border-t border-slate-100 flex items-center justify-between">
-                  <span className="text-xs font-semibold text-slate-700">
-                    {service.startingEstimate}
-                  </span>
-                  <Link
-                    to="/book-service"
-                    className="text-xs font-bold text-sky-700 hover:text-sky-800"
-                  >
-                    Book →
-                  </Link>
-                </div>
+                <Link
+                  to={item.link}
+                  className="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] sm:text-xs font-bold text-sky-700 group-hover:text-sky-800"
+                >
+                  <span>{item.action}</span>
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+                </Link>
               </div>
-            ))}
-          </div>
-
-          <div className="text-center pt-8">
-            <Link
-              to="/services"
-              className="text-sm font-semibold text-sky-700 hover:text-sky-800 underline underline-offset-4"
-            >
-              View complete list of RO repair, maintenance & installation services →
-            </Link>
-          </div>
+            );
+          })}
         </div>
       </section>
 

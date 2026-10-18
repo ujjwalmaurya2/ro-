@@ -95,9 +95,9 @@ export const CategoryNavBar: React.FC = () => {
 
   return (
     <div className="border-t border-slate-100/90 bg-white/95 backdrop-blur-md shadow-[0_2px_8px_rgba(15,61,86,0.03)]">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
         <nav
-          className="flex items-center justify-start lg:justify-center gap-1.5 sm:gap-2.5 py-2 overflow-x-auto no-scrollbar scroll-smooth"
+          className="flex items-center justify-start lg:justify-center gap-1.5 sm:gap-2.5 py-2 px-3 sm:px-6 lg:px-8 overflow-x-auto no-scrollbar scroll-smooth"
           aria-label="Category navigation"
         >
           {CATEGORIES.map((category) => {
