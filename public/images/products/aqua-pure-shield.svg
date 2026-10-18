@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="shieldBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F0F9FF"/>
+    </linearGradient>
+    <linearGradient id="uvGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="50%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#818CF8"/>
+    </linearGradient>
+    <linearGradient id="cyanWater" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E0F2FE"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+    <filter id="pureShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0369A1" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <rect width="500" height="500" fill="#F8FAFC" rx="24"/>
+  <circle cx="250" cy="250" r="185" fill="#E0F2FE" opacity="0.35"/>
+
+  <g filter="url(#pureShadow)">
+    <!-- Main Wall Mount Cabinet -->
+    <rect x="120" y="65" width="260" height="370" rx="32" fill="url(#shieldBody)" stroke="#BAE6FD" stroke-width="3"/>
+    
+    <!-- Top Crown -->
+    <path d="M 120 100 Q 250 85 380 100 L 380 65 Q 250 65 120 65 Z" fill="#0284C7"/>
+    
+    <!-- Brand Title -->
+    <text x="250" y="130" font-family="'Sora', sans-serif" font-size="15" font-weight="800" fill="#0369A1" text-anchor="middle" letter-spacing="1.5">AQUA PURE SHIELD</text>
+    <text x="250" y="146" font-family="'Inter', sans-serif" font-size="10" font-weight="600" fill="#64748B" text-anchor="middle">RO + UV DUAL STERILIZATION</text>
+
+    <!-- UV Shield Emblem -->
+    <g transform="translate(250, 185)">
+      <path d="M 0 -25 L 22 -12 L 22 15 Q 0 35 -22 15 L -22 -12 Z" fill="url(#uvGlow)" opacity="0.9"/>
+      <text x="0" y="4" font-family="'Sora', sans-serif" font-size="10" font-weight="800" fill="#FFFFFF" text-anchor="middle">UV</text>
+      <text x="0" y="15" font-size="7" font-weight="700" fill="#E0F2FE" text-anchor="middle">ACTIVE</text>
+    </g>
+
+    <!-- Clean Water Storage Reservoir (8 Litres) -->
+    <rect x="145" y="230" width="210" height="150" rx="20" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+    <path d="M 150 290 Q 200 280 250 290 T 350 290 L 350 370 Q 350 376 344 376 L 156 376 Q 150 376 150 370 Z" fill="url(#cyanWater)" opacity="0.85"/>
+
+    <text x="250" y="325" font-family="'Sora', sans-serif" font-size="18" font-weight="800" fill="#FFFFFF" text-anchor="middle">8L</text>
+    <text x="250" y="340" font-size="9" font-weight="600" fill="#E0F2FE" text-anchor="middle">FOOD GRADE TANK</text>
+
+    <!-- Dispensing Tap -->
+    <rect x="238" y="390" width="24" height="25" rx="4" fill="#64748B"/>
+    <circle cx="250" cy="415" r="5" fill="#38BDF8"/>
+  </g>
+</svg>

@@ -24,10 +24,10 @@ export const SparePartCard: React.FC<SparePartCardProps> = ({ part }) => {
           <img
             src={part.image}
             alt={part.name}
-            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-300"
             loading="lazy"
             onError={(e) => {
-              (e.currentTarget as HTMLImageElement).src = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80';
+              (e.currentTarget as HTMLImageElement).src = '/images/parts/part-fallback.svg';
             }}
           />
 

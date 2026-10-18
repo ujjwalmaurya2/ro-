@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="coilGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="60%" stop-color="#0369A1"/>
+      <stop offset="100%" stop-color="#075985"/>
+    </linearGradient>
+    <linearGradient id="valveBody" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="50%" stop-color="#F1F5F9"/>
+      <stop offset="100%" stop-color="#CBD5E1"/>
+    </linearGradient>
+    <filter id="svShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0284C7" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <rect width="500" height="500" fill="#F8FAFC" rx="24"/>
+  <circle cx="250" cy="250" r="180" fill="#E0F2FE" opacity="0.35"/>
+
+  <g filter="url(#svShadow)">
+    <!-- Electrical Terminal Leads (Top) -->
+    <path d="M 235 120 L 235 70 Q 235 50 200 50" fill="none" stroke="#EF4444" stroke-width="4" stroke-linecap="round"/>
+    <path d="M 265 120 L 265 70 Q 265 50 300 50" fill="none" stroke="#0F172A" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Electromagnetic Solenoid Coil Block -->
+    <rect x="175" y="115" width="150" height="150" rx="20" fill="url(#coilGrad)" stroke="#0369A1" stroke-width="2"/>
+    <circle cx="250" cy="190" r="42" fill="#0F172A" opacity="0.4"/>
+    
+    <text x="250" y="175" font-family="'Sora', sans-serif" font-size="14" font-weight="900" fill="#FFFFFF" text-anchor="middle">24V DC</text>
+    <text x="250" y="195" font-family="'Inter', sans-serif" font-size="10" font-weight="700" fill="#38BDF8" text-anchor="middle">SOLENOID VALVE</text>
+    <text x="250" y="215" font-size="8" fill="#BAE6FD" text-anchor="middle">0.02 - 0.8 MPa</text>
+
+    <!-- Lower Mechanical Valve Housing -->
+    <rect x="145" y="260" width="210" height="95" rx="14" fill="url(#valveBody)" stroke="#94A3B8" stroke-width="2"/>
+
+    <!-- 1/4" Push-Fit Water Ports (Inlet &amp; Outlet) -->
+    <!-- Left Port (Inlet) -->
+    <rect x="80" y="290" width="70" height="35" rx="6" fill="#0284C7"/>
+    <circle cx="95" cy="307" r="7" fill="#FFFFFF"/>
+    <text x="115" y="345" font-size="9" font-weight="800" fill="#0369A1">INLET (1/4")</text>
+
+    <!-- Right Port (Outlet) -->
+    <rect x="350" y="290" width="70" height="35" rx="6" fill="#0284C7"/>
+    <circle cx="405" cy="307" r="7" fill="#FFFFFF"/>
+    <text x="345" y="345" font-size="9" font-weight="800" fill="#0369A1">OUTLET (1/4")</text>
+
+    <!-- Flow Arrow on Lower Valve Body -->
+    <path d="M 220 307 L 270 307 M 265 300 L 275 307 L 265 314" stroke="#0F172A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

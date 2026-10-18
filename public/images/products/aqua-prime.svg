@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="60%" stop-color="#F1F5F9"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="copperGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#B87333"/>
+      <stop offset="50%" stop-color="#E89758"/>
+      <stop offset="100%" stop-color="#A55D25"/>
+    </linearGradient>
+    <linearGradient id="waterTank" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E0F2FE" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#BAE6FD" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="chromeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="50%" stop-color="#94A3B8"/>
+      <stop offset="100%" stop-color="#64748B"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0284C7" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient Backdrop -->
+  <rect width="500" height="500" fill="#F8FAFC" rx="24"/>
+  <circle cx="250" cy="250" r="190" fill="#E0F2FE" opacity="0.4"/>
+
+  <!-- Main Cabinet Body -->
+  <g filter="url(#shadow)">
+    <rect x="115" y="60" width="270" height="380" rx="28" fill="url(#bodyGrad)" stroke="#CBD5E1" stroke-width="3"/>
+    
+    <!-- Top Display Panel -->
+    <rect x="130" y="75" width="240" height="95" rx="16" fill="#0F172A"/>
+    
+    <!-- Brand Emblem -->
+    <text x="250" y="105" font-family="'Sora', sans-serif" font-size="14" font-weight="800" fill="#38BDF8" text-anchor="middle" letter-spacing="2">AJIT AQUA PRO</text>
+    <text x="250" y="122" font-family="'Inter', sans-serif" font-size="10" font-weight="600" fill="#94A3B8" text-anchor="middle" letter-spacing="1">COPPER + ALKALINE RO</text>
+    
+    <!-- Status LEDs -->
+    <g transform="translate(160, 136)">
+      <circle cx="20" cy="12" r="5" fill="#10B981"/>
+      <text x="20" y="27" font-size="7" fill="#64748B" text-anchor="middle" font-family="'Inter', sans-serif">POWER</text>
+      
+      <circle cx="70" cy="12" r="5" fill="#0EA5E9"/>
+      <text x="70" y="27" font-size="7" fill="#64748B" text-anchor="middle" font-family="'Inter', sans-serif">RO/UV</text>
+      
+      <circle cx="120" cy="12" r="5" fill="#E89758"/>
+      <text x="120" y="27" font-size="7" fill="#E89758" text-anchor="middle" font-family="'Inter', sans-serif">COPPER</text>
+      
+      <circle cx="160" cy="12" r="5" fill="#38BDF8"/>
+      <text x="160" y="27" font-size="7" fill="#64748B" text-anchor="middle" font-family="'Inter', sans-serif">TANK FULL</text>
+    </g>
+
+    <!-- Copper Accent Stripe -->
+    <rect x="115" y="175" width="270" height="10" fill="url(#copperGrad)"/>
+
+    <!-- Transparent 9L Water Tank Window -->
+    <rect x="140" y="198" width="220" height="185" rx="18" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="2"/>
+    <path d="M 145 270 Q 195 260 250 270 T 355 270 L 355 375 Q 355 380 350 380 L 150 380 Q 145 380 145 375 Z" fill="url(#waterTank)"/>
+    
+    <!-- Water Level Gauge Markers -->
+    <g stroke="#94A3B8" stroke-width="1.5" opacity="0.6">
+      <line x1="340" y1="230" x2="350" y2="230"/>
+      <line x1="342" y1="255" x2="350" y2="255"/>
+      <line x1="340" y1="280" x2="350" y2="280"/>
+      <line x1="342" y1="305" x2="350" y2="305"/>
+      <line x1="340" y1="330" x2="350" y2="330"/>
+    </g>
+    <text x="330" y="234" font-size="8" fill="#64748B" text-anchor="end" font-weight="700">9L MAX</text>
+    <text x="330" y="334" font-size="8" fill="#64748B" text-anchor="end">2L MIN</text>
+
+    <!-- Active Copper Mineralizer Ring Graphic -->
+    <circle cx="250" cy="315" r="34" fill="none" stroke="url(#copperGrad)" stroke-width="4" stroke-dasharray="6,4"/>
+    <circle cx="250" cy="315" r="24" fill="#FFFFFF" opacity="0.9"/>
+    <path d="M 250 300 Q 256 312 250 326 Q 244 312 250 300 Z" fill="url(#copperGrad)"/>
+    <text x="250" y="335" font-size="7" font-weight="800" fill="#A55D25" text-anchor="middle">ACTIVE Cu+</text>
+
+    <!-- Chrome Dispensing Tap -->
+    <path d="M 240 395 L 260 395 L 256 425 L 244 425 Z" fill="url(#chromeGrad)"/>
+    <rect x="236" y="390" width="28" height="6" rx="3" fill="url(#chromeGrad)"/>
+    <circle cx="250" cy="428" r="4" fill="#0284C7"/>
+  </g>
+</svg>

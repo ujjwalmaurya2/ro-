@@ -85,9 +85,9 @@ export const ProductDetailPage: React.FC = () => {
             <img
               src={activeImage || product.image}
               alt={product.name}
-              className="w-full h-full object-cover object-center"
+              className="w-full h-full object-contain p-4"
               onError={(e) => {
-                (e.currentTarget as HTMLImageElement).src = 'https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=800&q=80';
+                (e.currentTarget as HTMLImageElement).src = '/images/fallbacks/purifier-fallback.svg';
               }}
             />
             {product.isDemo && (
@@ -111,16 +111,16 @@ export const ProductDetailPage: React.FC = () => {
                 <button
                   key={idx}
                   onClick={() => setActiveImage(img)}
-                  className={`w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden border-2 transition-all ${
+                  className={`w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden border-2 bg-slate-50 transition-all ${
                     activeImage === img ? 'border-sky-600 ring-2 ring-sky-200' : 'border-slate-200 opacity-70 hover:opacity-100'
                   }`}
                 >
                   <img 
                     src={img} 
                     alt={`Thumbnail ${idx}`} 
-                    className="w-full h-full object-cover" 
+                    className="w-full h-full object-contain p-1" 
                     onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).src = 'https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=800&q=80';
+                      (e.currentTarget as HTMLImageElement).src = '/images/fallbacks/purifier-fallback.svg';
                     }}
                   />
                 </button>

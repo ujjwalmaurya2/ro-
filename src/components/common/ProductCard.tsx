@@ -33,10 +33,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <img
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-300"
             loading="lazy"
             onError={(e) => {
-              (e.currentTarget as HTMLImageElement).src = 'https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=800&q=80';
+              (e.currentTarget as HTMLImageElement).src = '/images/fallbacks/purifier-fallback.svg';
             }}
           />
 

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="ssFrame" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E2E8F0"/>
+      <stop offset="50%" stop-color="#CBD5E1"/>
+      <stop offset="100%" stop-color="#94A3B8"/>
+    </linearGradient>
+    <linearGradient id="vesselBlue" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="50%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="500" height="500" fill="#F8FAFC" rx="24"/>
+
+  <!-- Skid Stand Structure -->
+  <!-- Vertical Support Posts -->
+  <rect x="90" y="60" width="14" height="380" rx="3" fill="url(#ssFrame)"/>
+  <rect x="396" y="60" width="14" height="380" rx="3" fill="url(#ssFrame)"/>
+  <!-- Cross Bracing -->
+  <rect x="90" y="60" width="320" height="14" rx="3" fill="url(#ssFrame)"/>
+  <rect x="90" y="240" width="320" height="12" rx="2" fill="url(#ssFrame)"/>
+  <rect x="90" y="426" width="320" height="16" rx="3" fill="url(#ssFrame)"/>
+
+  <!-- 2x Vertical Stainless / FRP Membrane Pressure Vessels -->
+  <g transform="translate(130, 80)">
+    <rect x="0" y="0" width="45" height="280" rx="12" fill="url(#vesselBlue)" stroke="#0369A1" stroke-width="2"/>
+    <rect x="5" y="10" width="35" height="10" rx="3" fill="#E2E8F0"/>
+    <rect x="5" y="260" width="35" height="10" rx="3" fill="#E2E8F0"/>
+    <text x="22" y="140" font-size="9" font-weight="800" fill="#FFFFFF" text-anchor="middle" transform="rotate(-90 22 140)">RO MEMBRANE 1</text>
+  </g>
+
+  <g transform="translate(195, 80)">
+    <rect x="0" y="0" width="45" height="280" rx="12" fill="url(#vesselBlue)" stroke="#0369A1" stroke-width="2"/>
+    <rect x="5" y="10" width="35" height="10" rx="3" fill="#E2E8F0"/>
+    <rect x="5" y="260" width="35" height="10" rx="3" fill="#E2E8F0"/>
+    <text x="22" y="140" font-size="9" font-weight="800" fill="#FFFFFF" text-anchor="middle" transform="rotate(-90 22 140)">RO MEMBRANE 2</text>
+  </g>
+
+  <!-- Dual Pressure Gauges -->
+  <g transform="translate(285, 110)">
+    <!-- Gauge 1 -->
+    <circle cx="28" cy="28" r="24" fill="#FFFFFF" stroke="#475569" stroke-width="3"/>
+    <circle cx="28" cy="28" r="3" fill="#DC2626"/>
+    <line x1="28" y1="28" x2="40" y2="18" stroke="#DC2626" stroke-width="2"/>
+    <text x="28" y="44" font-size="7" font-weight="700" fill="#64748B" text-anchor="middle">FEED PSI</text>
+
+    <!-- Gauge 2 -->
+    <circle cx="85" cy="28" r="24" fill="#FFFFFF" stroke="#475569" stroke-width="3"/>
+    <circle cx="85" cy="28" r="3" fill="#0284C7"/>
+    <line x1="85" y1="28" x2="98" y2="20" stroke="#0284C7" stroke-width="2"/>
+    <text x="85" y="44" font-size="7" font-weight="700" fill="#64748B" text-anchor="middle">RO PSI</text>
+  </g>
+
+  <!-- Electrical Switch Box -->
+  <rect x="270" y="180" width="115" height="85" rx="8" fill="#1E293B" stroke="#475569" stroke-width="2"/>
+  <text x="327" y="205" font-family="'Sora', sans-serif" font-size="10" font-weight="800" fill="#38BDF8" text-anchor="middle">25 LPH PLANT</text>
+  <circle cx="300" cy="235" r="7" fill="#10B981"/>
+  <circle cx="330" cy="235" r="7" fill="#EF4444"/>
+  <circle cx="360" cy="235" r="7" fill="#F59E0B"/>
+
+  <!-- Commercial Heavy Duty Booster Pump (Bottom Base) -->
+  <rect x="260" y="320" width="125" height="65" rx="8" fill="#0F172A" stroke="#334155" stroke-width="2"/>
+  <!-- Cooling fins -->
+  <line x1="275" y1="330" x2="275" y2="375" stroke="#475569" stroke-width="3"/>
+  <line x1="285" y1="330" x2="285" y2="375" stroke="#475569" stroke-width="3"/>
+  <line x1="295" y1="330" x2="295" y2="375" stroke="#475569" stroke-width="3"/>
+  <!-- Pump head -->
+  <rect x="330" y="325" width="50" height="55" rx="5" fill="#64748B"/>
+  <text x="355" y="355" font-size="8" font-weight="800" fill="#FFFFFF" text-anchor="middle">PUMP</text>
+
+  <!-- Flow Label -->
+  <rect x="150" y="446" width="200" height="28" rx="6" fill="#0284C7"/>
+  <text x="250" y="465" font-family="'Sora', sans-serif" font-size="12" font-weight="800" fill="#FFFFFF" text-anchor="middle">25 LITRES / HOUR COMMERCIAL</text>
+</svg>

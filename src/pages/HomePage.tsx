@@ -129,15 +129,13 @@ export const HomePage: React.FC = () => {
                 {/* Main Visual Card */}
                 <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-sky-900/10 border-4 border-white bg-gradient-to-b from-sky-100/50 to-white aspect-4/3 sm:aspect-square flex items-center justify-center">
                   <img
-                    src="https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=900&q=80"
-                    alt="Premium RO Water Purifier by Ajit Aqua Appliances"
-                    className="w-full h-full object-cover"
+                    src="/images/products/aqua-prime.svg"
+                    alt="Premium Copper + Alkaline RO Water Purifier by Ajit Aqua Appliances"
+                    className="w-full h-full object-contain p-6"
                     onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).src = 'https://images.unsplash.com/photo-1533038590840-1cde6e668a91?auto=format&fit=crop&w=900&q=80';
+                      (e.currentTarget as HTMLImageElement).src = '/images/fallbacks/purifier-fallback.svg';
                     }}
                   />
-                  {/* Subtle Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent" />
 
                   {/* Floating Highlight Card */}
                   <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-sky-100 flex items-center justify-between">

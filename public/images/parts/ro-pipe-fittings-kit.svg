@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <filter id="pipeShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0284C7" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <rect width="500" height="500" fill="#F8FAFC" rx="24"/>
+  <circle cx="250" cy="250" r="185" fill="#E0F2FE" opacity="0.35"/>
+
+  <g filter="url(#pipeShadow)">
+    <!-- Coiled Roll of 1/4" LLDPE Food-Grade White Tubing -->
+    <circle cx="250" cy="235" r="140" fill="none" stroke="#FFFFFF" stroke-width="24"/>
+    <circle cx="250" cy="235" r="140" fill="none" stroke="#CBD5E1" stroke-width="24" stroke-dasharray="16,8"/>
+    
+    <circle cx="250" cy="235" r="110" fill="none" stroke="#FFFFFF" stroke-width="22"/>
+    <circle cx="250" cy="235" r="110" fill="none" stroke="#0284C7" stroke-width="4" stroke-dasharray="12,6"/>
+
+    <circle cx="250" cy="235" r="80" fill="none" stroke="#FFFFFF" stroke-width="20"/>
+    <circle cx="250" cy="235" r="80" fill="none" stroke="#CBD5E1" stroke-width="20" stroke-dasharray="14,6"/>
+
+    <!-- Central Fittings Arrangement -->
+    <!-- Quick Connect Elbow Fitting 1 -->
+    <path d="M 230 195 L 230 230 L 265 230" fill="none" stroke="#0284C7" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="230" cy="195" r="9" fill="#0369A1"/>
+    <circle cx="265" cy="230" r="9" fill="#0369A1"/>
+
+    <!-- Quick Connect Tee Fitting 2 -->
+    <path d="M 220 270 L 280 270 M 250 270 L 250 295" fill="none" stroke="#0284C7" stroke-width="12" stroke-linecap="round"/>
+    
+    <!-- Teflon Tape Spool -->
+    <circle cx="130" cy="360" r="30" fill="#0284C7"/>
+    <circle cx="130" cy="360" r="18" fill="#FFFFFF"/>
+    <circle cx="130" cy="360" r="10" fill="#E2E8F0"/>
+    <text x="130" y="405" font-size="8" font-weight="800" fill="#0369A1" text-anchor="middle">TEFLON TAPE</text>
+
+    <!-- Brass Diverter Valve -->
+    <rect x="330" y="340" width="45" height="30" rx="6" fill="#F59E0B" stroke="#B45309" stroke-width="2"/>
+    <rect x="345" y="325" width="15" height="18" rx="3" fill="#0284C7"/>
+    <text x="352" y="405" font-size="8" font-weight="800" fill="#B45309" text-anchor="middle">DIVERTER VALVE</text>
+  </g>
+
+  <!-- Title Badge -->
+  <rect x="120" y="435" width="260" height="32" rx="8" fill="#0284C7"/>
+  <text x="250" y="456" font-family="'Sora', sans-serif" font-size="12" font-weight="800" fill="#FFFFFF" text-anchor="middle">10M PIPE + QUICK-CONNECT KIT</text>
+</svg>

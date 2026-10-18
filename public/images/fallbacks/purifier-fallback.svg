@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <rect width="500" height="500" fill="#F8FAFC" rx="24"/>
+  <circle cx="250" cy="250" r="180" fill="#E0F2FE" opacity="0.4"/>
+  <rect x="135" y="80" width="230" height="340" rx="24" fill="#FFFFFF" stroke="#BAE6FD" stroke-width="3"/>
+  <rect x="150" y="95" width="200" height="60" rx="12" fill="#0284C7"/>
+  <text x="250" y="130" font-family="'Sora', sans-serif" font-size="13" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">AJIT AQUA APPLIANCES</text>
+  <circle cx="250" cy="250" r="45" fill="#E0F2FE"/>
+  <path d="M 250 220 Q 268 250 250 275 Q 232 250 250 220 Z" fill="#0284C7"/>
+  <text x="250" y="340" font-family="'Sora', sans-serif" font-size="14" font-weight="800" fill="#0F172A" text-anchor="middle">RO WATER PURIFIER</text>
+  <text x="250" y="360" font-size="10" font-weight="600" fill="#64748B" text-anchor="middle">Prayagraj Showroom Model</text>
+</svg>

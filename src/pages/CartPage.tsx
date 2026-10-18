@@ -87,11 +87,18 @@ export const CartPage: React.FC = () => {
           {items.map((item) => (
             <div key={item.id} className="p-4 sm:p-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
               <div className="flex items-center gap-4 min-w-0">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-20 h-20 object-cover rounded-xl border border-slate-200 bg-slate-50 shrink-0"
-                />
+                <div className="w-20 h-20 rounded-xl border border-slate-200 bg-slate-50 shrink-0 p-2 flex items-center justify-center overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = item.type === 'product'
+                        ? '/images/fallbacks/purifier-fallback.svg'
+                        : '/images/parts/part-fallback.svg';
+                    }}
+                  />
+                </div>
                 <div className="space-y-1 min-w-0">
                   <span className="text-[11px] font-bold text-sky-700 uppercase tracking-wider block">
                     {item.type === 'product' ? 'Water Purifier' : 'Spare Part'}

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="smpsBody" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <filter id="smpsShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <rect width="500" height="500" fill="#F8FAFC" rx="24"/>
+  <circle cx="250" cy="250" r="180" fill="#E2E8F0" opacity="0.4"/>
+
+  <g filter="url(#smpsShadow)">
+    <!-- AC Input Cable (Left) -->
+    <path d="M 60 250 L 130 250" stroke="#1E293B" stroke-width="10" stroke-linecap="round"/>
+    <rect x="40" y="235" width="25" height="30" rx="4" fill="#0F172A"/>
+    <rect x="25" y="240" width="15" height="6" fill="#94A3B8"/>
+    <rect x="25" y="254" width="15" height="6" fill="#94A3B8"/>
+
+    <!-- DC Output Cable (Right) -->
+    <path d="M 370 250 L 440 250" stroke="#1E293B" stroke-width="8" stroke-linecap="round"/>
+    <rect x="435" y="242" width="25" height="16" rx="4" fill="#0F172A"/>
+
+    <!-- Main SMPS Housing Unit -->
+    <rect x="130" y="140" width="240" height="220" rx="18" fill="url(#smpsBody)" stroke="#475569" stroke-width="2"/>
+
+    <!-- Heat Dissipation Louver Slots -->
+    <g stroke="#0F172A" stroke-width="3" stroke-linecap="round">
+      <line x1="150" y1="165" x2="350" y2="165"/>
+      <line x1="150" y1="175" x2="350" y2="175"/>
+      <line x1="150" y1="185" x2="350" y2="185"/>
+
+      <line x1="150" y1="315" x2="350" y2="315"/>
+      <line x1="150" y1="325" x2="350" y2="325"/>
+      <line x1="150" y1="335" x2="350" y2="335"/>
+    </g>
+
+    <!-- Power Status LED Indicator -->
+    <circle cx="160" cy="215" r="5" fill="#10B981"/>
+    <text x="172" y="218" font-size="9" font-weight="700" fill="#10B981">POWER ON</text>
+
+    <!-- Technical Rating Label Plate -->
+    <rect x="150" y="235" width="200" height="65" rx="6" fill="#FFFFFF" opacity="0.95"/>
+    <text x="250" y="255" font-family="'Sora', sans-serif" font-size="12" font-weight="900" fill="#0F172A" text-anchor="middle">RO SMPS POWER ADAPTER</text>
+    <text x="250" y="272" font-size="10" font-weight="800" fill="#0284C7" text-anchor="middle">OUTPUT: 24V DC === 2.5A</text>
+    <text x="250" y="287" font-size="8" fill="#64748B" text-anchor="middle">Input: 140V-280V AC 50Hz | Over-Voltage Protected</text>
+  </g>
+</svg>
