@@ -55,3 +55,13 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
 ::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
 }
+
+/* Hide scrollbar for clean touch-friendly horizontal scrollers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+

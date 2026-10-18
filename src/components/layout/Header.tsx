@@ -12,6 +12,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { BrandLogo } from '../common/BrandLogo';
+import { CategoryNavBar } from './CategoryNavBar';
 import { businessConfig } from '../../config/business';
 import { useCart } from '../../context/CartContext';
 import { buildWhatsAppUrl, whatsappMessages } from '../../utils/whatsapp';
@@ -35,7 +36,7 @@ export const Header: React.FC = () => {
     { name: 'Water Purifiers', path: '/products' },
     { name: 'Spare Parts', path: '/parts' },
     { name: 'Services', path: '/services' },
-    { name: 'AMC Plans', path: '/amc' },
+    { name: 'EMC Plants', path: '/amc' },
     { name: 'About Us', path: '/about' },
     { name: 'Contact', path: '/contact' },
   ];
@@ -75,9 +76,11 @@ export const Header: React.FC = () => {
 
       {/* Main Sticky Header */}
       <header className={`sticky top-0 z-40 bg-white/95 backdrop-blur-md transition-all duration-200 ${
-        scrolled ? 'shadow-md shadow-sky-900/5 py-2.5' : 'border-b border-slate-100 py-3.5'
+        scrolled ? 'shadow-md shadow-sky-900/5' : ''
       }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+        <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4 transition-all duration-200 ${
+          scrolled ? 'py-2.5' : 'py-3.5'
+        }`}>
           {/* Brand Logo */}
           <BrandLogo />
 
@@ -145,6 +148,9 @@ export const Header: React.FC = () => {
             </button>
           </div>
         </div>
+
+        {/* Blinkit-Style Horizontal Category Navigation Bar */}
+        <CategoryNavBar />
       </header>
 
       {/* Mobile Drawer Menu */}
