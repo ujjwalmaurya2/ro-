@@ -45,7 +45,7 @@ export const ProductDetailPage: React.FC = () => {
   }
 
   const whatsappUrl = buildWhatsAppUrl(
-    whatsappMessages.product(product.name, product.brand)
+    whatsappMessages.product(product.name, product.price)
   );
 
   const handleBuyNow = () => {
@@ -97,11 +97,13 @@ export const ProductDetailPage: React.FC = () => {
                 </span>
               </div>
             )}
-            <div className="absolute top-2.5 right-2.5">
-              <span className="px-2 py-0.5 bg-emerald-50 text-emerald-800 font-semibold text-[10px] rounded border border-emerald-200">
-                {product.availability}
-              </span>
-            </div>
+            {product.availability && (
+              <div className="absolute top-2.5 right-2.5">
+                <span className="px-2 py-0.5 bg-emerald-50 text-emerald-800 font-semibold text-[10px] rounded border border-emerald-200">
+                  {product.availability}
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Thumbnail row */}
@@ -133,9 +135,15 @@ export const ProductDetailPage: React.FC = () => {
         <div className="lg:col-span-6 space-y-4">
           <div className="space-y-1.5">
             <div className="flex items-center gap-1.5 text-[11px] font-bold text-sky-700 uppercase tracking-wider">
-              <span>{product.brand}</span>
-              <span>•</span>
-              <span>{product.technology}</span>
+              {product.brand && product.technology ? (
+                <>
+                  <span>{product.brand}</span>
+                  <span>•</span>
+                  <span>{product.technology}</span>
+                </>
+              ) : (
+                <span>{product.isFeatured ? 'Featured • New Machine' : 'New Machine'}</span>
+              )}
             </div>
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-900 font-['Sora'] tracking-tight">
               {product.name}
@@ -151,19 +159,21 @@ export const ProductDetailPage: React.FC = () => {
               <span className="text-2xl sm:text-3xl font-black text-slate-900 font-['Sora']">
                 {formatINR(product.price)}
               </span>
-              {product.originalPrice > product.price && (
-                <span className="text-xs sm:text-sm text-slate-400 line-through">
-                  {formatINR(product.originalPrice)}
-                </span>
-              )}
-              {product.originalPrice > product.price && (
-                <span className="text-[10px] sm:text-xs font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">
-                  Save {formatINR(product.originalPrice - product.price)}
-                </span>
+              {product.originalPrice && product.originalPrice > product.price && (
+                <>
+                  <span className="text-xs sm:text-sm text-slate-400 line-through">
+                    {formatINR(product.originalPrice)}
+                  </span>
+                  <span className="text-[10px] sm:text-xs font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">
+                    Save {formatINR(product.originalPrice - product.price)}
+                  </span>
+                </>
               )}
             </div>
             <p className="text-[10px] text-slate-500 italic">
-              *Sample demo pricing for Prayagraj showroom display.
+              {product.isDemo
+                ? '*Sample demo pricing for Prayagraj showroom display.'
+                : '*Installation and delivery charges, if any, are confirmed on enquiry.'}
             </p>
           </div>
 
@@ -204,7 +214,7 @@ export const ProductDetailPage: React.FC = () => {
               className="flex items-center justify-center gap-2 w-full h-10 px-4 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm shadow-emerald-600/20 transition-all active:scale-95"
             >
               <MessageCircle className="w-4 h-4" />
-              <span>Enquire on WhatsApp (Price & Availability)</span>
+              <span>Enquire on WhatsApp</span>
             </a>
           </div>
 
@@ -220,11 +230,12 @@ export const ProductDetailPage: React.FC = () => {
             </div>
             <div className="p-2 bg-slate-50 rounded-lg">
               <Shield className="w-3.5 h-3.5 text-sky-600 mx-auto mb-0.5" />
-              <span>{product.warranty}</span>
+              <span>{product.warranty ?? 'Warranty on enquiry'}</span>
             </div>
           </div>
 
           {/* Key Bullet Highlights */}
+          {product.features.length > 0 && (
           <div className="space-y-2 pt-2">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700">
               Key Features:
@@ -238,11 +249,13 @@ export const ProductDetailPage: React.FC = () => {
               ))}
             </div>
           </div>
+          )}
         </div>
 
       </div>
 
       {/* Specifications Table */}
+      {product.specifications ? (
       <div className="bg-white rounded-2xl border border-slate-200/90 p-4 sm:p-6 space-y-4">
         <div>
           <h2 className="text-lg font-bold text-slate-900 font-['Sora']">
@@ -293,6 +306,12 @@ export const ProductDetailPage: React.FC = () => {
           <span>Demo showroom figures for reference. Specifications matched against manufacturer batch.</span>
         </div>
       </div>
+      ) : (
+        <div className="p-3 sm:p-4 bg-sky-50/70 border border-sky-100 rounded-2xl text-xs sm:text-sm text-slate-700 flex items-start gap-2">
+          <Info className="w-4 h-4 text-sky-600 shrink-0 mt-0.5" />
+          <span>Specifications for {product.name} will be published once confirmed. Contact us on WhatsApp for current details.</span>
+        </div>
+      )}
 
       {/* Related Products: 2-Column Mobile Grid */}
       {relatedProducts.length > 0 && (

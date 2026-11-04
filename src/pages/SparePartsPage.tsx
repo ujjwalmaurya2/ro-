@@ -33,7 +33,7 @@ export const SparePartsPage: React.FC = () => {
       const matchesSearch =
         part.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         part.shortDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        part.compatibility.toLowerCase().includes(searchQuery.toLowerCase());
+        (part.compatibility ?? '').toLowerCase().includes(searchQuery.toLowerCase());
 
       return matchesCategory && matchesSearch;
     });

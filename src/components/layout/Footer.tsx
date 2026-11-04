@@ -125,7 +125,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <Link to="/amc" className="hover:text-sky-400 transition-colors">
-                  Annual Maintenance (AMC)
+                  AMC Plan
                 </Link>
               </li>
               <li>

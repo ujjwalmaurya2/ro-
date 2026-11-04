@@ -12,7 +12,7 @@ const routeTitles: Record<string, string> = {
   '/parts': `RO Spare Parts & Replacement Filters | ${businessConfig.name}`,
   '/services': `Doorstep RO Repair & Service in Prayagraj | ${businessConfig.name}`,
   '/book-service': `Book RO Service in Prayagraj | ${businessConfig.name}`,
-  '/amc': `Annual Maintenance Contracts (AMC) | ${businessConfig.name}`,
+  '/amc': `AMC Plan | ${businessConfig.name}`,
   '/about': `About ${businessConfig.name} | Prayagraj Water Purification`,
   '/contact': `Contact & Store Location | ${businessConfig.name}`,
   '/cart': `Enquiry Cart | ${businessConfig.name}`,

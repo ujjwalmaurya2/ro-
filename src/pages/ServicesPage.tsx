@@ -16,7 +16,8 @@ import {
   ChevronDown,
   ChevronUp
 } from 'lucide-react';
-import { servicesData } from '../data/services';
+import { SERVICE_VISIT_CHARGE, servicesData } from '../data/services';
+import { formatINR } from '../utils/formatters';
 import { buildWhatsAppUrl, whatsappMessages } from '../utils/whatsapp';
 
 export const ServicesPage: React.FC = () => {
@@ -60,7 +61,7 @@ export const ServicesPage: React.FC = () => {
           {/* Demo Notice */}
           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-sky-50 border border-sky-200 text-[11px] text-sky-800 self-start sm:self-auto shrink-0">
             <Info className="w-3.5 h-3.5 text-sky-600 shrink-0" />
-            <span>Sample estimate • Final cost confirmed on-site</span>
+            <span>Service &amp; Visit Charge — {formatINR(SERVICE_VISIT_CHARGE)} • Parts &amp; repairs quoted separately</span>
           </div>
         </div>
       </div>
@@ -69,7 +70,9 @@ export const ServicesPage: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
         {servicesData.map((service) => {
           const serviceWhatsAppUrl = buildWhatsAppUrl(
-            whatsappMessages.service({ serviceType: service.name })
+            service.id === 'amc-service'
+              ? whatsappMessages.amc()
+              : whatsappMessages.service({ serviceType: service.name })
           );
           const isExpanded = !!expandedServices[service.id];
 

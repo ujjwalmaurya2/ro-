@@ -39,7 +39,7 @@ const CATEGORIES: CategoryItem[] = [
     name: 'EMC Plants',
     path: '/amc',
     icon: Factory,
-    description: 'Annual maintenance contracts & plants',
+    description: 'AMC Plan & commercial plants',
   },
   {
     name: 'About Us',

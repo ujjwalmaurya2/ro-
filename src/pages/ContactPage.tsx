@@ -278,7 +278,7 @@ export const ContactPage: React.FC = () => {
                     <option value="RO Purifier Purchase">RO Purifier Purchase (Domestic / Commercial)</option>
                     <option value="RO Repair & Service">RO Repair & Breakdown Service</option>
                     <option value="Spare Parts Availability">Spare Parts & Filters Availability</option>
-                    <option value="Annual Maintenance Contract (AMC)">Annual Maintenance Contract (AMC)</option>
+                    <option value="AMC Plan">AMC Plan</option>
                     <option value="General Water Advice">General Water Advice & TDS Testing</option>
                   </select>
                 </div>

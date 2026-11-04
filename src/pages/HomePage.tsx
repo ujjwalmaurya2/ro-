@@ -19,7 +19,9 @@ import {
 } from 'lucide-react';
 import { businessConfig } from '../config/business';
 import { productsData } from '../data/products';
-import { servicesData } from '../data/services';
+import { SERVICE_VISIT_CHARGE, servicesData } from '../data/services';
+import { amcPlan } from '../data/amcPlans';
+import { formatINR } from '../utils/formatters';
 import { faqsData } from '../data/faqs';
 import { reviewsData } from '../data/reviews';
 import { brandsData, brandsDisclaimer } from '../data/brands';
@@ -186,7 +188,7 @@ export const HomePage: React.FC = () => {
               { name: "Installation", desc: "Wall mount & setup", link: "/book-service", icon: PlusCircle },
               { name: "Spare Parts", desc: "Filters & membranes", link: "/parts", icon: Cpu },
               { name: "Relocation", desc: "Safe shifting service", link: "/services", icon: ArrowRightLeft },
-              { name: "AMC Support", desc: "Annual maintenance", link: "/amc", icon: CalendarCheck },
+              { name: "AMC Support", desc: "AMC Plan", link: "/amc", icon: CalendarCheck },
             ].map((item, idx) => {
               const Icon = item.icon;
               return (
@@ -299,13 +301,10 @@ export const HomePage: React.FC = () => {
                 : service.id === 'filter-replacement' ? Layers 
                 : ShieldCheck;
 
-              const priceEstimate = service.id === 'ro-repair' 
-                ? { amount: '₹199', type: 'Inspection' }
-                : service.id === 'routine-servicing'
-                ? { amount: '₹249', type: 'Service' }
-                : service.id === 'filter-replacement'
-                ? { amount: '₹499', type: 'Parts + Service' }
-                : { amount: '₹1,450', type: 'Membrane' };
+              const priceEstimate = {
+                amount: formatINR(SERVICE_VISIT_CHARGE),
+                type: service.id === 'routine-servicing' ? 'Service & Visit Charge' : 'Visit charge • parts extra',
+              };
 
               return (
                 <div
@@ -336,7 +335,6 @@ export const HomePage: React.FC = () => {
                   <div className="pt-2 mt-1 border-t border-slate-100 flex items-center justify-between gap-1">
                     <div className="min-w-0">
                       <div className="flex items-baseline gap-0.5">
-                        <span className="text-[9px] sm:text-[10px] text-slate-500 font-medium">Starts</span>
                         <span className="text-xs sm:text-sm font-black text-slate-900 font-['Sora']">
                           {priceEstimate.amount}
                         </span>
@@ -466,10 +464,10 @@ export const HomePage: React.FC = () => {
               icon: Layers
             },
             {
-              title: "Annual Maintenance",
-              desc: "Year-round maintenance plans with scheduled check-ups.",
+              title: "AMC Plan",
+              desc: "Ask us about the AMC Plan for your purifier.",
               link: "/amc",
-              action: "AMC Plans",
+              action: "AMC Plan",
               icon: CalendarCheck
             }
           ].map((item, idx) => {
@@ -508,13 +506,13 @@ export const HomePage: React.FC = () => {
         <div className="bg-gradient-to-br from-sky-900 via-sky-800 to-slate-900 rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden shadow-xl">
           <div className="relative z-10 max-w-2xl space-y-4">
             <span className="px-3 py-1 bg-sky-500/20 border border-sky-400/30 rounded-full text-xs font-bold uppercase tracking-wider text-sky-300 inline-block">
-              Annual Maintenance Contracts
+              AMC
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-['Sora'] text-white">
-              Worry-Free Pure Water With RO AMC Plans
+              {amcPlan.name} — {formatINR(amcPlan.price)}
             </h2>
             <p className="text-sm sm:text-base text-sky-100/90 leading-relaxed">
-              Never miss a filter replacement again. Choose from Basic, Standard, and Comprehensive maintenance plans tailored for Prayagraj homes and offices.
+              Keep your water purifier maintained with an AMC Plan for Prayagraj homes and offices.
             </p>
 
             <div className="flex flex-wrap gap-4 pt-3">
@@ -522,12 +520,12 @@ export const HomePage: React.FC = () => {
                 to="/amc"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sky-950 bg-white hover:bg-sky-50 shadow-md transition-all text-sm"
               >
-                <span>Compare AMC Plans</span>
+                <span>View AMC Plan</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
 
               <a
-                href={buildWhatsAppUrl(whatsappMessages.amc('Annual Maintenance'))}
+                href={buildWhatsAppUrl(whatsappMessages.amc())}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-white bg-emerald-600 hover:bg-emerald-700 transition-colors text-sm"
@@ -538,7 +536,7 @@ export const HomePage: React.FC = () => {
             </div>
 
             <p className="text-[11px] text-sky-300/80 pt-2 italic">
-              *Demo plan pricing starting from ₹1,499/year. Final coverage confirmed upon machine inspection.
+              {amcPlan.note}
             </p>
           </div>
 

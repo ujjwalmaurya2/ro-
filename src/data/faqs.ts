@@ -5,6 +5,9 @@
  * servicing, and maintenance requirements.
  */
 
+import { amcPlan } from "./amcPlans";
+import { formatINR } from "../utils/formatters";
+
 export interface FAQItem {
   id: string;
   question: string;
@@ -63,8 +66,8 @@ export const faqsData: FAQItem[] = [
   },
   {
     id: "faq-amc-included",
-    question: "What does an Annual Maintenance Contract (AMC) include?",
-    answer: "An AMC provides scheduled periodic preventive maintenance visits, routine sanitization, TDS checks, priority service response, and depending on whether you choose a Basic, Standard, or Comprehensive plan, consumable filter replacements or component coverage.",
+    question: "What does the AMC Plan include?",
+    answer: `Our ${amcPlan.name} is priced at ${formatINR(amcPlan.price)}. Please contact us to confirm exactly what the plan covers for your purifier before you sign up.`,
     category: "amc"
   },
   {

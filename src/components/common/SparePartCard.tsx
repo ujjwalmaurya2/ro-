@@ -13,7 +13,7 @@ export const SparePartCard: React.FC<SparePartCardProps> = ({ part }) => {
   const { addItem } = useCart();
 
   const whatsappUrl = buildWhatsAppUrl(
-    whatsappMessages.sparePart(part.name)
+    whatsappMessages.sparePart(part.name, part.price)
   );
 
   return (
@@ -54,8 +54,6 @@ export const SparePartCard: React.FC<SparePartCardProps> = ({ part }) => {
             <Cpu className="w-2.5 h-2.5 shrink-0" />
             <span>{part.categoryLabel}</span>
           </span>
-          <span className="truncate text-slate-400">•</span>
-          <span className="truncate text-slate-500">Universal Fit</span>
         </div>
 
         {/* Part Title (Strictly 2 lines clamped) */}
@@ -67,11 +65,13 @@ export const SparePartCard: React.FC<SparePartCardProps> = ({ part }) => {
         </h3>
 
         {/* Compact Compatibility Line */}
-        <p 
-          className="text-[10px] text-slate-500 line-clamp-1 truncate mt-1" 
-          title={`Compatible with: ${part.compatibility}`}
+        <p
+          className="text-[10px] text-slate-500 line-clamp-1 truncate mt-1"
+          title={part.compatibility ? `Compatible with: ${part.compatibility}` : part.shortDescription}
         >
-          <span className="font-semibold text-slate-700">Fits:</span> {part.compatibility}
+          {part.compatibility ? (
+            <><span className="font-semibold text-slate-700">Fits:</span> {part.compatibility}</>
+          ) : 'Confirm fit for your model on WhatsApp'}
         </p>
       </div>
 
@@ -83,15 +83,17 @@ export const SparePartCard: React.FC<SparePartCardProps> = ({ part }) => {
             <span className="text-xs sm:text-sm font-black text-slate-900 font-['Sora']">
               {formatINR(part.price)}
             </span>
-            {part.originalPrice > part.price && (
+            {part.originalPrice !== undefined && part.originalPrice > part.price && (
               <span className="text-[10px] text-slate-400 line-through">
                 {formatINR(part.originalPrice)}
               </span>
             )}
           </div>
-          <span className="text-[9px] font-semibold text-sky-700 bg-sky-50 px-1 py-0.5 rounded">
-            In Stock
-          </span>
+          {part.inStock && (
+            <span className="text-[9px] font-semibold text-sky-700 bg-sky-50 px-1 py-0.5 rounded">
+              In Stock
+            </span>
+          )}
         </div>
 
         {/* Action Controls (Accessible touch target: min 38px height) */}

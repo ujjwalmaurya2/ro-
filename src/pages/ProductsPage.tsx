@@ -27,12 +27,12 @@ export const ProductsPage: React.FC = () => {
           selectedCategory === 'all' || product.category === selectedCategory;
 
         const matchesTech =
-          selectedTech === 'all' || product.technology.includes(selectedTech);
+          selectedTech === 'all' || !!product.technology?.includes(selectedTech);
 
         const matchesSearch =
           product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
           product.shortDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          product.brand.toLowerCase().includes(searchQuery.toLowerCase());
+          (product.brand ?? '').toLowerCase().includes(searchQuery.toLowerCase());
 
         return matchesCategory && matchesTech && matchesSearch;
       })

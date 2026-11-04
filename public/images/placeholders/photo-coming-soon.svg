@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <rect width="500" height="500" fill="#F8FAFC" rx="24"/>
+  <rect x="40" y="40" width="420" height="420" rx="20" fill="none" stroke="#BAE6FD" stroke-width="3" stroke-dasharray="12 10"/>
+  <circle cx="250" cy="210" r="62" fill="#E0F2FE"/>
+  <path d="M 250 165 Q 282 210 250 248 Q 218 210 250 165 Z" fill="#0284C7"/>
+  <text x="250" y="330" font-family="'Sora', sans-serif" font-size="20" font-weight="800" fill="#0F172A" text-anchor="middle">Photo coming soon</text>
+  <text x="250" y="358" font-family="'Inter', sans-serif" font-size="13" font-weight="600" fill="#64748B" text-anchor="middle">Placeholder image, not the actual product</text>
+</svg>

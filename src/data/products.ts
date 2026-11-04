@@ -20,25 +20,39 @@ export interface ProductSpecification {
 export interface Product {
   id: string;
   name: string;
-  brand: string;
-  category: 'domestic' | 'alkaline' | 'commercial';
-  technology: 'RO' | 'RO + UV' | 'RO + UV + UF' | 'RO + UV + UF + Alkaline' | 'Commercial RO';
+  brand?: string;
+  category?: 'domestic' | 'alkaline' | 'commercial';
+  technology?: 'RO' | 'RO + UV' | 'RO + UV + UF' | 'RO + UV + UF + Alkaline' | 'Commercial RO';
   price: number;
-  originalPrice: number;
+  originalPrice?: number;
   image: string;
   gallery: string[];
   shortDescription: string;
   description: string;
   features: string[];
-  specifications: ProductSpecification;
-  warranty: string;
-  availability: 'Enquire for Stock' | 'Available on Order';
+  specifications?: ProductSpecification;
+  warranty?: string;
+  availability?: 'Enquire for Stock' | 'Available on Order';
   isDemo: boolean;
-  bestFor: string;
+  isFeatured?: boolean;
+  bestFor?: string;
   ratingDemo?: number;
 }
 
 export const productsData: Product[] = [
+  {
+    // Client-confirmed price. Specs, warranty, availability and photo still to be supplied by the business.
+    id: "aqua-grand",
+    name: "AQUA Grand",
+    price: 6500,
+    image: "/images/placeholders/photo-coming-soon.svg",
+    gallery: ["/images/placeholders/photo-coming-soon.svg"],
+    shortDescription: "New machine. Contact us for specifications, availability, and installation details.",
+    description: "Message us on WhatsApp or call to confirm specifications, availability, and installation for the AQUA Grand.",
+    features: [],
+    isDemo: false,
+    isFeatured: true
+  },
   {
     id: "aqua-prime-ro-uv-uf",
     name: "Aqua Prime Copper + Alkaline RO",
@@ -114,43 +128,6 @@ export const productsData: Product[] = [
     isDemo: true,
     bestFor: "Small to medium families using municipal or mixed water",
     ratingDemo: 4.7
-  },
-  {
-    id: "aqua-grand-plus-mineral",
-    name: "Aqua Grand Plus RO + Mineral Booster",
-    brand: "Grand Series",
-    category: "domestic",
-    technology: "RO + UV + UF",
-    price: 8999,
-    originalPrice: 12999,
-    image: "/images/products/aqua-grand-plus.svg",
-    gallery: [
-      "/images/products/aqua-grand-plus.svg"
-    ],
-    shortDescription: "Budget-friendly, high-capacity RO purifier equipped with natural taste enricher and durable internal components.",
-    description: "A proven, cost-effective workhorse purifier popular across Uttar Pradesh. Engineered with easily serviceable standard-size filter cartridges and high-longevity booster pump.",
-    features: [
-      "High recovery rate RO membrane technology",
-      "10 Litre large internal storage tank",
-      "Mineral booster cartridge retains essential calcium and magnesium",
-      "Heavy-duty solenoid valve prevents dry run",
-      "Transparent blue cabinet for quick water level monitoring"
-    ],
-    specifications: {
-      purificationTechnology: "RO + UV + UF + Mineral Cartridge",
-      purificationStages: 6,
-      storageCapacity: "10 Litres",
-      purificationSpeed: "Up to 15 L/hr",
-      suitableWaterTDS: "Up to 1800 ppm",
-      bodyMaterial: "ABS Virgin Plastic",
-      mountingType: "Wall Mount",
-      powerConsumption: "48 Watts"
-    },
-    warranty: "1 Year Standard Warranty (Demo Specification)",
-    availability: "Enquire for Stock",
-    isDemo: true,
-    bestFor: "Families seeking an economical, easy-to-service RO purifier",
-    ratingDemo: 4.6
   },
   {
     id: "aqua-alkaline-supreme-zen",

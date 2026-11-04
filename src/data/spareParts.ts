@@ -15,37 +15,70 @@ export interface SparePart {
     | 'pumps'
     | 'electrical'
     | 'valves'
-    | 'fittings-tanks';
+    | 'fittings-tanks'
+    | 'other';
   categoryLabel: string;
   price: number;
-  originalPrice: number;
+  originalPrice?: number;
   image: string;
   shortDescription: string;
-  compatibility: string;
-  specifications: Record<string, string>;
+  compatibility?: string;
+  specifications?: Record<string, string>;
   isDemo: boolean;
-  inStock: boolean;
+  inStock?: boolean;
 }
 
 export const sparePartsData: SparePart[] = [
+  // Client-confirmed prices. Names kept exactly as supplied; specs/compatibility/photos pending from the business.
   {
-    id: "ro-membrane-80gpd-high-tds",
-    name: "80 GPD High-TDS RO Membrane",
+    id: "sediment-filter",
+    name: "Sediment Filter",
+    category: "filters",
+    categoryLabel: "Sediment Filter",
+    price: 499,
+    image: "/images/placeholders/photo-coming-soon.svg",
+    shortDescription: "Contact us to confirm the right part for your purifier model.",
+    isDemo: false
+  },
+  {
+    id: "carbon-filter",
+    name: "Carbon Filter",
+    category: "filters",
+    categoryLabel: "Carbon Filter",
+    price: 499,
+    image: "/images/placeholders/photo-coming-soon.svg",
+    shortDescription: "Contact us to confirm the right part for your purifier model.",
+    isDemo: false
+  },
+  {
+    id: "pri-filter",
+    name: "Pri Filter",
+    category: "filters",
+    categoryLabel: "Filter",
+    price: 299,
+    image: "/images/placeholders/photo-coming-soon.svg",
+    shortDescription: "Contact us to confirm the right part for your purifier model.",
+    isDemo: false
+  },
+  {
+    id: "membrane",
+    name: "Membrane",
     category: "membrane",
     categoryLabel: "RO Membrane",
-    price: 1450,
-    originalPrice: 1950,
-    image: "/images/parts/ro-membrane-80gpd.svg",
-    shortDescription: "High-salt rejection thin-film composite (TFC) membrane element suitable for high TDS water supplies up to 2500 ppm.",
-    compatibility: "Fits all standard 1812 domestic RO housings (Kent, Aquaguard, Pureit, Aqua Grand, Livpure, etc.)",
-    specifications: {
-      "Flow Capacity": "80 Gallons / Day (~12-15 L/hr)",
-      "Salt Rejection Rate": "Up to 96%",
-      "Max Operating TDS": "2500 ppm",
-      "Material": "Polyamide Thin-Film Composite"
-    },
-    isDemo: true,
-    inStock: true
+    price: 1499,
+    image: "/images/placeholders/photo-coming-soon.svg",
+    shortDescription: "Contact us to confirm the right part for your purifier model.",
+    isDemo: false
+  },
+  {
+    id: "sv",
+    name: "SV",
+    category: "other",
+    categoryLabel: "Spare Part",
+    price: 499,
+    image: "/images/placeholders/photo-coming-soon.svg",
+    shortDescription: "Contact us to confirm the right part for your purifier model.",
+    isDemo: false
   },
   {
     id: "ro-booster-pump-100gpd-copper",
@@ -81,63 +114,6 @@ export const sparePartsData: SparePart[] = [
       "Output Voltage": "24V DC, 2.5 Amps",
       "Protection": "Over-voltage, Thermal cut-off",
       "Cooling": "Ventilated plastic enclosure"
-    },
-    isDemo: true,
-    inStock: true
-  },
-  {
-    id: "spun-sediment-pre-filter-set",
-    name: "Spun Polypropylene 5-Micron Pre-Filter Set (Pack of 3)",
-    category: "filters",
-    categoryLabel: "Sediment Filter",
-    price: 380,
-    originalPrice: 550,
-    image: "/images/parts/spun-sediment-filters.svg",
-    shortDescription: "High-density 10-inch spun candle filters that capture sand, mud, silt, and suspended particles to protect internal RO filters.",
-    compatibility: "Standard 10-inch outer bowl pre-filter housings used in domestic water purifiers",
-    specifications: {
-      "Filter Micron Rating": "5 Micron",
-      "Length": "10 Inch standard",
-      "Material": "100% Food Grade Polypropylene",
-      "Recommended Lifespan": "3 to 4 Months (depends on water quality)"
-    },
-    isDemo: true,
-    inStock: true
-  },
-  {
-    id: "activated-carbon-block-inline",
-    name: "Premium Coconut Shell Activated Carbon Inline Filter",
-    category: "filters",
-    categoryLabel: "Carbon Filter",
-    price: 450,
-    originalPrice: 650,
-    image: "/images/parts/carbon-inline-filter.svg",
-    shortDescription: "Adsorbs chlorine, organic chemicals, unpleasant odours, and bad taste before water reaches the sensitive RO membrane.",
-    compatibility: "Universal push-fit 1/4 inch connector compatible with all standard domestic RO brands",
-    specifications: {
-      "Media": "Acid-washed Coconut Shell Carbon",
-      "Iodine Value": "1100 IV min",
-      "Port Size": "1/4 Inch Push-Fit",
-      "Flow Rate": "Up to 2 L/min"
-    },
-    isDemo: true,
-    inStock: true
-  },
-  {
-    id: "solenoid-valve-sv-24v",
-    name: "High-Durability 24V Solenoid Valve (SV)",
-    category: "valves",
-    categoryLabel: "Solenoid Valve",
-    price: 320,
-    originalPrice: 480,
-    image: "/images/parts/solenoid-valve-24v.svg",
-    shortDescription: "Electrically controlled shut-off valve that halts incoming water feed when the purifier storage tank is full, preventing overflows.",
-    compatibility: "All domestic RO purifiers operating on 24V DC",
-    specifications: {
-      "Operating Voltage": "24V DC",
-      "Connection Size": "1/4 Inch Quick Connect",
-      "Working Pressure": "0.02 – 0.8 MPa",
-      "Coil Material": "Insulated Copper"
     },
     isDemo: true,
     inStock: true

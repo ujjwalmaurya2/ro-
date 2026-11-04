@@ -117,7 +117,7 @@ export const AboutPage: React.FC = () => {
               Long-Term Customer Care
             </h3>
             <p className="text-xs text-slate-700 leading-relaxed">
-              Clean water requires ongoing attention. We support customers after purchase with routine filter replacements, preventive reminders, and annual maintenance plans.
+              Clean water requires ongoing attention. We support customers after purchase with routine filter replacements, preventive reminders, and an AMC Plan.
             </p>
           </div>
         </div>

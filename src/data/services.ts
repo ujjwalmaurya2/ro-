@@ -1,10 +1,15 @@
 /**
  * RO Services Data Layer — Ajit Aqua Appliances
  * 
- * NOTE: Service pricing indicators below are sample starting estimates
- * for demo demonstration. Actual charges depend on specific brand, parts,
- * and service inspection.
+ * Service & Visit Charge and AMC price are confirmed by the business.
+ * Parts and repairs are quoted separately after inspection.
  */
+
+import { formatINR } from '../utils/formatters';
+import { amcPlan } from './amcPlans';
+
+export const SERVICE_VISIT_CHARGE = 299;
+const visit = formatINR(SERVICE_VISIT_CHARGE);
 
 export interface ServiceItem {
   id: string;
@@ -39,7 +44,7 @@ export const servicesData: ServiceItem[] = [
       "Transparent breakdown estimate before repair",
       "Post-repair purification output verification"
     ],
-    startingEstimate: "Starting from ₹199 (Demo Inspection Charge)",
+    startingEstimate: `${visit} visit + parts extra`,
     isDemoEstimate: true,
     iconName: "Wrench",
     badge: "Popular Service"
@@ -62,7 +67,7 @@ export const servicesData: ServiceItem[] = [
       "Raw water vs purified water TDS comparison test",
       "Flow rate and pump pressure verification"
     ],
-    startingEstimate: "Starting from ₹249 (Demo Service Charge)",
+    startingEstimate: `${visit} Service & Visit Charge`,
     isDemoEstimate: true,
     iconName: "Sparkles",
     badge: "Recommended"
@@ -85,7 +90,7 @@ export const servicesData: ServiceItem[] = [
       "System flushing to clear initial carbon fine dust",
       "Leakage test under working tap pressure"
     ],
-    startingEstimate: "Starting from ₹499 (Parts + Service Demo Estimate)",
+    startingEstimate: `Filter price + ${visit} visit`,
     isDemoEstimate: true,
     iconName: "Layers"
   },
@@ -107,7 +112,7 @@ export const servicesData: ServiceItem[] = [
       "Flow restrictor (FR) inspection and replacement if required",
       "Booster pump operating pressure verification"
     ],
-    startingEstimate: "Starting from ₹1,450 (Membrane + Service Demo Estimate)",
+    startingEstimate: `Membrane price + ${visit} visit`,
     isDemoEstimate: true,
     iconName: "ShieldCheck",
     badge: "Core Purity"
@@ -130,7 +135,7 @@ export const servicesData: ServiceItem[] = [
       "Power adapter setup and initial tank priming",
       "Operational walkthrough and maintenance tips"
     ],
-    startingEstimate: "Starting from ₹349 (Demo Installation Charge)",
+    startingEstimate: "Charges on enquiry",
     isDemoEstimate: true,
     iconName: "PlusCircle"
   },
@@ -150,7 +155,7 @@ export const servicesData: ServiceItem[] = [
       "Pipes labeling and valve isolation",
       "Optional re-installation at your new address"
     ],
-    startingEstimate: "Starting from ₹299 (Demo Charge)",
+    startingEstimate: "Charges on enquiry",
     isDemoEstimate: true,
     iconName: "ArrowRightLeft"
   },
@@ -176,23 +181,18 @@ export const servicesData: ServiceItem[] = [
   },
   {
     id: "amc-service",
-    name: "Annual Maintenance Contract (AMC)",
-    shortDescription: "Year-round preventive maintenance visits and repair support for worry-free pure water.",
-    longDescription: "Structured annual maintenance programs designed to keep your domestic or commercial purifier operating reliably throughout the year with scheduled visits and service support.",
+    name: "AMC Plan",
+    shortDescription: "Maintenance plan for your water purifier. Contact us to confirm what the AMC covers.",
+    longDescription: "Ask our team about the AMC Plan for your domestic or commercial purifier. Coverage, visits, and plan duration are confirmed by Ajit Aqua Appliances before you sign up.",
     commonProblems: [
       "Frequent unexpected RO breakdowns",
-      "Forgetting periodic filter change dates",
-      "Wanting fixed, predictable annual maintenance costs"
+      "Forgetting periodic filter change dates"
     ],
     whatsIncluded: [
-      "Scheduled preventive maintenance visits",
-      "Priority technician assignment for service requests",
-      "Free routine service checkups during contract period",
-      "Discounted or included replacement filters per plan"
+      "Coverage details confirmed by our team on enquiry"
     ],
-    startingEstimate: "Starting from ₹1,499/year (Demo Plan Estimate)",
+    startingEstimate: `${amcPlan.name} — ${formatINR(amcPlan.price)}`,
     isDemoEstimate: true,
-    iconName: "CalendarCheck",
-    badge: "Best Value"
+    iconName: "CalendarCheck"
   }
 ];

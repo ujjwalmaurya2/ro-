@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useToast } from './ToastContext';
+import { productsData } from '../data/products';
+import { sparePartsData } from '../data/spareParts';
 
 export interface CartItem {
   id: string;
@@ -33,8 +35,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const { showToast } = useToast();
   const [items, setItems] = useState<CartItem[]>(() => {
     try {
-      const saved = localStorage.getItem(CART_STORAGE_KEY);
-      return saved ? JSON.parse(saved) : [];
+      const saved: CartItem[] = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || '[]');
+      // Re-price saved carts from the catalogue so stale prices never reach totals; drop discontinued items.
+      return saved.flatMap((item) => {
+        const current = [...productsData, ...sparePartsData].find((p) => p.id === item.id);
+        return current
+          ? [{ ...item, name: current.name, price: current.price, originalPrice: current.originalPrice, image: current.image }]
+          : [];
+      });
     } catch {
       return [];
     }

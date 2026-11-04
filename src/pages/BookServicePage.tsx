@@ -8,7 +8,8 @@ import {
   Info
 } from 'lucide-react';
 import { businessConfig } from '../config/business';
-import { isValidIndianPhone } from '../utils/formatters';
+import { formatINR, isValidIndianPhone } from '../utils/formatters';
+import { SERVICE_VISIT_CHARGE } from '../data/services';
 import { buildWhatsAppUrl } from '../utils/whatsapp';
 
 const getDefaultBookingDate = (): string => {
@@ -47,7 +48,7 @@ export const BookServicePage: React.FC = () => {
     'Water Leakage Fix',
     'Low Water Flow Issue',
     'No Water Output / Dead Machine',
-    'Annual Maintenance Contract (AMC)',
+    'AMC Plan',
     'Other Service Requirement'
   ];
 
@@ -98,6 +99,9 @@ export const BookServicePage: React.FC = () => {
       `• Preferred Date: ${formData.date}\n` +
       `• Preferred Time: ${formData.timeSlot}\n` +
       `• Problem Description: ${formData.problem || 'Standard check-up'}\n\n` +
+      `• Service & Visit Charge: ${formatINR(SERVICE_VISIT_CHARGE)} (parts/repairs extra, if needed)
+
+` +
       `Please review my request and confirm the appointment schedule.`
     );
   };
@@ -381,6 +385,13 @@ export const BookServicePage: React.FC = () => {
                 />
               </div>
             </div>
+          </div>
+
+          <div className="p-3 bg-sky-50/70 border border-sky-100 rounded-xl text-xs text-slate-700 flex items-start gap-2">
+            <Info className="w-4 h-4 text-sky-600 shrink-0 mt-px" />
+            <span>
+              <strong>Service &amp; Visit Charge — {formatINR(SERVICE_VISIT_CHARGE)}.</strong> Spare parts and repair work, if needed, are quoted separately after inspection.
+            </span>
           </div>
 
           {/* Action CTAs */}

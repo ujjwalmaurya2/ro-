@@ -14,12 +14,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { addItem } = useCart();
 
   const whatsappUrl = buildWhatsAppUrl(
-    whatsappMessages.product(product.name, product.brand)
+    whatsappMessages.product(product.name, product.price)
   );
 
-  const discountAmount = product.originalPrice > product.price 
-    ? product.originalPrice - product.price 
+  const discountAmount = product.originalPrice && product.originalPrice > product.price
+    ? product.originalPrice - product.price
     : 0;
+  const badge = product.isFeatured ? 'Featured' : product.technology;
 
   return (
     <div className="group bg-white rounded-xl border border-slate-200/90 hover:border-sky-300 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between overflow-hidden p-2 sm:p-2.5">
@@ -42,12 +43,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
           {/* Top Badges (Non-colliding Flex Row) */}
           <div className="absolute top-1.5 inset-x-1.5 flex items-start justify-between gap-1 pointer-events-none z-10">
-            <span 
-              className="px-1.5 py-0.5 text-[9px] font-bold text-sky-800 bg-white/95 backdrop-blur-xs rounded-md shadow-2xs border border-sky-100 truncate max-w-[70%]"
-              title={product.technology}
-            >
-              {product.technology}
-            </span>
+            {badge ? (
+              <span
+                className="px-1.5 py-0.5 text-[9px] font-bold text-sky-800 bg-white/95 backdrop-blur-xs rounded-md shadow-2xs border border-sky-100 truncate max-w-[70%]"
+                title={badge}
+              >
+                {badge}
+              </span>
+            ) : <span />}
 
             {product.isDemo && (
               <span className="px-1.5 py-0.5 text-[8px] sm:text-[9px] font-medium text-slate-500 bg-white/90 rounded border border-slate-200 shrink-0">
@@ -67,13 +70,22 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </Link>
 
         {/* Product Brand & Single Key Spec */}
-        <div className="flex items-center gap-1.5 text-[10px] text-slate-500 font-medium mb-1">
-          <span className="inline-flex items-center gap-0.5 text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded font-semibold truncate">
-            <Droplets className="w-2.5 h-2.5 shrink-0" />
-            <span>{product.specifications.storageCapacity || `${product.specifications.purificationStages} Stages`}</span>
-          </span>
-          <span className="truncate text-slate-400">•</span>
-          <span className="truncate text-slate-600">{product.brand}</span>
+        <div className="flex items-center gap-1.5 text-[10px] text-slate-500 font-medium mb-1 min-h-[1.25rem]">
+          {product.specifications ? (
+            <>
+              <span className="inline-flex items-center gap-0.5 text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded font-semibold truncate">
+                <Droplets className="w-2.5 h-2.5 shrink-0" />
+                <span>{product.specifications.storageCapacity || `${product.specifications.purificationStages} Stages`}</span>
+              </span>
+              <span className="truncate text-slate-400">•</span>
+              <span className="truncate text-slate-600">{product.brand}</span>
+            </>
+          ) : (
+            <span className="inline-flex items-center gap-0.5 text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded font-semibold truncate">
+              <Droplets className="w-2.5 h-2.5 shrink-0" />
+              <span>New Machine</span>
+            </span>
+          )}
         </div>
 
         {/* Product Title (Strictly 2 lines clamped) */}
@@ -95,7 +107,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <span className="text-xs sm:text-sm font-black text-slate-900 font-['Sora']">
             {formatINR(product.price)}
           </span>
-          {product.originalPrice > product.price && (
+          {discountAmount > 0 && product.originalPrice && (
             <span className="text-[10px] text-slate-400 line-through">
               {formatINR(product.originalPrice)}
             </span>
