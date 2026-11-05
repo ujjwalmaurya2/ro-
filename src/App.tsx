@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { MemoryRouter, Routes, Route, Link } from 'react-router-dom';
 import { ToastProvider } from './context/ToastContext';
 import { CartProvider } from './context/CartContext';
 import { Layout } from './components/layout/Layout';
@@ -33,11 +33,18 @@ const NotFoundPage: React.FC = () => (
   </div>
 );
 
-export function App() {
+export default function App() {
+  useEffect(() => {
+    // Keep browser address bar clean at root path without reloading so refreshes always load home safely
+    if (typeof window !== 'undefined' && window.location.pathname !== '/') {
+      window.history.replaceState(null, '', '/');
+    }
+  }, []);
+
   return (
     <ToastProvider>
       <CartProvider>
-        <BrowserRouter>
+        <MemoryRouter initialEntries={['/']}>
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<HomePage />} />
@@ -55,10 +62,8 @@ export function App() {
               <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
-        </BrowserRouter>
+        </MemoryRouter>
       </CartProvider>
     </ToastProvider>
   );
 }
-
-export default App;
