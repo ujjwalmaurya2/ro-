@@ -7,7 +7,7 @@ interface BrandLogoProps {
 
 export const BrandLogo: React.FC<BrandLogoProps> = ({ className = '' }) => {
   return (
-    <Link to="/" aria-label="Ajit Aqua Appliances, Prayagraj — home" className={`inline-flex items-center gap-2.5 group select-none ${className}`}>
+    <Link to="/" aria-label="Ajeet Aqua Appliances, Prayagraj — home" className={`inline-flex items-center gap-2.5 group select-none ${className}`}>
       {/* Water Droplet Tech Icon */}
       <div className="relative flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-sky-400 to-sky-600 shadow-sm shadow-sky-500/20 group-hover:scale-105 transition-transform duration-200 shrink-0">
         <svg
@@ -36,7 +36,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({ className = '' }) => {
       <div className="flex flex-col text-left">
         <div className="flex items-center gap-1.5 leading-tight">
           <span className="font-extrabold tracking-tight text-slate-900 text-base sm:text-lg font-['Sora']">
-            AJIT <span className="text-sky-600 font-black">AQUA</span>
+            AJEET <span className="text-sky-600 font-black">AQUA</span>
           </span>
         </div>
         <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500">

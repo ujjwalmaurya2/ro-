@@ -66,7 +66,7 @@ export const AboutPage: React.FC = () => {
           <div className="rounded-3xl overflow-hidden shadow-xl border border-slate-200 aspect-4/3 sm:aspect-square bg-slate-100">
             <img
               src="https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=800&q=80"
-              alt="Ajit Aqua Appliances water purification solutions"
+              alt="Ajeet Aqua Appliances water purification solutions"
               className="w-full h-full object-cover"
             />
           </div>
@@ -133,7 +133,7 @@ export const AboutPage: React.FC = () => {
           Business Story & Milestone Details
         </h3>
         <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
-          Ajit Aqua Appliances can incorporate specific founder background, business establishment milestones, and store photographs here when confirmed by the business owner.
+          Ajeet Aqua Appliances can incorporate specific founder background, business establishment milestones, and store photographs here when confirmed by the business owner.
         </p>
       </div>
 

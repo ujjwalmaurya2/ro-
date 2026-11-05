@@ -94,7 +94,7 @@ export const HomePage: React.FC = () => {
           ))}
         </nav>
 
-        <section aria-label="Ajit Aqua Appliances" className="px-4">
+        <section aria-label="Ajeet Aqua Appliances" className="px-4">
           <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-deep via-brand-primary to-brand-aqua text-white px-4 py-3.5 min-h-[150px] flex flex-col justify-between">
             <div aria-hidden className="absolute -right-10 -top-12 w-44 h-44 rounded-full bg-white/10" />
             <div aria-hidden className="absolute right-6 -bottom-16 w-32 h-32 rounded-full bg-white/10" />

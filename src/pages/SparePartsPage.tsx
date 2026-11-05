@@ -123,7 +123,7 @@ export const SparePartsPage: React.FC = () => {
           <Cpu className="w-8 h-8 text-slate-300 mx-auto" />
           <h3 className="text-sm font-bold text-slate-800 font-['Sora']">No spare parts found</h3>
           <p className="text-xs text-slate-600 max-w-xs mx-auto">
-            Check directly with Ajit Aqua Appliances on WhatsApp for compatibility.
+            Check directly with Ajeet Aqua Appliances on WhatsApp for compatibility.
           </p>
           <a
             href={buildWhatsAppUrl(whatsappMessages.general())}

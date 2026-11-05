@@ -1,9 +1,9 @@
 /**
- * Customer Reviews Data Layer — Ajit Aqua Appliances
+ * Customer Reviews Data Layer — Ajeet Aqua Appliances
  * 
  * IMPORTANT: The items below represent UI layout placeholders.
  * They are explicitly marked as demo review slots and will be replaced
- * with verified customer feedback from Ajit Aqua Appliances records,
+ * with verified customer feedback from Ajeet Aqua Appliances records,
  * Google reviews, or direct client feedback.
  */
 

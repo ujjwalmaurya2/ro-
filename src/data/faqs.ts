@@ -1,5 +1,5 @@
 /**
- * FAQ Data Layer — Ajit Aqua Appliances
+ * FAQ Data Layer — Ajeet Aqua Appliances
  * 
  * Informative, neutral questions addressing common RO purification,
  * servicing, and maintenance requirements.
@@ -24,7 +24,7 @@ export const faqsData: FAQItem[] = [
   },
   {
     id: "faq-tds-check",
-    question: "Can Ajit Aqua Appliances check my water TDS?",
+    question: "Can Ajeet Aqua Appliances check my water TDS?",
     answer: "Yes, our technicians carry calibrated digital TDS meters. During a service visit or inspection, we can test your raw tap/borewell water as well as your existing purifier's output to evaluate filtration efficiency and help you understand your water quality.",
     category: "service"
   },
@@ -54,7 +54,7 @@ export const faqsData: FAQItem[] = [
   },
   {
     id: "faq-buy-spare-parts",
-    question: "Can I buy genuine RO spare parts from Ajit Aqua Appliances?",
+    question: "Can I buy genuine RO spare parts from Ajeet Aqua Appliances?",
     answer: "Yes, we stock a wide range of water purifier components including RO membranes, booster pumps, SMPS adapters, spun cartridges, inline filters, solenoid valves, flow restrictors, food-grade piping, and faucets. You can browse our catalogue and enquire directly via WhatsApp.",
     category: "products"
   },
@@ -72,7 +72,7 @@ export const faqsData: FAQItem[] = [
   },
   {
     id: "faq-contact",
-    question: "How can I contact Ajit Aqua Appliances?",
+    question: "How can I contact Ajeet Aqua Appliances?",
     answer: "You can reach us directly via WhatsApp or phone call using the buttons on this website, or fill out the contact form on our Contact page. Our team is available 7 days a week from 9:00 AM to 8:30 PM.",
     category: "general"
   }

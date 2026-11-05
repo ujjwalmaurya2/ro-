@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ajitaquaappliances.com/sitemap.xml
+Sitemap: https://ajeetaquaappliances.com/sitemap.xml

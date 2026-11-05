@@ -148,7 +148,7 @@ export const BookServicePage: React.FC = () => {
               Your Service Request Has Been Prepared
             </h2>
             <p className="text-sm text-slate-700 max-w-md mx-auto">
-              Your request is ready. Send it to Ajit Aqua Appliances on WhatsApp so the team can review your details and confirm the appointment.
+              Your request is ready. Send it to Ajeet Aqua Appliances on WhatsApp so the team can review your details and confirm the appointment.
             </p>
           </div>
 

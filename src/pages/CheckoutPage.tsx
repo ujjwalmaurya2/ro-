@@ -118,7 +118,7 @@ export const CheckoutPage: React.FC = () => {
               Order Enquiry Prepared!
             </h2>
             <p className="text-sm text-slate-700 max-w-md mx-auto">
-              Your order summary has been structured. Send it directly to <strong>Ajit Aqua Appliances</strong> on WhatsApp to confirm delivery time and installation in Prayagraj.
+              Your order summary has been structured. Send it directly to <strong>Ajeet Aqua Appliances</strong> on WhatsApp to confirm delivery time and installation in Prayagraj.
             </p>
           </div>
 

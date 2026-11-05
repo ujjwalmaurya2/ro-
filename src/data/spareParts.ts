@@ -1,5 +1,5 @@
 /**
- * RO Spare Parts Data Layer — Ajit Aqua Appliances
+ * RO Spare Parts Data Layer — Ajeet Aqua Appliances
  * 
  * Provides verified pricing and compatible spare parts for RO purifiers in Prayagraj.
  */

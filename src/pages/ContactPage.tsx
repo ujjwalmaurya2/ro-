@@ -67,7 +67,7 @@ export const ContactPage: React.FC = () => {
       {/* Header */}
       <div className="text-center space-y-3">
         <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight font-['Sora']">
-          Contact Ajit Aqua Appliances
+          Contact Ajeet Aqua Appliances
         </h1>
         <p className="text-sm sm:text-base text-slate-700 max-w-xl mx-auto">
           Get in touch with us for water purifier enquiries, spare parts availability, or doorstep service in Prayagraj.

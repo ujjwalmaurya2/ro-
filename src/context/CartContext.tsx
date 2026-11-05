@@ -29,13 +29,15 @@ interface CartContextValue {
 
 const CartContext = createContext<CartContextValue | undefined>(undefined);
 
-const CART_STORAGE_KEY = 'ajit_aqua_cart_v1';
+const CART_STORAGE_KEY = 'ajeet_aqua_cart_v1';
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { showToast } = useToast();
   const [items, setItems] = useState<CartItem[]>(() => {
     try {
-      const saved: CartItem[] = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || '[]');
+      const saved: CartItem[] = JSON.parse(
+        localStorage.getItem(CART_STORAGE_KEY) || localStorage.getItem('ajit_aqua_cart_v1') || '[]'
+      );
       // Re-price saved carts from the catalogue so stale prices never reach totals; drop discontinued items.
       return saved.flatMap((item) => {
         const current = [...productsData, ...sparePartsData].find((p) => p.id === item.id);

@@ -1,5 +1,5 @@
 /**
- * RO Services Data Layer — Ajit Aqua Appliances
+ * RO Services Data Layer — Ajeet Aqua Appliances
  * 
  * Service & Visit Charge and AMC price are confirmed by the business.
  * Parts and repairs are quoted separately after inspection.
@@ -183,7 +183,7 @@ export const servicesData: ServiceItem[] = [
     id: "amc-service",
     name: "AMC Plan",
     shortDescription: "Maintenance plan for your water purifier. Contact us to confirm what the AMC covers.",
-    longDescription: "Ask our team about the AMC Plan for your domestic or commercial purifier. Coverage, visits, and plan duration are confirmed by Ajit Aqua Appliances before you sign up.",
+    longDescription: "Ask our team about the AMC Plan for your domestic or commercial purifier. Coverage, visits, and plan duration are confirmed by Ajeet Aqua Appliances before you sign up.",
     commonProblems: [
       "Frequent unexpected RO breakdowns",
       "Forgetting periodic filter change dates"

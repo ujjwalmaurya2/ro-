@@ -1,5 +1,5 @@
 /**
- * AMC Plan Data Layer — Ajit Aqua Appliances
+ * AMC Plan Data Layer — Ajeet Aqua Appliances
  *
  * Price confirmed by the business. Duration, visits and parts coverage are
  * intentionally not listed until the business confirms them.

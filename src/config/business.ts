@@ -1,5 +1,5 @@
 /**
- * Centralized Business Configuration for Ajit Aqua Appliances
+ * Centralized Business Configuration for Ajeet Aqua Appliances
  * 
  * IMPORTANT: Replace placeholder values with confirmed client information.
  * All phone numbers, addresses, WhatsApp links, and service areas across
@@ -39,7 +39,7 @@ export interface BusinessConfig {
 }
 
 export const businessConfig: BusinessConfig = {
-  name: "Ajit Aqua Appliances",
+  name: "Ajeet Aqua Appliances",
   tagline: "Pure Water. Better Living.",
   shortDescription: "RO Water Purifiers, Spare Parts & Professional RO Services in Prayagraj.",
   
@@ -47,7 +47,7 @@ export const businessConfig: BusinessConfig = {
   displayPhone: "+91 96163 46090",
   whatsappNumber: "919616346090",
   displayWhatsapp: "+91 96163 46090",
-  email: "contact@ajitaquaappliances.com", // Placeholder: replace with client email
+  email: "contact@ajeetaquaappliances.com", // Placeholder: replace with client email
   
   // Physical Location
   city: "Prayagraj",

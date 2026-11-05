@@ -22,7 +22,7 @@ export const AmcPage: React.FC = () => {
           RO AMC Plan in Prayagraj
         </h1>
         <p className="text-xs sm:text-sm text-slate-600">
-          Keep your water purifier maintained with an AMC Plan from Ajit Aqua Appliances.
+          Keep your water purifier maintained with an AMC Plan from Ajeet Aqua Appliances.
         </p>
       </div>
 

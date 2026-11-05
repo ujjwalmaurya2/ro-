@@ -1,5 +1,5 @@
 /**
- * Products Data Layer — Ajit Aqua Appliances
+ * Products Data Layer — Ajeet Aqua Appliances
  * 
  * Complete verified RO Product Catalog with genuine product imagery,
  * accurate models, and exact client-confirmed INR prices for Prayagraj.

@@ -1,5 +1,5 @@
 /**
- * Utility formatters for Ajit Aqua Appliances
+ * Utility formatters for Ajeet Aqua Appliances
  */
 
 export function formatINR(amount: number): string {

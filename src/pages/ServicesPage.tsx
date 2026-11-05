@@ -193,7 +193,7 @@ export const ServicesPage: React.FC = () => {
             Experiencing water leakage or purifier breakdown?
           </h3>
           <p className="text-xs sm:text-sm text-sky-100 max-w-lg">
-            Connect directly with Ajit Aqua Appliances on WhatsApp or call our team for local service support in Prayagraj.
+            Connect directly with Ajeet Aqua Appliances on WhatsApp or call our team for local service support in Prayagraj.
           </p>
         </div>
         <div className="flex flex-wrap gap-3 shrink-0">

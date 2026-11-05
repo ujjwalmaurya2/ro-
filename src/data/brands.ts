@@ -1,9 +1,9 @@
 /**
- * Brands & Systems Reference Data — Ajit Aqua Appliances
+ * Brands & Systems Reference Data — Ajeet Aqua Appliances
  * 
  * DISCLAIMER: Brand names mentioned below represent popular purifier systems
  * and models available for purchase, service, and spare parts support in Prayagraj.
- * Ajit Aqua Appliances provides multi-brand sales and genuine parts support.
+ * Ajeet Aqua Appliances provides multi-brand sales and genuine parts support.
  */
 
 export interface BrandItem {
@@ -22,4 +22,4 @@ export const brandsData: BrandItem[] = [
   { id: "urban-company-native", name: "Urban Company Native", categoryNote: "2-Year Filter Life ROs", isDemoPlaceholder: false },
 ];
 
-export const brandsDisclaimer = "Brand availability and service support may vary. Contact Ajit Aqua Appliances for live stock and installation.";
+export const brandsDisclaimer = "Brand availability and service support may vary. Contact Ajeet Aqua Appliances for live stock and installation.";
