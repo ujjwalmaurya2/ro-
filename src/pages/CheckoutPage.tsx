@@ -30,12 +30,15 @@ export const CheckoutPage: React.FC = () => {
   if (items.length === 0 && !orderPlacedDemo) {
     return (
       <div className="max-w-xl mx-auto px-4 py-20 text-center space-y-4">
-        <h2 className="text-2xl font-bold text-slate-900 font-['Sora']">Your Cart is Empty</h2>
+        <h1 className="text-2xl font-bold text-slate-900 font-['Sora']">Your Cart is Empty</h1>
         <p className="text-sm text-slate-700">Please add products or spare parts before checking out.</p>
-        <Link to="/products" className="inline-flex items-center gap-2 px-5 py-2.5 bg-sky-600 text-white rounded-xl text-sm font-semibold">
-          <ArrowLeft className="w-4 h-4" />
-          <span>Go to Products Showroom</span>
-        </Link>
+        <div className="flex flex-wrap justify-center gap-2">
+          <Link to="/products" className="btn btn-primary">
+            <ArrowLeft className="w-4 h-4" />
+            Shop RO Purifiers
+          </Link>
+          <Link to="/parts" className="btn btn-secondary">Browse Spare Parts</Link>
+        </div>
       </div>
     );
   }

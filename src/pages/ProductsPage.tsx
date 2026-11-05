@@ -30,7 +30,14 @@ export const ProductsPage: React.FC = () => {
 
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
   const [selectedBrand, setSelectedBrand] = useState<string>(initialBrand);
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>(searchParams.get('q') ?? '');
+  // Header search deep-links here with ?q=; keep the field in sync when it changes.
+  const qParam = searchParams.get('q');
+  const [prevQ, setPrevQ] = useState(qParam);
+  if (qParam !== prevQ) {
+    setPrevQ(qParam);
+    if (qParam !== null) setSearchQuery(qParam);
+  }
   const [selectedTech, setSelectedTech] = useState<string>('all');
   const [sortBy, setSortBy] = useState<'featured' | 'price-low' | 'price-high'>('featured');
 
@@ -118,7 +125,7 @@ export const ProductsPage: React.FC = () => {
           {/* Authentic Service Assurance Badge */}
           <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-50 border border-sky-200 text-xs font-semibold text-sky-900 self-start sm:self-auto shrink-0 shadow-2xs">
             <ShieldCheck className="w-4 h-4 text-sky-600 shrink-0" />
-            <span>100% Genuine Machines • Free Delivery & Setup Enquiry</span>
+            <span>Branded purifiers • Prayagraj delivery &amp; installation on enquiry</span>
           </div>
         </div>
       </div>
@@ -249,7 +256,7 @@ export const ProductsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Product Results Grid: Responsive (1-col mobile, 2-col tablet, 3-col desktop, 4-col xl) */}
+      {/* Product Results Grid: 2-col mobile, 3-col tablet/laptop, 4-col desktop */}
       {filteredProducts.length === 0 ? (
         <div className="text-center py-16 bg-white rounded-2xl border border-slate-200 shadow-2xs space-y-3 p-6">
           <Droplets className="w-10 h-10 text-slate-300 mx-auto" />
@@ -265,7 +272,7 @@ export const ProductsPage: React.FC = () => {
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3.5 sm:gap-4.5">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-4">
           {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { 
   Search, 
   Cpu, 
@@ -13,7 +13,15 @@ import { buildWhatsAppUrl, whatsappMessages } from '../utils/whatsapp';
 
 export const SparePartsPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState<string>(searchParams.get('q') ?? '');
+  // Header search deep-links here with ?q=; keep the field in sync when it changes.
+  const qParam = searchParams.get('q');
+  const [prevQ, setPrevQ] = useState(qParam);
+  if (qParam !== prevQ) {
+    setPrevQ(qParam);
+    if (qParam !== null) setSearchQuery(qParam);
+  }
 
   const categories = [
     { id: 'all', label: 'All Spare Parts' },
@@ -128,7 +136,7 @@ export const SparePartsPage: React.FC = () => {
           </a>
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-2.5 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {filteredParts.map((part) => (
             <SparePartCard key={part.id} part={part} />
           ))}

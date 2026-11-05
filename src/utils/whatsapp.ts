@@ -73,11 +73,12 @@ export const whatsappMessages = {
   amc: (): string =>
     `Hello ${businessConfig.name}, I am interested in the ${amcPlan.name} — ${formatINR(amcPlan.price)}. Please confirm what the plan covers.`,
 
-  recommendation: (answers: { waterSource: string; familySize: string; tdsKnown: string }): string =>
+  recommendation: (answers: { waterSource: string; familySize: string; budget: string; preference: string }): string =>
     `Hello ${businessConfig.name}, I need help choosing an RO purifier for my home. Here are my requirements:\n` +
     `• Water Source: ${answers.waterSource}\n` +
     `• Household Size: ${answers.familySize}\n` +
-    `• Water TDS Known: ${answers.tdsKnown}\n` +
+    `• Budget: ${answers.budget}\n` +
+    `• Preference: ${answers.preference}\n` +
     `Please recommend the most suitable RO purifier model for Prayagraj water conditions.`,
 
   cartOrder: (items: { name: string; quantity: number; price: number }[], customer?: { name: string; phone: string; address: string }): string => {

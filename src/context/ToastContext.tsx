@@ -35,11 +35,11 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     <ToastContext.Provider value={{ showToast }}>
       {children}
       {/* Toast Render Container */}
-      <div className="fixed top-20 right-4 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none px-2 sm:px-0">
+      <div className="fixed inset-x-0 bottom-[calc(var(--tabbar-h)+env(safe-area-inset-bottom,0px)+0.75rem)] md:inset-x-auto md:bottom-auto md:top-28 md:right-4 z-50 flex flex-col items-center md:items-stretch gap-2 md:max-w-sm md:w-full pointer-events-none px-4 md:px-0" aria-live="polite">
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className={`pointer-events-auto flex items-center justify-between p-3.5 rounded-lg shadow-lg border text-sm font-medium transition-all duration-300 transform translate-y-0 ${
+            className={`pointer-events-auto w-full max-w-sm flex items-center justify-between gap-2 p-3 rounded-xl shadow-lg border text-sm font-medium animate-fade-in ${
               toast.type === 'success'
                 ? 'bg-white border-emerald-200 text-emerald-900 shadow-emerald-500/10'
                 : toast.type === 'error'

@@ -1,310 +1,164 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { 
-  Droplets, 
-  Users, 
-  Gauge, 
-  ArrowRight, 
-  RotateCcw, 
-  MessageCircle, 
-  CheckCircle2, 
-  Sparkles 
-} from 'lucide-react';
+import React, { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Sparkles, MessageCircle, RotateCcw, ArrowRight, Check, Info } from 'lucide-react';
+import { productsData, type Product } from '../../data/products';
+import { formatINR } from '../../utils/formatters';
 import { buildWhatsAppUrl, whatsappMessages } from '../../utils/whatsapp';
+import { ProductCard } from '../common/ProductCard';
+
+const WATER_SOURCES = ['Borewell', 'Municipal', 'Tanker', 'Not sure'];
+const FAMILY_SIZES = ['1–3', '4–6', '7+'];
+const BUDGETS = [
+  { id: 'lt10', label: 'Under ₹10,000', test: (p: number) => p < 10000 },
+  { id: '10to15', label: '₹10,000–15,000', test: (p: number) => p >= 10000 && p < 15000 },
+  { id: '15plus', label: '₹15,000+', test: (p: number) => p >= 15000 },
+];
+const PREFERENCES = [
+  { id: 'alkaline', label: 'Alkaline / mineral' },
+  { id: 'domestic', label: 'Standard RO' },
+];
+
+/** Picks matching products from the catalogue; reasons only quote data that exists in the catalogue. */
+function recommendProducts(products: Product[], budgetId: string, preference: string) {
+  const budget = BUDGETS.find((b) => b.id === budgetId);
+  return products
+    .filter((p) => (!budget || budget.test(p.price)) && (!preference || p.category === preference))
+    .sort((a, b) => Number(!!b.isFeatured) - Number(!!a.isFeatured) || a.price - b.price)
+    .slice(0, 3);
+}
+
+const ChipGroup: React.FC<{ label: string; options: { id: string; label: string }[]; value: string; onChange: (v: string) => void }> = ({
+  label,
+  options,
+  value,
+  onChange,
+}) => (
+  <fieldset className="space-y-2">
+    <legend className="text-sm font-semibold text-ink mb-2">{label}</legend>
+    <div className="flex flex-wrap gap-2">
+      {options.map((o) => (
+        <button
+          key={o.id}
+          type="button"
+          aria-pressed={value === o.id}
+          onClick={() => onChange(value === o.id ? '' : o.id)}
+          className={`chip ${value === o.id ? 'chip-on' : 'chip-off'}`}
+        >
+          {value === o.id && <Check className="w-3.5 h-3.5" />}
+          {o.label}
+        </button>
+      ))}
+    </div>
+  </fieldset>
+);
+
+const asOptions = (xs: string[]) => xs.map((x) => ({ id: x, label: x }));
 
 export const FindTheRightRO: React.FC = () => {
-  const navigate = useNavigate();
+  const [waterSource, setWaterSource] = useState('');
+  const [familySize, setFamilySize] = useState('');
+  const [budget, setBudget] = useState('');
+  const [preference, setPreference] = useState('');
 
-  const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
-  const [waterSource, setWaterSource] = useState<string>('');
-  const [familySize, setFamilySize] = useState<string>('');
-  const [tdsKnown, setTdsKnown] = useState<string>('');
+  const answered = !!(budget || preference);
+  const results = useMemo(() => (answered ? recommendProducts(productsData, budget, preference) : []), [answered, budget, preference]);
 
-  const waterSources = ['Borewell', 'Municipal', 'Tanker', 'Other'];
-  const familySizes = ['1–3', '4–6', '7+'];
-  const tdsOptions = ['Known', 'Unknown'];
+  const budgetLabel = BUDGETS.find((b) => b.id === budget)?.label;
+  const prefLabel = PREFERENCES.find((p) => p.id === preference)?.label;
 
-  const handleReset = () => {
-    setWaterSource('');
-    setFamilySize('');
-    setTdsKnown('');
-    setStep(1);
-  };
-
-  const getRecommendationSummary = () => {
-    let techSuggestion = "RO + UV + UF with Active Minerals";
-    let targetCategory = "domestic";
-
-    if (waterSource.includes('Borewell') || waterSource.includes('Tanker')) {
-      techSuggestion = "High-TDS RO + UV + Alkaline / TDS Controller";
-    } else if (waterSource.includes('Municipal')) {
-      techSuggestion = "Standard RO + UV Purification with Mineral Enriched Cartridge";
-    }
-
-    if (familySize.includes('7+')) {
-      techSuggestion = "High-Capacity Domestic RO (10L+) or Commercial RO Plant";
-      targetCategory = "commercial";
-    }
-
-    return { techSuggestion, targetCategory };
-  };
-
-  const { techSuggestion, targetCategory } = getRecommendationSummary();
+  const reasonsFor = (p: Product) =>
+    [
+      budgetLabel && `${p.priceMax ? 'Starts at' : 'Priced at'} ${formatINR(p.price)} (budget: ${budgetLabel})`,
+      prefLabel && p.technology && `${p.technology} purifier`,
+      familySize && p.specifications?.storageCapacity && `Listed storage: ${p.specifications.storageCapacity}`,
+    ].filter(Boolean) as string[];
 
   const whatsappUrl = buildWhatsAppUrl(
     whatsappMessages.recommendation({
       waterSource: waterSource || 'Not specified',
       familySize: familySize || 'Not specified',
-      tdsKnown: tdsKnown || 'Not specified',
+      budget: budgetLabel || 'Not specified',
+      preference: prefLabel || 'Not specified',
     })
   );
 
+  const reset = () => {
+    setWaterSource('');
+    setFamilySize('');
+    setBudget('');
+    setPreference('');
+  };
+
   return (
-    <section className="py-16 sm:py-20 bg-gradient-to-b from-sky-50 via-white to-sky-50/40 border-y border-sky-100/80">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6">
-        
-        {/* Section Header */}
-        <div className="text-center space-y-3 mb-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-100 text-sky-800 text-xs font-bold uppercase tracking-wider">
-            <Sparkles className="w-3.5 h-3.5 text-sky-600" />
-            <span>Interactive Helper</span>
+    <section id="find-the-right-ro" className="container-page">
+      <div className="card p-5 sm:p-8 bg-gradient-to-br from-white to-brand-subtle">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6">
+          <div className="space-y-1">
+            <p className="eyebrow inline-flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5" /> Find the right RO
+            </p>
+            <h2 className="section-title">Not sure which purifier to pick?</h2>
+            <p className="section-sub">Answer any of these — optional — and we’ll shortlist from our catalogue.</p>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-['Sora']">
-            Not Sure Which RO Is Right For You?
-          </h2>
-          <p className="text-sm sm:text-base text-slate-700 max-w-xl mx-auto">
-            Tell us a little about your water source and household needs to find suitable water purification options.
-          </p>
+          <Link to="/products" className="inline-flex items-center gap-1 min-h-11 text-sm font-semibold text-brand-primary hover:text-brand-deep shrink-0">
+            Skip &amp; browse all <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
 
-        {/* Questionnaire Box */}
-        <div className="bg-white rounded-3xl p-6 sm:p-10 border border-sky-200/80 shadow-xl shadow-sky-900/5 relative overflow-hidden">
-          {/* Progress Indicator */}
-          {step < 4 && (
-            <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-100 text-xs text-slate-700">
-              <span className="font-semibold text-sky-700 font-['Sora']">
-                Question {step} of 3
-              </span>
-              <div className="flex gap-1.5">
-                {[1, 2, 3].map((s) => (
-                  <div
-                    key={s}
-                    className={`h-2 rounded-full transition-all ${
-                      s === step ? 'w-8 bg-sky-600' : s < step ? 'w-4 bg-sky-300' : 'w-4 bg-slate-200'
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
+        <div className="grid gap-5 sm:grid-cols-2">
+          <ChipGroup label="Water source" options={asOptions(WATER_SOURCES)} value={waterSource} onChange={setWaterSource} />
+          <ChipGroup label="Family size" options={asOptions(FAMILY_SIZES)} value={familySize} onChange={setFamilySize} />
+          <ChipGroup label="Budget" options={BUDGETS} value={budget} onChange={setBudget} />
+          <ChipGroup label="Preference" options={PREFERENCES} value={preference} onChange={setPreference} />
+        </div>
 
-          {/* STEP 1: Water Source */}
-          {step === 1 && (
-            <div className="space-y-6 animate-fade-in">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center shrink-0">
-                  <Droplets className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-slate-900 font-['Sora']">
-                    What is your primary water source?
-                  </h3>
-                  <p className="text-xs text-slate-700">
-                    Different water sources in Prayagraj have varying hardness and mineral contents.
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                {waterSources.map((source) => (
-                  <button
-                    key={source}
-                    onClick={() => {
-                      setWaterSource(source);
-                      setStep(2);
-                    }}
-                    className={`p-4 rounded-2xl border text-left font-medium text-sm transition-all flex items-center justify-between ${
-                      waterSource === source
-                        ? 'border-sky-600 bg-sky-50/80 text-sky-900 shadow-sm'
-                        : 'border-slate-200 bg-slate-50/60 hover:bg-sky-50/40 hover:border-sky-300 text-slate-800'
-                    }`}
-                  >
-                    <span>{source}</span>
-                    <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-sky-600" />
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* STEP 2: Household Size */}
-          {step === 2 && (
-            <div className="space-y-6 animate-fade-in">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center shrink-0">
-                  <Users className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-slate-900 font-['Sora']">
-                    How many people will use the purifier daily?
-                  </h3>
-                  <p className="text-xs text-slate-700">
-                    Helps estimate ideal daily purified water storage and purification flow rate.
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 gap-3 pt-2">
-                {familySizes.map((size) => (
-                  <button
-                    key={size}
-                    onClick={() => {
-                      setFamilySize(size);
-                      setStep(3);
-                    }}
-                    className={`p-4 rounded-2xl border text-left font-medium text-sm transition-all flex items-center justify-between ${
-                      familySize === size
-                        ? 'border-sky-600 bg-sky-50/80 text-sky-900 shadow-sm'
-                        : 'border-slate-200 bg-slate-50/60 hover:bg-sky-50/40 hover:border-sky-300 text-slate-800'
-                    }`}
-                  >
-                    <span>{size}</span>
-                    <ArrowRight className="w-4 h-4 text-slate-400" />
-                  </button>
-                ))}
-              </div>
-
-              <div className="pt-2">
-                <button
-                  onClick={() => setStep(1)}
-                  className="text-xs font-semibold text-slate-700 hover:text-slate-800"
-                >
-                  ← Back to question 1
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* STEP 3: Water TDS Known */}
-          {step === 3 && (
-            <div className="space-y-6 animate-fade-in">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center shrink-0">
-                  <Gauge className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-slate-900 font-['Sora']">
-                    Do you know your current water TDS level?
-                  </h3>
-                  <p className="text-xs text-slate-700">
-                    TDS measures Total Dissolved Solids in ppm. If unknown, we can test it during consultation.
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 gap-3 pt-2">
-                {tdsOptions.map((opt) => (
-                  <button
-                    key={opt}
-                    onClick={() => {
-                      setTdsKnown(opt);
-                      setStep(4);
-                    }}
-                    className={`p-4 rounded-2xl border text-left font-medium text-sm transition-all flex items-center justify-between ${
-                      tdsKnown === opt
-                        ? 'border-sky-600 bg-sky-50/80 text-sky-900 shadow-sm'
-                        : 'border-slate-200 bg-slate-50/60 hover:bg-sky-50/40 hover:border-sky-300 text-slate-800'
-                    }`}
-                  >
-                    <span>{opt}</span>
-                    <ArrowRight className="w-4 h-4 text-slate-400" />
-                  </button>
-                ))}
-              </div>
-
-              <div className="pt-2">
-                <button
-                  onClick={() => setStep(2)}
-                  className="text-xs font-semibold text-slate-700 hover:text-slate-800"
-                >
-                  ← Back to question 2
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* STEP 4: Results & Lead Routing */}
-          {step === 4 && (
-            <div className="space-y-6 animate-fade-in">
-              <div className="p-4 sm:p-5 rounded-2xl bg-sky-50 border border-sky-200 space-y-3">
-                <div className="flex items-center gap-2 text-sky-800 font-bold text-sm font-['Sora']">
-                  <CheckCircle2 className="w-5 h-5 text-sky-600" />
-                  <span>Recommendation Summary</span>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-1">
-                  <div className="bg-white p-2.5 rounded-xl border border-sky-100">
-                    <span className="text-slate-700 block text-[11px]">Water Source</span>
-                    <span className="font-semibold text-slate-900">{waterSource}</span>
-                  </div>
-                  <div className="bg-white p-2.5 rounded-xl border border-sky-100">
-                    <span className="text-slate-700 block text-[11px]">Household Size</span>
-                    <span className="font-semibold text-slate-900">{familySize}</span>
-                  </div>
-                  <div className="bg-white p-2.5 rounded-xl border border-sky-100">
-                    <span className="text-slate-700 block text-[11px]">TDS Status</span>
-                    <span className="font-semibold text-slate-900">{tdsKnown.split('(')[0]}</span>
-                  </div>
-                </div>
-
-                <div className="pt-2">
-                  <span className="text-xs font-semibold text-slate-700 uppercase tracking-wider block mb-1">
-                    Suggested Configuration:
-                  </span>
-                  <p className="text-base font-bold text-sky-950 font-['Sora']">
-                    {techSuggestion}
-                  </p>
-                </div>
-              </div>
-
-              {/* Safe, honest disclaimer */}
-              <p className="text-xs text-slate-700 leading-relaxed italic">
-                *Based on your answers, explore suitable options or talk to Ajit Aqua Appliances for a personalized recommendation. This tool provides practical guidance rather than scientific lab analysis.
+        <div className="mt-6 pt-5 border-t border-brand-border" aria-live="polite">
+          {!answered ? (
+            <p className="text-sm text-ink-muted">Pick a budget or preference to see matching purifiers.</p>
+          ) : results.length === 0 ? (
+            <p className="text-sm text-ink-muted">No purifiers in our catalogue match that combination. Try another budget, or ask us on WhatsApp.</p>
+          ) : (
+            <>
+              <p className="text-sm font-semibold text-ink mb-3">
+                {results.length} suggestion{results.length === 1 ? '' : 's'} from our catalogue
               </p>
-
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-xl text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 shadow-md shadow-emerald-600/20 transition-all text-center"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                  <span>Ask on WhatsApp</span>
-                </a>
-
-                <button
-                  onClick={() => navigate(targetCategory === 'commercial' ? '/products?category=commercial' : '/products')}
-                  className="flex-1 inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-xl text-sm font-semibold text-white bg-sky-600 hover:bg-sky-700 shadow-md shadow-sky-600/20 transition-all text-center"
-                >
-                  <span>View Suitable Products</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-
-              <div className="text-center pt-2">
-                <button
-                  onClick={handleReset}
-                  className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-700 hover:text-sky-600"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                  <span>Start over with different answers</span>
-                </button>
-              </div>
-            </div>
+              <ul className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                {results.map((p) => (
+                  <li key={p.id} className="flex flex-col gap-2">
+                    <ProductCard product={p} />
+                    <ul className="space-y-1 px-1">
+                      {reasonsFor(p).map((r) => (
+                        <li key={r} className="flex items-start gap-1.5 text-xs text-slate-600">
+                          <Check className="w-3.5 h-3.5 text-brand-primary shrink-0 mt-px" />
+                          {r}
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </ul>
+            </>
           )}
 
+          {(waterSource || familySize) && (
+            <p className="mt-4 flex items-start gap-1.5 text-xs text-ink-muted">
+              <Info className="w-3.5 h-3.5 shrink-0 mt-px text-brand-primary" />
+              Suitability for your water source and family size is confirmed by our team — share your answers on WhatsApp.
+            </p>
+          )}
+
+          <div className="flex flex-wrap gap-2 mt-4">
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp">
+              <MessageCircle className="w-4 h-4" />
+              Send my answers on WhatsApp
+            </a>
+            {(answered || waterSource || familySize) && (
+              <button type="button" onClick={reset} className="btn btn-secondary">
+                <RotateCcw className="w-4 h-4" />
+                Reset
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </section>

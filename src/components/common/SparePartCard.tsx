@@ -1,9 +1,9 @@
 import React from 'react';
-import { MessageCircle, ShoppingCart, Cpu } from 'lucide-react';
 import type { SparePart } from '../../data/spareParts';
 import { formatINR } from '../../utils/formatters';
 import { buildWhatsAppUrl, whatsappMessages } from '../../utils/whatsapp';
 import { useCart } from '../../context/CartContext';
+import { CardActions } from './CardActions';
 
 interface SparePartCardProps {
   part: SparePart;
@@ -11,125 +11,65 @@ interface SparePartCardProps {
 
 export const SparePartCard: React.FC<SparePartCardProps> = ({ part }) => {
   const { addItem } = useCart();
-
-  const whatsappUrl = buildWhatsAppUrl(
-    whatsappMessages.sparePart(part.name, part.price)
-  );
+  const whatsappUrl = buildWhatsAppUrl(whatsappMessages.sparePart(part.name, part.price));
 
   return (
-    <div className="group bg-white rounded-xl border border-slate-200/90 hover:border-sky-300 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between overflow-hidden p-2 sm:p-2.5">
-      <div>
-        {/* Compact Aspect-Square Image Container */}
-        <div className="relative aspect-square rounded-lg bg-slate-50 overflow-hidden mb-2">
-          <img
-            src={part.image}
-            alt={part.name}
-            className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-300"
-            loading="lazy"
-            onError={(e) => {
-              (e.currentTarget as HTMLImageElement).src = '/images/parts/part-fallback.svg';
-            }}
-          />
-
-          {/* Top Badges (Non-colliding Flex Row) */}
-          <div className="absolute top-1.5 inset-x-1.5 flex items-start justify-between gap-1 pointer-events-none z-10">
-            <span 
-              className="px-1.5 py-0.5 text-[9px] font-bold text-sky-800 bg-white/95 backdrop-blur-xs rounded-md shadow-2xs border border-sky-100 truncate max-w-[70%]"
-              title={part.categoryLabel}
-            >
-              {part.categoryLabel}
-            </span>
-
-            {part.isDemo && (
-              <span className="px-1.5 py-0.5 text-[8px] sm:text-[9px] font-medium text-slate-500 bg-white/90 rounded border border-slate-200 shrink-0">
-                Demo
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* Part Category & Quick Spec Tag */}
-        <div className="flex items-center gap-1.5 text-[10px] text-slate-500 font-medium mb-1">
-          <span className="inline-flex items-center gap-0.5 text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded font-semibold truncate">
-            <Cpu className="w-2.5 h-2.5 shrink-0" />
-            <span>{part.categoryLabel}</span>
+    <article className="group card card-hover flex flex-col p-2.5 sm:p-3">
+      <div className="relative aspect-square rounded-xl bg-brand-neutral overflow-hidden">
+        <img
+          src={part.image}
+          alt={part.name}
+          width={240}
+          height={240}
+          loading="lazy"
+          decoding="async"
+          className="w-full h-full object-contain p-3 transition-transform duration-300 group-hover:scale-[1.04]"
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).src = '/images/spare-parts/part-fallback.svg';
+          }}
+        />
+        {part.isDemo && (
+          <span className="absolute top-2 right-2 px-1.5 py-0.5 rounded-md bg-white/95 border border-brand-border text-[10px] font-medium text-ink-muted">
+            Demo
           </span>
-        </div>
+        )}
+      </div>
 
-        {/* Part Title (Strictly 2 lines clamped) */}
-        <h3 
-          className="text-xs sm:text-sm font-semibold text-slate-900 leading-snug line-clamp-2 font-['Sora'] min-h-[2.4em] group-hover:text-sky-600 transition-colors"
-          title={part.name}
-        >
+      <div className="flex-1 flex flex-col pt-2.5">
+        <p className="text-[11px] font-semibold uppercase tracking-wide text-ink-muted truncate">{part.categoryLabel}</p>
+        <h3 className="font-sans text-[13px] sm:text-sm font-semibold text-ink leading-snug line-clamp-2 min-h-[2.6em] mt-0.5" title={part.name}>
           {part.name}
         </h3>
-
-        {/* Compact Compatibility Line */}
-        <p
-          className="text-[10px] text-slate-500 line-clamp-1 truncate mt-1"
-          title={part.compatibility ? `Compatible with: ${part.compatibility}` : part.shortDescription}
-        >
-          {part.compatibility ? (
-            <><span className="font-semibold text-slate-700">Fits:</span> {part.compatibility}</>
-          ) : 'Confirm fit for your model on WhatsApp'}
+        <p className="text-[11px] text-ink-muted truncate mt-0.5" title={part.compatibility ?? part.shortDescription}>
+          {part.compatibility ? `Fits: ${part.compatibility}` : 'Confirm fit on WhatsApp'}
         </p>
-      </div>
 
-      {/* Pricing and Touch-Friendly Compact Actions */}
-      <div className="mt-2 pt-2 border-t border-slate-100 flex flex-col justify-end">
-        {/* Price Row */}
-        <div className="flex items-baseline justify-between gap-1 mb-2">
-          <div className="flex items-baseline gap-1.5">
-            <span className="text-xs sm:text-sm font-black text-slate-900 font-['Sora']">
-              {formatINR(part.price)}
-            </span>
-            {part.originalPrice !== undefined && part.originalPrice > part.price && (
-              <span className="text-[10px] text-slate-400 line-through">
-                {formatINR(part.originalPrice)}
-              </span>
-            )}
-          </div>
-          {part.inStock && (
-            <span className="text-[9px] font-semibold text-sky-700 bg-sky-50 px-1 py-0.5 rounded">
-              In Stock
-            </span>
+        <div className="flex items-baseline flex-wrap gap-x-1.5 mt-2 mb-2.5">
+          <span className="text-base font-bold text-ink">{formatINR(part.price)}</span>
+          {part.originalPrice !== undefined && part.originalPrice > part.price && (
+            <span className="text-[11px] text-slate-400 line-through">{formatINR(part.originalPrice)}</span>
           )}
+          {part.inStock && <span className="ml-auto text-[10px] font-semibold text-emerald-700">In stock</span>}
         </div>
 
-        {/* Action Controls (Accessible touch target: min 38px height) */}
-        <div className="grid grid-cols-4 gap-1.5">
-          <button
-            onClick={() => addItem({
-              id: part.id,
-              name: part.name,
-              price: part.price,
-              originalPrice: part.originalPrice,
-              image: part.image,
-              type: 'spare-part',
-              brandOrCategory: part.categoryLabel
-            })}
-            className="col-span-3 inline-flex items-center justify-center gap-1 h-9 px-2 rounded-lg text-xs font-bold text-white bg-sky-600 hover:bg-sky-700 active:scale-95 transition-all shadow-xs"
-            aria-label={`Add ${part.name} to cart`}
-          >
-            <ShoppingCart className="w-3.5 h-3.5 shrink-0" />
-            <span className="truncate">
-              <span className="hidden sm:inline">Add to Cart</span>
-              <span className="sm:hidden">Add</span>
-            </span>
-          </button>
-
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="col-span-1 inline-flex items-center justify-center h-9 rounded-lg text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition-colors active:scale-95"
-            title="Enquire on WhatsApp"
-            aria-label={`Enquire on WhatsApp about ${part.name}`}
-          >
-            <MessageCircle className="w-4 h-4 text-emerald-600 shrink-0" />
-          </a>
+        <div className="mt-auto">
+          <CardActions
+            itemName={part.name}
+            whatsappUrl={whatsappUrl}
+            onAdd={() =>
+              addItem({
+                id: part.id,
+                name: part.name,
+                price: part.price,
+                originalPrice: part.originalPrice,
+                image: part.image,
+                type: 'spare-part',
+                brandOrCategory: part.categoryLabel,
+              })
+            }
+          />
         </div>
       </div>
-    </div>
+    </article>
   );
 };

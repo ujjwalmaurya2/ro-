@@ -261,7 +261,7 @@ export const BookServicePage: React.FC = () => {
                   onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 focus:border-sky-500 text-sm text-slate-800"
                 >
-                  {serviceOptions.map((opt) => (
+                  {(serviceOptions.includes(formData.serviceType) ? serviceOptions : [formData.serviceType, ...serviceOptions]).map((opt) => (
                     <option key={opt} value={opt}>{opt}</option>
                   ))}
                 </select>

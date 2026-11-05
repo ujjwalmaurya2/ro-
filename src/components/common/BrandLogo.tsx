@@ -7,13 +7,13 @@ interface BrandLogoProps {
 
 export const BrandLogo: React.FC<BrandLogoProps> = ({ className = '' }) => {
   return (
-    <Link to="/" className={`inline-flex items-center gap-3 group select-none ${className}`}>
+    <Link to="/" aria-label="Ajit Aqua Appliances, Prayagraj — home" className={`inline-flex items-center gap-2.5 group select-none ${className}`}>
       {/* Water Droplet Tech Icon */}
-      <div className="relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-sky-400 to-sky-600 shadow-md shadow-sky-500/20 group-hover:scale-105 transition-transform duration-200 shrink-0">
+      <div className="relative flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-sky-400 to-sky-600 shadow-sm shadow-sky-500/20 group-hover:scale-105 transition-transform duration-200 shrink-0">
         <svg
           viewBox="0 0 32 32"
           fill="none"
-          className="w-6 h-6 text-white drop-shadow"
+          className="w-5 h-5 sm:w-6 sm:h-6 text-white drop-shadow"
           xmlns="http://www.w3.org/2000/svg"
         >
           {/* Main Drop */}
@@ -35,11 +35,11 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({ className = '' }) => {
       {/* Brand Name Typography */}
       <div className="flex flex-col text-left">
         <div className="flex items-center gap-1.5 leading-tight">
-          <span className="font-extrabold tracking-tight text-slate-900 text-lg sm:text-xl font-['Sora']">
+          <span className="font-extrabold tracking-tight text-slate-900 text-base sm:text-lg font-['Sora']">
             AJIT <span className="text-sky-600 font-black">AQUA</span>
           </span>
         </div>
-        <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-widest text-slate-700">
+        <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500">
           APPLIANCES • PRAYAGRAJ
         </span>
       </div>

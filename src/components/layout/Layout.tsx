@@ -34,9 +34,10 @@ export const Layout: React.FC = () => {
   }, [pathname]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-slate-900">
+    // Bottom padding keeps content and footer clear of the mobile tab bar + safe area
+    <div className="min-h-screen flex flex-col bg-white text-ink pb-[calc(var(--tabbar-h)+env(safe-area-inset-bottom,0px))] md:pb-0">
       <Header />
-      <main className="flex-1 pb-24 md:pb-0">
+      <main className="flex-1">
         <Outlet />
       </main>
       <Footer />

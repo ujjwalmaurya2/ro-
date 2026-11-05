@@ -1,710 +1,388 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  Wrench, 
-  ShoppingCart, 
-  MessageCircle, 
-  ShieldCheck, 
-  Droplets, 
-  Layers, 
-  CalendarCheck, 
-  ArrowRight, 
-  ChevronDown, 
-  CheckCircle2, 
-  Sparkles, 
-  PlusCircle, 
-  MapPin, 
-  Cpu,
-  ArrowRightLeft
+import {
+  Wrench,
+  MessageCircle,
+  ShieldCheck,
+  Droplets,
+  Filter,
+  ArrowRight,
+  ChevronDown,
+  Sparkles,
+  Layers,
+  MapPin,
+  Phone,
+  BadgeIndianRupee,
 } from 'lucide-react';
 import { businessConfig } from '../config/business';
 import { productsData } from '../data/products';
+import { sparePartsData } from '../data/spareParts';
 import { SERVICE_VISIT_CHARGE, servicesData } from '../data/services';
 import { amcPlan } from '../data/amcPlans';
-import { formatINR } from '../utils/formatters';
 import { faqsData } from '../data/faqs';
-import { reviewsData } from '../data/reviews';
 import { brandsData, brandsDisclaimer } from '../data/brands';
+import { formatINR } from '../utils/formatters';
 import { ProductCard } from '../components/common/ProductCard';
+import { SparePartCard } from '../components/common/SparePartCard';
 import { FindTheRightRO } from '../components/home/FindTheRightRO';
 import { buildWhatsAppUrl, whatsappMessages } from '../utils/whatsapp';
 
+const visitCharge = formatINR(SERVICE_VISIT_CHARGE);
+
+const QUICK_ACTIONS = [
+  { label: 'RO Purifiers', to: '/products', icon: Droplets, tone: 'bg-sky-50 text-sky-700' },
+  { label: 'Book Repair', to: '/book-service', icon: Wrench, tone: 'bg-orange-50 text-orange-600' },
+  { label: 'Spare Parts', to: '/parts', icon: Filter, tone: 'bg-violet-50 text-violet-600' },
+  { label: 'AMC Plans', to: '/amc', icon: ShieldCheck, tone: 'bg-emerald-50 text-emerald-700' },
+];
+
+const HOME_SERVICE_IDS = ['ro-repair', 'routine-servicing', 'filter-replacement', 'installation'];
+const SERVICE_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+  'ro-repair': Wrench,
+  'routine-servicing': Sparkles,
+  'filter-replacement': Layers,
+  installation: Droplets,
+};
+
+const SectionHeader: React.FC<{ eyebrow?: string; title: string; sub?: string; action?: { to: string; label: string } }> = ({
+  eyebrow,
+  title,
+  sub,
+  action,
+}) => (
+  <div className="flex items-end justify-between gap-4 mb-4 sm:mb-6">
+    <div className="min-w-0 space-y-1">
+      {eyebrow && <p className="eyebrow">{eyebrow}</p>}
+      <h2 className="section-title">{title}</h2>
+      {sub && <p className="section-sub">{sub}</p>}
+    </div>
+    {action && (
+      <Link to={action.to} className="shrink-0 inline-flex items-center gap-1 min-h-11 text-sm font-semibold text-brand-primary hover:text-brand-deep">
+        {action.label}
+        <ArrowRight className="w-4 h-4" />
+      </Link>
+    )}
+  </div>
+);
+
 export const HomePage: React.FC = () => {
-  const [productCategory, setProductCategory] = useState<'all' | 'domestic' | 'alkaline' | 'commercial'>('all');
-  const [activeFaq, setActiveFaq] = useState<string | null>(faqsData[0].id);
+  const [brand, setBrand] = useState<string>('all');
+  const [activeFaq, setActiveFaq] = useState<string | null>(faqsData[0]?.id ?? null);
 
-  const filteredProducts = productCategory === 'all' 
-    ? productsData.slice(0, 8) 
-    : productsData.filter(p => p.category === productCategory).slice(0, 8);
+  const brands = useMemo(() => [...new Set(productsData.map((p) => p.brand))], []);
+  const heroProduct = productsData.find((p) => p.isFeatured) ?? productsData[0];
 
-  const toggleFaq = (id: string) => {
-    setActiveFaq(activeFaq === id ? null : id);
-  };
+  const shownProducts = useMemo(() => {
+    const list = brand === 'all' ? productsData.filter((p) => p.isFeatured) : productsData.filter((p) => p.brand === brand);
+    return list.slice(0, 8);
+  }, [brand]);
+
+  const homeServices = servicesData.filter((s) => HOME_SERVICE_IDS.includes(s.id));
 
   return (
-    <div className="space-y-8 sm:space-y-14">
-      
-      {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-sky-50 via-sky-50/40 to-white pt-4 pb-8 sm:pt-8 sm:pb-14 lg:py-16 border-b border-sky-100">
-        {/* Subtle water-inspired background accents */}
-        <div className="absolute top-0 right-0 -translate-y-12 translate-x-12 w-96 h-96 bg-sky-200/30 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 translate-y-12 -translate-x-12 w-80 h-80 bg-cyan-200/20 rounded-full blur-3xl pointer-events-none" />
+    <div className="space-y-8 sm:space-y-14 pb-4">
+      {/* ── MOBILE: quick actions + compact promo ─────────────────────── */}
+      <div className="md:hidden">
+        <nav aria-label="Quick actions" className="grid grid-cols-4 gap-2 px-4 py-3">
+          {QUICK_ACTIONS.map(({ label, to, icon: Icon, tone }) => (
+            <Link key={label} to={to} className="flex flex-col items-center gap-1.5 min-h-11 py-1 rounded-xl active:scale-95 transition-transform">
+              <span className={`w-12 h-12 rounded-2xl flex items-center justify-center ${tone}`}>
+                <Icon className="w-6 h-6" />
+              </span>
+              <span className="text-[11px] font-semibold text-slate-700 text-center leading-tight">{label}</span>
+            </Link>
+          ))}
+        </nav>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-            
-            {/* Left Column: Headings & CTAs */}
-            <div className="lg:col-span-7 space-y-6 text-left">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-100/90 text-sky-800 text-xs font-bold uppercase tracking-wider border border-sky-200">
-                <Droplets className="w-3.5 h-3.5 text-sky-600" />
-                <span>Prayagraj RO Purifiers & Service Centre</span>
-              </div>
-
-              {/* Main Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.12] font-['Sora']">
-                Pure Water. <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-sky-800">
-                  Better Living.
-                </span>
-              </h1>
-
-              {/* Supporting Copy */}
-              <p className="text-base sm:text-lg text-slate-700 leading-relaxed max-w-xl font-normal">
-                Ajit Aqua Appliances provides premium <strong>RO Water Purifiers</strong>, genuine spare parts, and dependable doorstep <strong>RO repair, maintenance, and AMC services</strong> in Prayagraj.
-              </p>
-
-              {/* Value Pills: Compact Wrapping Layout */}
-              <div className="flex flex-wrap gap-2 pt-1 text-xs text-slate-700 font-medium">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-slate-200/90 shadow-2xs text-[11px] sm:text-xs">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-sky-600 shrink-0" />
-                  <span>Domestic & Commercial RO</span>
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-slate-200/90 shadow-2xs text-[11px] sm:text-xs">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-sky-600 shrink-0" />
-                  <span>Doorstep Repair & Servicing</span>
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-slate-200/90 shadow-2xs text-[11px] sm:text-xs">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-sky-600 shrink-0" />
-                  <span>Genuine Spare Parts</span>
-                </span>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 pt-2">
-                <Link
-                  to="/products"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-white bg-sky-600 hover:bg-sky-700 shadow-md shadow-sky-600/25 transition-all text-xs sm:text-sm active:scale-95"
-                >
-                  <ShoppingCart className="w-4 h-4" />
-                  <span>Shop RO Purifiers</span>
-                </Link>
-
-                <Link
-                  to="/book-service"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-slate-800 bg-white hover:bg-slate-50 border border-slate-300 shadow-xs transition-all text-xs sm:text-sm active:scale-95"
-                >
-                  <Wrench className="w-4 h-4 text-sky-600" />
-                  <span>Book a Service</span>
-                </Link>
-
-                <a
-                  href={buildWhatsAppUrl(whatsappMessages.general())}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition-colors text-xs sm:text-sm active:scale-95"
-                >
-                  <MessageCircle className="w-4 h-4 text-emerald-600" />
-                  <span>WhatsApp Us</span>
-                </a>
-              </div>
-
-              {/* Local Trust Note */}
-              <div className="pt-1 text-[11px] sm:text-xs text-slate-600 flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-sky-600 shrink-0" />
-                <span className="truncate">Serving Prayagraj: Civil Lines, Teliyarganj, Katra & nearby</span>
-              </div>
+        <section aria-label="Ajit Aqua Appliances" className="px-4">
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-deep via-brand-primary to-brand-aqua text-white px-4 py-3.5 min-h-[150px] flex flex-col justify-between">
+            <div aria-hidden className="absolute -right-10 -top-12 w-44 h-44 rounded-full bg-white/10" />
+            <div aria-hidden className="absolute right-6 -bottom-16 w-32 h-32 rounded-full bg-white/10" />
+            {heroProduct && (
+              <img
+                src={heroProduct.image}
+                alt=""
+                aria-hidden
+                width={64}
+                height={80}
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-16 h-20 object-contain drop-shadow-xl max-[374px]:hidden"
+              />
+            )}
+            <div className="relative space-y-1 pr-16 max-[374px]:pr-0">
+              <span className="inline-block text-[10px] font-bold tracking-wider bg-white/15 rounded-full px-2 py-0.5">
+                RO SALES &amp; SERVICE IN PRAYAGRAJ
+              </span>
+              <h1 className="text-lg font-bold leading-tight">Pure Water. Better Living.</h1>
+              <p className="text-xs leading-snug text-sky-50/90">RO Sales, Genuine Spares &amp; Doorstep Repair</p>
             </div>
-
-            {/* Right Column: Hero Visual */}
-            <div className="lg:col-span-5 relative">
-              <div className="relative mx-auto max-w-md lg:max-w-none">
-                {/* Main Visual Card */}
-                <div className="relative rounded-3xl overflow-hidden shadow-xl shadow-sky-900/10 border-4 border-white bg-gradient-to-b from-sky-100/50 to-white aspect-4/3 sm:aspect-square flex items-center justify-center">
-                  <img
-                    src="/images/products/aqua-prime.svg"
-                    alt="Premium Copper + Alkaline RO Water Purifier by Ajit Aqua Appliances"
-                    className="w-full h-full object-contain p-6"
-                    onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).src = '/images/fallbacks/purifier-fallback.svg';
-                    }}
-                  />
-
-                  {/* Floating Service Badge: Fully Inside Card Container */}
-                  <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl shadow-md border border-sky-100 flex items-center gap-2 max-w-[calc(100%-1.5rem)] z-10">
-                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-xs shrink-0">
-                      RO
-                    </div>
-                    <div className="text-left min-w-0">
-                      <span className="text-[11px] sm:text-xs font-bold text-slate-900 block leading-tight truncate">Sales & Service</span>
-                      <span className="text-[10px] text-slate-600 block leading-tight truncate">Prayagraj Support</span>
-                    </div>
-                  </div>
-
-                  {/* Floating Highlight Card */}
-                  <div className="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur-md p-3 sm:p-4 rounded-xl shadow-md border border-sky-100 flex items-center justify-between z-10">
-                    <div className="min-w-0">
-                      <span className="text-[10px] font-bold text-sky-700 uppercase tracking-wider block truncate">
-                        Featured Technology
-                      </span>
-                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 font-['Sora'] truncate">
-                        Copper + Alkaline RO System
-                      </h4>
-                      <p className="text-[11px] text-slate-600 truncate">Multi-stage filtration with mineral balance</p>
-                    </div>
-                    <Link
-                      to="/products"
-                      className="p-2 bg-sky-600 text-white rounded-xl hover:bg-sky-700 transition-colors shrink-0 ml-2"
-                      aria-label="Explore purifier"
-                    >
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
+            <div className="relative flex gap-2 pt-2.5">
+              <Link to="/products" className="btn btn-sm min-h-10 bg-white text-brand-deep hover:bg-sky-50">
+                Shop ROs
+              </Link>
+              <Link to="/book-service" className="btn btn-sm min-h-10 bg-brand-navy/40 text-white border border-white/30 hover:bg-brand-navy/60">
+                Book Repair · {visitCharge}
+              </Link>
             </div>
-
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
-      {/* 2. QUICK CATEGORY SHORTCUTS (Balanced 6-Item Grid) */}
-      <section className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs p-3 sm:p-5">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3">
-            {[
-              { name: "RO Purifiers", desc: "Home & commercial", link: "/products", icon: Droplets },
-              { name: "RO Repair", desc: "All popular brands", link: "/services", icon: Wrench },
-              { name: "Installation", desc: "Wall mount & setup", link: "/book-service", icon: PlusCircle },
-              { name: "Spare Parts", desc: "Filters & membranes", link: "/parts", icon: Cpu },
-              { name: "Relocation", desc: "Safe shifting service", link: "/services", icon: ArrowRightLeft },
-              { name: "AMC Support", desc: "AMC Plan", link: "/amc", icon: CalendarCheck },
-            ].map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={idx}
-                  to={item.link}
-                  className="flex items-center gap-2 sm:gap-2.5 p-2 sm:p-2.5 rounded-xl bg-slate-50/70 hover:bg-sky-50/60 border border-slate-200/60 hover:border-sky-300 transition-all active:scale-[0.98] group"
-                >
-                  <div className="w-8 h-8 rounded-lg bg-sky-100/80 text-sky-700 flex items-center justify-center shrink-0 group-hover:bg-sky-600 group-hover:text-white transition-colors">
-                    <Icon className="w-4 h-4" />
-                  </div>
-                  <div className="text-left min-w-0">
-                    <h4 className="text-xs font-bold text-slate-900 group-hover:text-sky-700 leading-tight truncate">
-                      {item.name}
-                    </h4>
-                    <p className="text-[10px] text-slate-500 leading-tight truncate mt-0.5">
-                      {item.desc}
-                    </p>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* 3. FEATURED PRODUCTS (Digital Showroom Preview) */}
-      <section className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-4 sm:mb-6">
-          <div className="space-y-1">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-sky-50 text-sky-700 text-[10px] font-bold uppercase tracking-wider">
-              <span>Digital Showroom</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-['Sora']">
-              Featured Water Purifiers
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-600 max-w-lg">
-              Explore domestic, alkaline, and commercial RO purifiers. All units are demo showroom configurations.
+      {/* ── DESKTOP / TABLET HERO ─────────────────────────────────────── */}
+      <section className="hidden md:block bg-gradient-to-b from-brand-subtle to-white border-b border-sky-100/70">
+        <div className="container-page grid grid-cols-12 gap-8 items-center py-7 lg:py-8">
+          <div className="col-span-7 space-y-5">
+            <p className="eyebrow inline-flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5" />
+              RO Sales &amp; Service in Prayagraj
             </p>
+            <h1 className="text-4xl lg:text-5xl font-bold tracking-tight text-ink leading-[1.1]">
+              Pure Water. <span className="text-brand-primary">Better Living.</span>
+            </h1>
+            <p className="text-base lg:text-lg text-ink-muted max-w-xl">
+              Branded RO purifiers, genuine spare parts and doorstep repair &amp; maintenance from your local Prayagraj RO store.
+            </p>
+            <div className="flex flex-wrap gap-3 pt-1">
+              <Link to="/products" className="btn btn-primary px-6">
+                Shop RO Purifiers
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link to="/book-service" className="btn btn-secondary px-6">
+                <Wrench className="w-4 h-4 text-brand-primary" />
+                Book Repair · {visitCharge} visit
+              </Link>
+            </div>
+            <ul className="flex flex-wrap gap-x-6 gap-y-2 pt-2 text-sm text-slate-600">
+              <li className="flex items-center gap-2">
+                <Phone className="w-4 h-4 text-brand-primary" />
+                <a href={`tel:${businessConfig.phone}`} className="font-semibold text-ink hover:text-brand-primary">
+                  {businessConfig.displayPhone}
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <MessageCircle className="w-4 h-4 text-whatsapp" />
+                <a href={buildWhatsAppUrl(whatsappMessages.general())} target="_blank" rel="noopener noreferrer" className="font-semibold text-ink hover:text-whatsapp">
+                  WhatsApp enquiry
+                </a>
+              </li>
+            </ul>
           </div>
 
-          {/* Category Filter Tabs */}
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1 px-1 -mx-1 pe-4">
-            {(['all', 'domestic', 'alkaline', 'commercial'] as const).map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setProductCategory(cat)}
-                className={`shrink-0 px-3 py-1 rounded-full text-xs font-semibold capitalize whitespace-nowrap transition-all ${
-                  productCategory === cat
-                    ? 'bg-sky-600 text-white shadow-2xs font-bold'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                }`}
+          {heroProduct && (
+            <div className="col-span-5 w-full max-w-md justify-self-end">
+              <Link
+                to={`/products/${heroProduct.id}`}
+                className="group block relative card overflow-hidden bg-gradient-to-b from-white to-brand-subtle shadow-[0_24px_48px_-24px_rgba(15,61,86,0.35)]"
               >
-                {cat === 'all' ? 'All Models' : `${cat} RO`}
-              </button>
-            ))}
-          </div>
+                <div aria-hidden className="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-sky-100/70" />
+                <img
+                  src={heroProduct.image}
+                  alt={heroProduct.alt || heroProduct.name}
+                  width={420}
+                  height={420}
+                  fetchPriority="high"
+                  className="relative w-full aspect-[5/4] object-contain p-6 pb-20 transition-transform duration-300 group-hover:scale-[1.02]"
+                />
+                <div className="absolute left-4 right-4 bottom-4 flex items-center justify-between gap-3 rounded-xl bg-white/95 backdrop-blur px-4 py-3 border border-brand-border">
+                  <div className="min-w-0">
+                    <p className="text-xs text-ink-muted">Featured · {heroProduct.brand}</p>
+                    <p className="font-semibold text-ink truncate">{heroProduct.name}</p>
+                  </div>
+                  <span className="shrink-0 text-lg font-bold text-ink">{heroProduct.priceDisplay || formatINR(heroProduct.price)}</span>
+                </div>
+              </Link>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ── POPULAR RO PURIFIERS ─────────────────────────────────────── */}
+      <section id="popular-ro" className="container-page">
+        <SectionHeader
+          title="Popular RO Purifiers"
+          sub="Explore trusted brands for your home and office."
+          action={{ to: '/products', label: 'View all' }}
+        />
+
+        <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 pb-1 mb-4" role="group" aria-label="Filter by brand">
+          {['all', ...brands].map((b) => (
+            <button
+              key={b}
+              type="button"
+              onClick={() => setBrand(b)}
+              aria-pressed={brand === b}
+              className={`chip ${brand === b ? 'chip-on' : 'chip-off'}`}
+            >
+              {b === 'all' ? 'Featured' : b}
+            </button>
+          ))}
         </div>
 
-        {/* Product Grid: Mobile-First 2-Column Responsive Grid */}
-        <div className="grid grid-cols-2 gap-2.5 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
-          {filteredProducts.map((product) => (
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+          {shownProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
+      </section>
 
-        <div className="text-center pt-6">
-          <Link
-            to="/products"
-            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200 transition-colors"
-          >
-            <span>View All Water Purifiers & Commercial Plants</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+      {/* ── SPARE PARTS ─────────────────────────────────────────────── */}
+      <section className="container-page">
+        <SectionHeader
+          eyebrow="Genuine spares"
+          title="RO Spare Parts"
+          sub="Filters, membranes and components at listed prices."
+          action={{ to: '/parts', label: 'All parts' }}
+        />
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-6">
+          {sparePartsData.slice(0, 6).map((part) => (
+            <SparePartCard key={part.id} part={part} />
+          ))}
         </div>
       </section>
 
-      {/* 4. INTERACTIVE ADVISOR: "Find the Right RO" */}
-      <FindTheRightRO />
+      {/* ── SERVICES & AMC ──────────────────────────────────────────── */}
+      <section className="bg-brand-neutral border-y border-brand-border py-10 sm:py-14">
+        <div className="container-page">
+          <SectionHeader
+            eyebrow="Doorstep service"
+            title="RO Repair & Maintenance"
+            sub={`Service & Visit Charge ${visitCharge}. Parts and repairs, if needed, are quoted separately.`}
+            action={{ to: '/services', label: 'All services' }}
+          />
 
-      {/* 5. PROFESSIONAL RO SERVICES SECTION (Responsive 2-Column Mobile Grid) */}
-      <section className="bg-slate-50/70 py-10 sm:py-14 border-y border-slate-200">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6 sm:mb-8">
-            <div className="space-y-1">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 text-[10px] font-bold uppercase tracking-wider">
-                <span>Doorstep RO Assistance</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-['Sora']">
-                Professional RO Services in Prayagraj
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-600 max-w-xl">
-                Multi-point inspection, diagnostics, filter replacement, and repairs for all purifier brands.
-              </p>
-            </div>
-
-            <Link
-              to="/book-service"
-              className="inline-flex items-center gap-1.5 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-sky-600 hover:bg-sky-700 shadow-sm transition-all self-start sm:self-auto shrink-0"
-            >
-              <Wrench className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              <span>Book Doorstep Service</span>
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
-            {servicesData.slice(0, 4).map((service) => {
-              const ServiceIcon = service.id === 'ro-repair' ? Wrench 
-                : service.id === 'routine-servicing' ? Sparkles 
-                : service.id === 'filter-replacement' ? Layers 
-                : ShieldCheck;
-
-              const priceEstimate = {
-                amount: formatINR(SERVICE_VISIT_CHARGE),
-                type: service.id === 'routine-servicing' ? 'Service & Visit Charge' : 'Visit charge • parts extra',
-              };
-
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
+            {homeServices.map((service) => {
+              const Icon = SERVICE_ICONS[service.id] ?? Wrench;
               return (
-                <div
+                <Link
                   key={service.id}
-                  className="bg-white p-3 sm:p-5 rounded-xl border border-slate-200/90 hover:border-sky-300 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+                  to={`/book-service?service=${encodeURIComponent(service.name)}`}
+                  className="card card-hover p-4 flex sm:flex-col gap-3 group"
                 >
-                  <div>
-                    <div className="flex items-center justify-between gap-1 mb-2">
-                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
-                        <ServiceIcon className="w-4 h-4" />
-                      </div>
-                      {service.badge && (
-                        <span className="text-[9px] sm:text-[10px] font-bold text-sky-800 bg-sky-50 px-1.5 py-0.5 rounded truncate max-w-[65%] border border-sky-100">
-                          {service.badge}
-                        </span>
-                      )}
-                    </div>
-
-                    <h3 className="text-xs sm:text-sm font-bold text-slate-900 font-['Sora'] leading-snug line-clamp-2 min-h-[2.4em] mb-1">
-                      {service.name}
-                    </h3>
-
-                    <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed line-clamp-2 mb-2">
-                      {service.shortDescription}
-                    </p>
-                  </div>
-
-                  <div className="pt-2 mt-1 border-t border-slate-100 flex items-center justify-between gap-1">
-                    <div className="min-w-0">
-                      <div className="flex items-baseline gap-0.5">
-                        <span className="text-xs sm:text-sm font-black text-slate-900 font-['Sora']">
-                          {priceEstimate.amount}
-                        </span>
-                      </div>
-                      <span className="text-[9px] text-slate-500 block leading-tight truncate">
-                        {priceEstimate.type}
-                      </span>
-                    </div>
-
-                    <Link
-                      to="/book-service"
-                      className="inline-flex items-center justify-center px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[11px] sm:text-xs font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200/80 transition-colors shrink-0 active:scale-95"
-                    >
-                      Book
-                    </Link>
-                  </div>
-                </div>
+                  <span className="w-11 h-11 rounded-xl bg-brand-light/70 text-brand-deep flex items-center justify-center shrink-0">
+                    <Icon className="w-5 h-5" />
+                  </span>
+                  <span className="min-w-0 flex-1 flex flex-col">
+                    <span className="text-sm font-semibold text-ink group-hover:text-brand-primary">{service.name}</span>
+                    <span className="text-xs text-ink-muted line-clamp-2 mt-0.5">{service.shortDescription}</span>
+                    <span className="mt-auto pt-2 text-xs font-semibold text-brand-deep">{service.startingEstimate}</span>
+                  </span>
+                </Link>
               );
             })}
-          </div>
 
-          <div className="text-center pt-6">
-            <Link
-              to="/services"
-              className="text-xs sm:text-sm font-semibold text-sky-700 hover:text-sky-800 underline underline-offset-4"
-            >
-              View complete list of RO repair, maintenance & installation services →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. PURIFIER TECHNOLOGIES & SPARE CATEGORIES */}
-      <section className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="text-center space-y-1.5 mb-6 sm:mb-8">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-sky-50 text-sky-700 text-[10px] font-bold uppercase tracking-wider">
-            <span>Parts & Systems</span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-['Sora']">
-            Purifier Technologies & Spare Categories
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto">
-            Choose by purification technology or find the exact replacement spare part for your machine.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
-          {[
-            { name: "RO Systems", desc: "For High TDS Water", link: "/products", icon: Droplets },
-            { name: "RO + UV + UF", desc: "Multi-Barrier Pure", link: "/products", icon: ShieldCheck },
-            { name: "Alkaline RO", desc: "Mineral & pH Balance", link: "/products?category=alkaline", icon: Sparkles },
-            { name: "Commercial RO", desc: "25 to 50+ LPH", link: "/products?category=commercial", icon: Layers },
-            { name: "RO Membranes", desc: "75/80/100 GPD", link: "/parts", icon: Cpu },
-            { name: "Booster Pumps", desc: "24V DC Heavy Duty", link: "/parts", icon: Wrench },
-          ].map((cat, idx) => {
-            const Icon = cat.icon;
-            return (
-              <Link
-                key={idx}
-                to={cat.link}
-                className="group p-3 sm:p-4 rounded-xl bg-white border border-slate-200/90 hover:border-sky-300 hover:shadow-xs transition-all text-center flex flex-col items-center justify-center space-y-2"
-              >
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
+            <div className="card p-4 flex sm:flex-col gap-3 border-sky-200 bg-gradient-to-br from-white to-brand-subtle">
+              <span className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
+                <ShieldCheck className="w-5 h-5" />
+              </span>
+              <div className="min-w-0 flex-1 flex flex-col">
+                <span className="text-sm font-semibold text-ink">{amcPlan.name}</span>
+                <span className="text-2xl font-bold text-ink mt-0.5">{formatINR(amcPlan.price)}</span>
+                <span className="text-xs text-ink-muted mt-1">{amcPlan.note}</span>
+                <div className="flex gap-2 pt-3 mt-auto">
+                  <Link to="/amc" className="btn btn-sm btn-soft">Details</Link>
+                  <a href={buildWhatsAppUrl(whatsappMessages.amc())} target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-whatsapp">
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    Enquire
+                  </a>
                 </div>
-                <div className="min-w-0">
-                  <h4 className="text-xs font-bold text-slate-900 group-hover:text-sky-600 transition-colors truncate">
-                    {cat.name}
-                  </h4>
-                  <p className="text-[10px] sm:text-[11px] text-slate-500 truncate">{cat.desc}</p>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* 7. CORE CAPABILITIES — "Everything Your RO Needs" */}
-      <section className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="text-center space-y-1.5 mb-6 sm:mb-8">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-sky-50 text-sky-700 text-[10px] font-bold uppercase tracking-wider">
-            <span>Our Core Capabilities</span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-['Sora']">
-            Everything Your RO Needs
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto">
-            From new water purifiers to expert repair and periodic maintenance across Prayagraj.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
-          {[
-            {
-              title: "RO Water Purifiers",
-              desc: "Domestic, alkaline & commercial purifiers for Prayagraj water.",
-              link: "/products",
-              action: "Showroom",
-              icon: Droplets
-            },
-            {
-              title: "RO Repair & Service",
-              desc: "Fast diagnosis of motor, pump, leakage, and taste issues.",
-              link: "/services",
-              action: "Services",
-              icon: Wrench
-            },
-            {
-              title: "Spare Parts & Filters",
-              desc: "Certified membranes, booster pumps, SMPS adapters & fittings.",
-              link: "/parts",
-              action: "Spare Parts",
-              icon: Cpu
-            },
-            {
-              title: "Installation & Shifting",
-              desc: "Secure wall mounting, plumbing setup & safe relocation.",
-              link: "/book-service",
-              action: "Book Setup",
-              icon: PlusCircle
-            },
-            {
-              title: "Filter Replacement",
-              desc: "Periodic filter and membrane replacement for peak purity.",
-              link: "/services",
-              action: "Filters",
-              icon: Layers
-            },
-            {
-              title: "AMC Plan",
-              desc: "Ask us about the AMC Plan for your purifier.",
-              link: "/amc",
-              action: "AMC Plan",
-              icon: CalendarCheck
-            }
-          ].map((item, idx) => {
-            const ItemIcon = item.icon;
-            return (
-              <div
-                key={idx}
-                className="group bg-white p-3 sm:p-5 rounded-xl border border-slate-200/90 hover:border-sky-300 hover:shadow-md transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center group-hover:bg-sky-600 group-hover:text-white transition-colors mb-2.5">
-                    <ItemIcon className="w-4 h-4 sm:w-5 sm:h-5" />
-                  </div>
-                  <h3 className="text-xs sm:text-sm font-bold text-slate-900 font-['Sora'] leading-snug line-clamp-1">
-                    {item.title}
-                  </h3>
-                  <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed line-clamp-2 mt-1">
-                    {item.desc}
-                  </p>
-                </div>
-                <Link
-                  to={item.link}
-                  className="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] sm:text-xs font-bold text-sky-700 group-hover:text-sky-800"
-                >
-                  <span>{item.action}</span>
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
-                </Link>
               </div>
-            );
-          })}
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* 8. AMC SECTION HIGHLIGHT */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-br from-sky-900 via-sky-800 to-slate-900 rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden shadow-xl">
-          <div className="relative z-10 max-w-2xl space-y-4">
-            <span className="px-3 py-1 bg-sky-500/20 border border-sky-400/30 rounded-full text-xs font-bold uppercase tracking-wider text-sky-300 inline-block">
-              AMC
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-['Sora'] text-white">
-              {amcPlan.name} — {formatINR(amcPlan.price)}
-            </h2>
-            <p className="text-sm sm:text-base text-sky-100/90 leading-relaxed">
-              Keep your water purifier maintained with an AMC Plan for Prayagraj homes and offices.
-            </p>
+      {/* ── PRODUCT FINDER ──────────────────────────────────────────── */}
+      <FindTheRightRO />
 
-            <div className="flex flex-wrap gap-4 pt-3">
-              <Link
-                to="/amc"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sky-950 bg-white hover:bg-sky-50 shadow-md transition-all text-sm"
-              >
-                <span>View AMC Plan</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-
-              <a
-                href={buildWhatsAppUrl(whatsappMessages.amc())}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-white bg-emerald-600 hover:bg-emerald-700 transition-colors text-sm"
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span>Enquire via WhatsApp</span>
+      {/* ── LOCAL TRUST INFO (verified business details only) ──────── */}
+      <section className="container-page">
+        <div className="card p-5 sm:p-8 grid gap-6 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-5 space-y-2">
+            <p className="eyebrow">Local &amp; reachable</p>
+            <h2 className="section-title">Your RO store in Prayagraj</h2>
+            <p className="section-sub">Call or WhatsApp us for product advice, spare parts and service visits.</p>
+          </div>
+          <ul className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <li>
+              <a href={`tel:${businessConfig.phone}`} className="card card-hover flex items-center gap-3 p-3.5 h-full">
+                <Phone className="w-5 h-5 text-brand-primary shrink-0" />
+                <span className="min-w-0">
+                  <span className="block text-xs text-ink-muted">Call</span>
+                  <span className="block text-sm font-semibold text-ink">{businessConfig.displayPhone}</span>
+                </span>
               </a>
-            </div>
-
-            <p className="text-[11px] text-sky-300/80 pt-2 italic">
-              {amcPlan.note}
-            </p>
-          </div>
-
-          <div className="hidden lg:block absolute -right-10 -bottom-10 w-96 h-96 bg-sky-500/10 rounded-full blur-2xl" />
-        </div>
-      </section>
-
-      {/* 9. BRANDS WE DEAL WITH / SERVICE SUPPORT */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-2 mb-8">
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 font-['Sora']">
-            Brands & System Types We Support
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-700 max-w-lg mx-auto">
-            We provide compatible servicing, troubleshooting, and replacement filters for popular water purifier designs in Prayagraj.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
-          {brandsData.map((brand) => (
-            <div
-              key={brand.id}
-              className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-center flex flex-col justify-center items-center"
-            >
-              <span className="text-xs font-bold text-slate-800 font-['Sora']">
-                {brand.name}
-              </span>
-              <span className="text-[10px] text-slate-700 mt-0.5">
-                {brand.categoryNote}
-              </span>
-            </div>
-          ))}
-        </div>
-
-        <p className="text-[11px] text-slate-700 text-center mt-4 italic max-w-2xl mx-auto">
-          {brandsDisclaimer}
-        </p>
-      </section>
-
-      {/* 10. WHY AJIT AQUA APPLIANCES (Trust Pillars) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-3 mb-12">
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight font-['Sora']">
-            Why Choose Ajit Aqua Appliances?
-          </h2>
-          <p className="text-sm text-slate-700 max-w-lg mx-auto">
-            Practical, local customer commitment for all your drinking water purification needs.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-3 text-left">
-            <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold">
-              1
-            </div>
-            <h3 className="text-base font-bold text-slate-900 font-['Sora']">Local Service Support</h3>
-            <p className="text-xs text-slate-700 leading-relaxed">
-              Based in Prayagraj with quick doorstep dispatch for repair, service, and spare parts delivery across town.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-3 text-left">
-            <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold">
-              2
-            </div>
-            <h3 className="text-base font-bold text-slate-900 font-['Sora']">RO Repair & Maintenance</h3>
-            <p className="text-xs text-slate-700 leading-relaxed">
-              Multi-stage reverse osmosis servicing, booster pump testing, and electrical component troubleshooting.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-3 text-left">
-            <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold">
-              3
-            </div>
-            <h3 className="text-base font-bold text-slate-900 font-['Sora']">Spare Parts Availability</h3>
-            <p className="text-xs text-slate-700 leading-relaxed">
-              Stocks standard-sized filters, 75/80/100 GPD membranes, 24V SMPS adapters, and genuine fittings.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-3 text-left">
-            <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold">
-              4
-            </div>
-            <h3 className="text-base font-bold text-slate-900 font-['Sora']">Transparent Process</h3>
-            <p className="text-xs text-slate-700 leading-relaxed">
-              Clear diagnosis, upfront estimates before repair, and direct communication on WhatsApp or phone.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 11. CUSTOMER REVIEWS (Explicitly Demo/Replaceable) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-3 mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-bold uppercase tracking-wider">
-            <span>Customer Feedback</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight font-['Sora']">
-            Customer Reviews & Feedback
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-700 italic max-w-lg mx-auto">
-            Demo review content will be replaced with verified customer feedback from Ajit Aqua Appliances.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {reviewsData.map((slot) => (
-            <div
-              key={slot.id}
-              className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-4"
-            >
-              <div className="space-y-2.5">
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-sky-50 text-sky-800 text-[11px] font-semibold">
-                  <span>{slot.category}</span>
-                </div>
-                <p className="text-xs text-slate-700 leading-relaxed italic">
-                  "{slot.description}"
-                </p>
-              </div>
-
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
-                <span className="font-bold text-slate-800">
-                  {slot.slotTitle}
+            </li>
+            <li>
+              <a href={buildWhatsAppUrl(whatsappMessages.general())} target="_blank" rel="noopener noreferrer" className="card card-hover flex items-center gap-3 p-3.5 h-full">
+                <MessageCircle className="w-5 h-5 text-whatsapp shrink-0" />
+                <span className="min-w-0">
+                  <span className="block text-xs text-ink-muted">WhatsApp</span>
+                  <span className="block text-sm font-semibold text-ink">{businessConfig.displayWhatsapp}</span>
                 </span>
-                <span className="text-slate-700 bg-slate-100 px-2 py-0.5 rounded text-[10px]">
-                  Verified Slot
+              </a>
+            </li>
+            <li>
+              <Link to="/book-service" className="card card-hover flex items-center gap-3 p-3.5 h-full">
+                <BadgeIndianRupee className="w-5 h-5 text-brand-primary shrink-0" />
+                <span className="min-w-0">
+                  <span className="block text-xs text-ink-muted">Service &amp; Visit</span>
+                  <span className="block text-sm font-semibold text-ink">{visitCharge} · parts extra</span>
                 </span>
-              </div>
-            </div>
-          ))}
+              </Link>
+            </li>
+          </ul>
+          <div className="lg:col-span-12 border-t border-brand-border pt-4">
+            <p className="text-xs font-semibold text-ink-muted mb-2 flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-brand-primary" />
+              Service areas in Prayagraj
+            </p>
+            <ul className="flex flex-wrap gap-1.5">
+              {businessConfig.serviceAreas.map((area) => (
+                <li key={area.id} className="px-2.5 py-1 rounded-lg bg-brand-neutral border border-brand-border text-xs text-slate-700">
+                  {area.name}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
-      {/* 12. FAQ ACCORDION (Neutral, factual) */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6">
-        <div className="text-center space-y-3 mb-10">
-          <h2 className="text-3xl font-black text-slate-900 tracking-tight font-['Sora']">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-sm text-slate-700">
-            Answers to common questions regarding RO purifiers, water quality, and maintenance.
-          </p>
-        </div>
+      {/* ── BRANDS WE SERVICE ───────────────────────────────────────── */}
+      <section className="container-page">
+        <SectionHeader title="Brands we service" sub="Repairs and replacement filters for popular purifier brands." />
+        <ul className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5">
+          {brandsData.map((b) => (
+            <li key={b.id} className="card px-3 py-3 text-center">
+              <span className="block text-sm font-semibold text-ink">{b.name}</span>
+              <span className="block text-[11px] text-ink-muted mt-0.5">{b.categoryNote}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="text-xs text-ink-muted mt-3">{brandsDisclaimer}</p>
+      </section>
 
-        <div className="space-y-3">
+      {/* ── FAQ ─────────────────────────────────────────────────────── */}
+      <section className="max-w-3xl mx-auto px-4 sm:px-6">
+        <SectionHeader title="Frequently asked questions" />
+        <div className="space-y-2.5">
           {faqsData.map((faq) => {
             const isOpen = activeFaq === faq.id;
             return (
-              <div
-                key={faq.id}
-                className="rounded-2xl border border-slate-200 overflow-hidden bg-white transition-colors"
-              >
-                <button
-                  onClick={() => toggleFaq(faq.id)}
-                  className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-slate-900 font-['Sora'] hover:text-sky-700 transition-colors"
-                  aria-expanded={isOpen}
-                >
-                  <span>{faq.question}</span>
-                  <ChevronDown
-                    className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-200 ${
-                      isOpen ? 'rotate-180 text-sky-600' : ''
-                    }`}
-                  />
-                </button>
+              <div key={faq.id} className="card overflow-hidden">
+                <h3>
+                  <button
+                    type="button"
+                    onClick={() => setActiveFaq(isOpen ? null : faq.id)}
+                    className="w-full min-h-12 px-4 py-3 text-left flex items-center justify-between gap-4 text-sm sm:text-base font-semibold text-ink hover:text-brand-primary"
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-${faq.id}`}
+                  >
+                    <span>{faq.question}</span>
+                    <ChevronDown className={`w-5 h-5 text-slate-400 shrink-0 transition-transform ${isOpen ? 'rotate-180 text-brand-primary' : ''}`} />
+                  </button>
+                </h3>
                 {isOpen && (
-                  <div className="px-4 pb-5 sm:px-5 text-xs sm:text-sm text-slate-700 leading-relaxed border-t border-slate-100 pt-3">
+                  <div id={`faq-${faq.id}`} className="px-4 pb-4 text-sm text-slate-600 leading-relaxed animate-fade-in">
                     {faq.answer}
                   </div>
                 )}
@@ -714,92 +392,26 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 13. LOCAL SERVICE AREAS SECTION */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-sky-50/70 border border-sky-100 rounded-3xl p-8 sm:p-10 text-center space-y-4">
-          <div className="inline-flex items-center gap-2 text-sky-800 font-bold text-xs uppercase tracking-wider">
-            <MapPin className="w-4 h-4 text-sky-600" />
-            <span>Prayagraj Service Areas</span>
+      {/* ── FINAL CTA ───────────────────────────────────────────────── */}
+      <section className="container-page">
+        <div className="rounded-2xl bg-brand-navy text-white p-6 sm:p-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
+          <div className="space-y-1.5">
+            <h2 className="text-xl sm:text-2xl font-bold">Need an RO or an RO service?</h2>
+            <p className="text-sm text-sky-100/80">Shop purifiers, book a technician visit, or message us on WhatsApp.</p>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-['Sora']">
-            Providing RO Sales & Doorstep Support Across Prayagraj
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-700 max-w-xl mx-auto">
-            Our technicians visit all major residential and commercial localities across Prayagraj for water testing, installation, repair, and filter replacement.
-          </p>
-
-          <div className="flex flex-wrap justify-center gap-2 pt-3 max-w-3xl mx-auto">
-            {businessConfig.serviceAreas.map((area) => (
-              <span
-                key={area.id}
-                className="px-3 py-1.5 bg-white text-slate-800 rounded-xl text-xs font-semibold border border-slate-200 shadow-xs"
-              >
-                {area.name}
-              </span>
-            ))}
-          </div>
-
-          <div className="pt-3">
-            <Link
-              to="/book-service"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-sky-700 bg-white border border-sky-300 hover:bg-sky-50 shadow-xs transition-colors"
-            >
-              <span>Check Service Availability In Your Locality</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+          <div className="flex flex-col sm:flex-row gap-2.5">
+            <Link to="/products" className="btn bg-white text-brand-navy hover:bg-sky-50">Shop Products</Link>
+            <Link to="/book-service" className="btn btn-primary">
+              <Wrench className="w-4 h-4" />
+              Book Service
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 14. FINAL CTA BANNER */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-r from-sky-600 via-sky-700 to-sky-800 rounded-3xl p-8 sm:p-12 text-center text-white space-y-6 shadow-xl shadow-sky-900/15">
-          <div className="space-y-2 max-w-xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-black tracking-tight font-['Sora']">
-              Need an RO or RO Service?
-            </h2>
-            <p className="text-sm sm:text-base text-sky-100 font-normal">
-              Explore our products or connect with Ajit Aqua Appliances for help with your RO requirements in Prayagraj.
-            </p>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-            <Link
-              to="/products"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sky-950 bg-white hover:bg-sky-50 shadow-md transition-all text-sm"
-            >
-              <ShoppingCart className="w-4 h-4" />
-              <span>Shop Products</span>
-            </Link>
-
-            <Link
-              to="/book-service"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-white bg-sky-900 hover:bg-sky-950 shadow-md transition-all text-sm"
-            >
-              <Wrench className="w-4 h-4 text-sky-300" />
-              <span>Book Service</span>
-            </Link>
-
-            <a
-              href={buildWhatsAppUrl(whatsappMessages.general())}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-md shadow-emerald-600/20 transition-all text-sm"
-            >
+            <a href={buildWhatsAppUrl(whatsappMessages.general())} target="_blank" rel="noopener noreferrer" className="btn bg-emerald-600 text-white hover:bg-emerald-700">
               <MessageCircle className="w-4 h-4" />
-              <span>WhatsApp Us</span>
-            </a>
-          </div>
-
-          <div className="pt-2 text-xs text-sky-200">
-            <span>Call us directly at </span>
-            <a href={`tel:${businessConfig.phone}`} className="font-bold underline text-white">
-              {businessConfig.displayPhone}
+              WhatsApp
             </a>
           </div>
         </div>
       </section>
-
     </div>
   );
 };

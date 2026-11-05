@@ -59,17 +59,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [items]);
 
   const addItem = (itemToAdd: Omit<CartItem, 'quantity'>, qty: number = 1) => {
-    setItems((prev) => {
-      const existing = prev.find((item) => item.id === itemToAdd.id);
-      if (existing) {
-        showToast(`Updated quantity for "${itemToAdd.name}" in cart`, 'info');
-        return prev.map((item) =>
-          item.id === itemToAdd.id ? { ...item, quantity: item.quantity + qty } : item
-        );
-      }
-      showToast(`Added "${itemToAdd.name}" to cart`, 'success');
-      return [...prev, { ...itemToAdd, quantity: qty }];
-    });
+    // Toast outside the state updater: updaters must stay pure (StrictMode runs them twice).
+    const inCart = items.some((item) => item.id === itemToAdd.id);
+    showToast(inCart ? `Updated quantity for "${itemToAdd.name}" in cart` : `Added "${itemToAdd.name}" to cart`, inCart ? 'info' : 'success');
+    setItems((prev) =>
+      prev.some((item) => item.id === itemToAdd.id)
+        ? prev.map((item) => (item.id === itemToAdd.id ? { ...item, quantity: item.quantity + qty } : item))
+        : [...prev, { ...itemToAdd, quantity: qty }]
+    );
   };
 
   const removeItem = (id: string) => {
