@@ -4,7 +4,7 @@ import {
   Droplets, 
   Filter, 
   Wrench, 
-  Factory, 
+  ShieldCheck, 
   Info, 
   PhoneCall 
 } from 'lucide-react';
@@ -36,10 +36,10 @@ const CATEGORIES: CategoryItem[] = [
     description: 'Repair, filter service & installation',
   },
   {
-    name: 'EMC Plants',
+    name: 'AMC Plans',
     path: '/amc',
-    icon: Factory,
-    description: 'AMC Plan & commercial plants',
+    icon: ShieldCheck,
+    description: 'Annual maintenance & protection plans',
   },
   {
     name: 'About Us',

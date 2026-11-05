@@ -36,7 +36,7 @@ export const Header: React.FC = () => {
     { name: 'Water Purifiers', path: '/products' },
     { name: 'Spare Parts', path: '/parts' },
     { name: 'Services', path: '/services' },
-    { name: 'EMC Plants', path: '/amc' },
+    { name: 'AMC Plans', path: '/amc' },
     { name: 'About Us', path: '/about' },
     { name: 'Contact', path: '/contact' },
   ];
