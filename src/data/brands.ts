@@ -2,9 +2,8 @@
  * Brands & Systems Reference Data — Ajit Aqua Appliances
  * 
  * DISCLAIMER: Brand names mentioned below represent popular purifier systems
- * and models for which compatible service, maintenance, and spare parts support
- * may be requested in Prayagraj. Ajit Aqua Appliances does not imply authorized
- * dealership or official brand partnership unless confirmed by the client.
+ * and models available for purchase, service, and spare parts support in Prayagraj.
+ * Ajit Aqua Appliances provides multi-brand sales and genuine parts support.
  */
 
 export interface BrandItem {
@@ -15,13 +14,12 @@ export interface BrandItem {
 }
 
 export const brandsData: BrandItem[] = [
-  { id: "kent", name: "Kent", categoryNote: "RO / UV / UF Systems", isDemoPlaceholder: true },
-  { id: "aquaguard", name: "Aquaguard", categoryNote: "Domestic Purifiers", isDemoPlaceholder: true },
-  { id: "pureit", name: "Pureit", categoryNote: "RO & Mineral Series", isDemoPlaceholder: true },
-  { id: "livpure", name: "Livpure", categoryNote: "Smart & Domestic RO", isDemoPlaceholder: true },
-  { id: "aquagrand", name: "Aqua Grand", categoryNote: "Modular Cabinet Systems", isDemoPlaceholder: true },
-  { id: "havells", name: "Havells", categoryNote: "Alkaline & Mineral Units", isDemoPlaceholder: true },
-  { id: "commercial-custom", name: "Commercial Systems", categoryNote: "25 to 250 LPH Plants", isDemoPlaceholder: true },
+  { id: "kent", name: "KENT", categoryNote: "Mineral RO & IoT Purifiers", isDemoPlaceholder: false },
+  { id: "aquaguard", name: "Aquaguard", categoryNote: "Active Copper & Zinc Series", isDemoPlaceholder: false },
+  { id: "livpure", name: "Livpure", categoryNote: "Stainless Steel & Alkaline RO", isDemoPlaceholder: false },
+  { id: "havells", name: "Havells", categoryNote: "Under-Sink & Hot/Cold Units", isDemoPlaceholder: false },
+  { id: "blue-mount", name: "Blue Mount", categoryNote: "12L & Earthen Matka Purifiers", isDemoPlaceholder: false },
+  { id: "urban-company-native", name: "Urban Company Native", categoryNote: "2-Year Filter Life ROs", isDemoPlaceholder: false },
 ];
 
-export const brandsDisclaimer = "Brand availability and service support may vary. Contact us for current availability and compatible parts.";
+export const brandsDisclaimer = "Brand availability and service support may vary. Contact Ajit Aqua Appliances for live stock and installation.";

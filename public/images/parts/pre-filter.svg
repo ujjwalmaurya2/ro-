@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bowlGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284C7" stop-opacity="0.85"/>
+      <stop offset="35%" stop-color="#38BDF8" stop-opacity="0.95"/>
+      <stop offset="70%" stop-color="#0284C7" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0369A1" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="candleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="50%" stop-color="#F1F5F9"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="headGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="50%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <filter id="preShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="15" flood-color="#0284C7" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <rect width="500" height="500" fill="#F8FAFC" rx="24"/>
+  <circle cx="250" cy="250" r="190" fill="#E0F2FE" opacity="0.4"/>
+
+  <g filter="url(#preShadow)">
+    <!-- Mounting Bracket / Head Top -->
+    <path d="M 180 80 L 320 80 L 325 120 L 175 120 Z" fill="url(#headGrad)" stroke="#334155" stroke-width="2"/>
+    <!-- Ports -->
+    <rect x="145" y="92" width="35" height="18" rx="4" fill="#0284C7"/>
+    <text x="162" y="105" font-size="8" font-weight="700" fill="#FFFFFF" text-anchor="middle" font-family="'Inter', sans-serif">IN</text>
+    <rect x="320" y="92" width="35" height="18" rx="4" fill="#0284C7"/>
+    <text x="337" y="105" font-size="8" font-weight="700" fill="#FFFFFF" text-anchor="middle" font-family="'Inter', sans-serif">OUT</text>
+
+    <!-- Collar Ring -->
+    <rect x="170" y="120" width="160" height="24" rx="6" fill="#1E293B" stroke="#475569" stroke-width="2"/>
+    
+    <!-- Transparent Outer Bowl -->
+    <path d="M 180 144 L 320 144 L 305 400 Q 300 420 250 420 Q 200 420 195 400 Z" fill="url(#bowlGrad)" stroke="#0284C7" stroke-width="3"/>
+
+    <!-- Inner Visible Spun Filter Candle -->
+    <g transform="translate(215, 155)">
+      <rect x="0" y="0" width="70" height="240" rx="8" fill="url(#candleGrad)" opacity="0.9" stroke="#CBD5E1" stroke-width="1.5"/>
+      <g stroke="#94A3B8" stroke-width="1" opacity="0.6">
+        <line x1="5" y1="30" x2="65" y2="30"/>
+        <line x1="5" y1="60" x2="65" y2="60"/>
+        <line x1="5" y1="90" x2="65" y2="90"/>
+        <line x1="5" y1="120" x2="65" y2="120"/>
+        <line x1="5" y1="150" x2="65" y2="150"/>
+        <line x1="5" y1="180" x2="65" y2="180"/>
+        <line x1="5" y1="210" x2="65" y2="210"/>
+      </g>
+    </g>
+
+    <!-- Bowl Vertical Ribs -->
+    <g stroke="#38BDF8" stroke-width="2" opacity="0.5">
+      <line x1="205" y1="150" x2="215" y2="390"/>
+      <line x1="295" y1="150" x2="285" y2="390"/>
+    </g>
+
+    <!-- Brand Badge / Label -->
+    <rect x="195" y="260" width="110" height="40" rx="6" fill="#0F172A" opacity="0.95"/>
+    <text x="250" y="278" font-family="'Sora', sans-serif" font-size="10" font-weight="800" fill="#38BDF8" text-anchor="middle">PRE-FILTER</text>
+    <text x="250" y="292" font-family="'Inter', sans-serif" font-size="7" font-weight="600" fill="#94A3B8" text-anchor="middle">10" PP HOUSING BOWL</text>
+  </g>
+</svg>

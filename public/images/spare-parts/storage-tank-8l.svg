@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="tankDome" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="70%" stop-color="#F1F5F9"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="tankBase" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#BAE6FD"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+    <filter id="tankShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#0284C7" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <rect width="500" height="500" fill="#F8FAFC" rx="24"/>
+  <circle cx="250" cy="250" r="185" fill="#E0F2FE" opacity="0.35"/>
+
+  <g filter="url(#tankShadow)">
+    <!-- Top Air-Charge Schrader Valve -->
+    <rect x="242" y="70" width="16" height="25" rx="4" fill="#64748B"/>
+    <circle cx="250" cy="70" r="4" fill="#0F172A"/>
+
+    <!-- Cylindrical Sealed Tank Body -->
+    <!-- Upper White Virgin Polymer Dome -->
+    <path d="M 130 240 C 130 110, 370 110, 370 240 Z" fill="url(#tankDome)" stroke="#CBD5E1" stroke-width="3"/>
+
+    <!-- Lower Translucent Blue Anti-Microbial Base -->
+    <path d="M 130 240 L 370 240 L 355 385 C 355 410, 145 410, 145 385 Z" fill="url(#tankBase)" stroke="#0369A1" stroke-width="3"/>
+
+    <!-- Circumferential Reinforcement Ribs -->
+    <line x1="130" y1="240" x2="370" y2="240" stroke="#0369A1" stroke-width="4"/>
+    <line x1="135" y1="300" x2="365" y2="300" stroke="#FFFFFF" stroke-width="2" opacity="0.6"/>
+
+    <!-- Capacity &amp; Grade Emblem -->
+    <circle cx="250" cy="205" r="36" fill="#FFFFFF" stroke="#0284C7" stroke-width="3"/>
+    <text x="250" y="205" font-family="'Sora', sans-serif" font-size="18" font-weight="900" fill="#0369A1" text-anchor="middle">8L</text>
+    <text x="250" y="222" font-size="8" font-weight="800" fill="#10B981" text-anchor="middle">FOOD GRADE</text>
+
+    <text x="250" y="340" font-family="'Sora', sans-serif" font-size="14" font-weight="800" fill="#FFFFFF" text-anchor="middle">ANTI-BACTERIAL SEALED TANK</text>
+    <text x="250" y="360" font-size="9" font-weight="600" fill="#E0F2FE" text-anchor="middle">High-Pressure Virgin Polypropylene</text>
+
+    <!-- Bottom Tank Ball-Valve Port -->
+    <rect x="238" y="405" width="24" height="28" rx="4" fill="#64748B"/>
+    <circle cx="250" cy="430" r="5" fill="#38BDF8"/>
+  </g>
+</svg>

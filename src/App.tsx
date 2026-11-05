@@ -44,6 +44,7 @@ export function App() {
               <Route path="products" element={<ProductsPage />} />
               <Route path="products/:id" element={<ProductDetailPage />} />
               <Route path="parts" element={<SparePartsPage />} />
+              <Route path="spare-parts" element={<SparePartsPage />} />
               <Route path="services" element={<ServicesPage />} />
               <Route path="book-service" element={<BookServicePage />} />
               <Route path="amc" element={<AmcPage />} />

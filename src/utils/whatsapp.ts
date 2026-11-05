@@ -34,8 +34,15 @@ export const whatsappMessages = {
   general: (): string =>
     `Hello ${businessConfig.name}, I would like to make an enquiry regarding RO water purifiers and services in Prayagraj.`,
 
-  product: (productName: string, price: number): string =>
-    `Hello ${businessConfig.name}, I am interested in ${productName} — ${formatINR(price)}. Please confirm availability and details.`,
+  product: (brandOrName: string, modelOrPrice: string | number, priceDisplay?: string): string => {
+    // If called with (brand, model, priceDisplay)
+    if (typeof modelOrPrice === 'string' && priceDisplay) {
+      return `Hello ${businessConfig.name}, I am interested in the ${brandOrName} ${modelOrPrice} RO Water Purifier priced at ${priceDisplay}. Please share availability, warranty details, installation charges and final purchase price.`;
+    }
+    // If called with (productName, price: number)
+    const formattedPrice = typeof modelOrPrice === 'number' ? formatINR(modelOrPrice) : String(modelOrPrice);
+    return `Hello ${businessConfig.name}, I am interested in the ${brandOrName} RO Water Purifier priced at ${formattedPrice}. Please share availability, warranty details, installation charges and final purchase price.`;
+  },
 
   sparePart: (partName: string, price: number): string =>
     `Hello ${businessConfig.name}, I am looking for the spare part: ${partName} — ${formatINR(price)}. Please confirm availability and that it fits my purifier.`,

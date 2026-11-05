@@ -34,8 +34,8 @@ export const HomePage: React.FC = () => {
   const [activeFaq, setActiveFaq] = useState<string | null>(faqsData[0].id);
 
   const filteredProducts = productCategory === 'all' 
-    ? productsData.slice(0, 4) 
-    : productsData.filter(p => p.category === productCategory);
+    ? productsData.slice(0, 8) 
+    : productsData.filter(p => p.category === productCategory).slice(0, 8);
 
   const toggleFaq = (id: string) => {
     setActiveFaq(activeFaq === id ? null : id);

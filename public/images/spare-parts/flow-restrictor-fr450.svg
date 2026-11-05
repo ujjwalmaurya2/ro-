@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="frBody" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="60%" stop-color="#F1F5F9"/>
+      <stop offset="100%" stop-color="#CBD5E1"/>
+    </linearGradient>
+    <filter id="frShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0284C7" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <rect width="500" height="500" fill="#F8FAFC" rx="24"/>
+  <circle cx="250" cy="250" r="180" fill="#E0F2FE" opacity="0.35"/>
+
+  <g filter="url(#frShadow)">
+    <!-- 1/4" Tube Connectors (Left &amp; Right) -->
+    <rect x="60" y="235" width="50" height="30" rx="5" fill="#38BDF8"/>
+    <circle cx="75" cy="250" r="6" fill="#FFFFFF"/>
+
+    <rect x="390" y="235" width="50" height="30" rx="5" fill="#38BDF8"/>
+    <circle cx="425" cy="250" r="6" fill="#FFFFFF"/>
+
+    <!-- Main Capsule Body -->
+    <rect x="105" y="190" width="290" height="120" rx="28" fill="url(#frBody)" stroke="#94A3B8" stroke-width="3"/>
+
+    <!-- Cyan Accent Rings -->
+    <rect x="135" y="190" width="10" height="120" fill="#0284C7"/>
+    <rect x="355" y="190" width="10" height="120" fill="#0284C7"/>
+
+    <!-- Technical Model Label -->
+    <text x="250" y="235" font-family="'Sora', sans-serif" font-size="18" font-weight="900" fill="#0F172A" text-anchor="middle">FR-450</text>
+    <text x="250" y="255" font-family="'Inter', sans-serif" font-size="10" font-weight="700" fill="#0284C7" text-anchor="middle">RO FLOW RESTRICTOR</text>
+    <text x="250" y="272" font-size="9" fill="#64748B" text-anchor="middle">450 mL/min • Membrane Backpressure Regulator</text>
+
+    <!-- Directional Flow Indicator Arrow -->
+    <g stroke="#0284C7" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="200" y1="290" x2="290" y2="290"/>
+      <polyline points="280,283 293,290 280,297"/>
+    </g>
+  </g>
+</svg>
